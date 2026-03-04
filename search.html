@@ -5,12 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finder</title>
     <link rel="stylesheet" href="bootstrap-5.3.8-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="main.css">
 </head>
 <body>
     <div class="container">
+        <div class="container">
+        <!-- Top navigation bar -->
         <div class="row">
             <div class="col bg-primary">
-                <h4>IMG</h4>
+                <a href="home.html"><img src="placeholder.png" alt="Icon picture" width="50vh" height="50vw"></a>
             </div>
             <div class="col bg-secondary">
                 <h4><a href="search.html">Job Search</a></h4>
@@ -24,10 +27,18 @@
             <div class="col bg-primary">
                 <h4><a href="news.html">News</a></h4>
             </div>
-            <div class="col bg-secondary">
-                <h4><a href="profile.html">Profile</a></h4>
+            <div class="col container bg-secondary">
+                <div class="row">
+                    <div class="col">
+                        <img src="placeholder.png" alt="Profile picture" width="30vh" height="30vh">
+                    </div>
+                    <div class="col">
+                        <h4><a href="profile.html">Profile</a></h4>
+                    </div>
+                </div>
             </div>
         </div>
+        <!-- Search and filters -->
         <div class="row">
             <div class="col bg-success">
                 <h4>X/X Job Posts</h4>
@@ -39,6 +50,7 @@
                 <h4>Filters</h4>
             </div>
         </div>
+        <!-- Overview of job -->
         <div class="row">
             <div class="col container bg-info">
                 <div class="row">
@@ -95,10 +107,12 @@
                     </div>
                 </div>
             </div>
+            <!-- Expanded summary -->
             <div class="col bg-warning">
                 <h4>Summary</h4>
             </div>
         </div>
+        <!-- Quick actions -->
         <div class="row">
             <div class="col bg-danger">
                 <h4>Apply</h4>
