@@ -5,11 +5,11 @@ class JobPostFetcher {
             .then(data => {
                 this.data = data
                 console.log(this.data);
+
+                let postCounter = document.getElementById("postCounter");
+                postCounter.innerText = `1/${this.data.length} Job Posts`;
             })
             .catch(err => console.error("Error loading JSON:", err));
-        
-        let postCounter = document.getElementById("postCounter");
-        postCounter.innerText = `1/${this.data.length} Job Posts`;
     }
 }
 
