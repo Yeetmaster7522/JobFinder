@@ -8,3 +8,6 @@ class JobPostFetcher {
             .catch(err => console.error("Error loading JSON:", err));
     }
 }
+
+// load class
+const jobFetcher = new JobPostFetcher();

@@ -4,6 +4,3 @@ fetch("navbar.html")
     .then(html => {
         document.getElementById("navbar").innerHTML = html;
     });
-
-// load classes
-const jobFetcher = new JobPostFetcher();
