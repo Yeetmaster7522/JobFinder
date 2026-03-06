@@ -70,6 +70,6 @@ class JobPostFetcher {
 const jobFetcher = new JobPostFetcher();
 
 let upBtn = document.getElementById("scroll-up-btn");
-let downBtn = document.getElementById("scroll-up-btn");
+let downBtn = document.getElementById("scroll-down-btn");
 upBtn.addEventListener("click", () => jobFetcher.scrollPost(false));
 downBtn.addEventListener("click", () => jobFetcher.scrollPost());
