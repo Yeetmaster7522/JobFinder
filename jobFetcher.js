@@ -53,7 +53,23 @@ class JobPostFetcher {
             text.innerText = post.summary; // need to limit to first 20 words if id=shortsummary
         }
     }
+
+    scrollPost(forward = true) {
+        if (forward == true) {
+            this.index += 1;
+        }
+        else if (forward == false) {
+            this.index -= 1
+        }
+
+        this.displayPostAtI(this.index);
+    }
 }
 
 // load class
 const jobFetcher = new JobPostFetcher();
+
+let upBtn = document.getElementById("scroll-up-btn");
+let downBtn = document.getElementById("scroll-up-btn");
+upBtn.addEventListener("click", () => jobFetcher.scrollPost(false));
+downBtn.addEventListener("click", () => jobFetcher.scrollPost());
