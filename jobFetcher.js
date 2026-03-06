@@ -39,13 +39,18 @@ class JobPostFetcher {
         employType.innerText = post.employmentType;
         salaryRange.innerText = `$${post.salaryMin} - $${post.salaryMax}`;
         ageRequire.innerText = post.ageRequirement;
-        hours.innerText = post.hours;
-        skills.innerText = "COMING SOON";
         datePosted.innerText = post.datePosted;
         deadline.innerText = post.deadline;
 
+        skills.innerText = "SKILLS";
+        
+        hours.innerText = "";
+        for (let i=0; i<post.hours.length; i++) {
+            hours.innerText += post.hours[i];
+        }
+
         for (let text of summary) {
-            text.innerText = post.summary;
+            text.innerText = post.summary; // need to limit to first 20 words if id=shortsummary
         }
     }
 }
