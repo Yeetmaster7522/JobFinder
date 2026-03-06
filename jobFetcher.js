@@ -46,7 +46,7 @@ class JobPostFetcher {
         
         hours.innerText = "";
         for (let i=0; i<post.hours.length; i++) {
-            hours.innerText += post.hours[i];
+            hours.innerText += post.hours[i] + "<br>";
         }
 
         for (let text of summary) {
