@@ -29,9 +29,17 @@ class JobPostFetcher {
         const hours = document.getElementById("hours");
         const skills = document.getElementById("skills");
         const summary = document.getElementsByClassName("summary-text");
+        const datePosted = document.getElementById("date-posted");
+        const deadline = document.getElementById("date-deadline");
 
-        console.log(post);
-        console.log(post.companyName);
+        jobTitle.innerText = post.jobTitle;
+        companyName.innerText = post.companyName;
+        address.innerText = post.address;
+        workType.innerText = post.workType;
+        employType.innerText = post.employmentType;
+        salaryRange.innerText = `$${post.salaryMin} - $${post.salaryMax}`;
+        ageRequire.innerText = post.ageRequirement;
+        hours.innerText = post.
     }
 }
 
