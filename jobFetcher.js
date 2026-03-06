@@ -8,16 +8,13 @@ class JobPostFetcher {
                 this.data = data
                 console.log(this.data);
 
-                // update post counter
-                let postCounter = document.getElementById("postCounter");
-                postCounter.innerText = `1/${this.data.length} Job Posts`;
-
                 this.displayPostAtI(this.index);
             })
             .catch(err => console.error("Error loading JSON:", err));
     }
 
     displayPostAtI(index) {
+        const postCounter = document.getElementById("postCounter");
         const post = this.data[index];
         const jobTitle = document.getElementById("job-title");
         const companyName = document.getElementById("company-name");
@@ -31,6 +28,8 @@ class JobPostFetcher {
         const datePosted = document.getElementById("date-posted");
         const deadline = document.getElementById("date-deadline");
         const summary = document.getElementsByClassName("summary-text");
+
+        postCounter.innerText = `${index+1}/${this.data.length} Job Posts`;
 
         jobTitle.innerText = post.jobTitle;
         companyName.innerText = post.companyName;
