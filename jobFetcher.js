@@ -11,6 +11,8 @@ class JobPostFetcher {
                 // update post counter
                 let postCounter = document.getElementById("postCounter");
                 postCounter.innerText = `1/${this.data.length} Job Posts`;
+
+                this.updatePostAtI(this.index);
             })
             .catch(err => console.error("Error loading JSON:", err));
     }
