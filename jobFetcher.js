@@ -65,7 +65,7 @@ class JobPostFetcher {
         else if (forward == false) {
             this.index -= 1
         }
-        
+
         this.savePostI();
         this.displayPostAtI(this.index);
     }
@@ -76,7 +76,7 @@ class JobPostFetcher {
 
     getPostI() {
         let i = document.cookie;
-        return i.replace("postIndex=", "");
+        return parseInt(i.replace("postIndex=", ""), 10);
     }
 }
 
