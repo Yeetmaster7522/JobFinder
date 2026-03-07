@@ -59,13 +59,13 @@ class JobPostFetcher {
     }
 
     scrollPost(forward = true) {
-        if (forward == true && this.index < this.data.length) {
+        if (forward == true && this.index < this.data.length-1) {
             this.index += 1;
         }
         else if (forward == false && this.index > 0) {
             this.index -= 1
         }
-        else if (forward == true && this.index == this.data.length-1) {
+        else if (forward == true && this.index == this.data.length-2) {
             // make post overview dissappear, and show "no more jobs here!!! (quiet enrique)"
             console.log("balalallalalalalalalalla");
         }
