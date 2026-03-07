@@ -1,6 +1,11 @@
 class JobPostFetcher {
     constructor() {
-        this.index = 0;
+        if (document.cookie == "") {
+            this.index = 0;
+        }
+        else if (document.cookie != "") {
+            this.index = this.getPostI();
+        }
         // get job posts
         fetch("/data/data-mR36NBv3VwjMRsFCY26z5.json")
             .then(response => response.json())
@@ -60,8 +65,18 @@ class JobPostFetcher {
         else if (forward == false) {
             this.index -= 1
         }
-
+        
+        this.savePostI();
         this.displayPostAtI(this.index);
+    }
+
+    savePostI() {
+        document.cookie = `postIndex=${this.index}`;
+    }
+
+    getPostI() {
+        let i = document.cookie;
+        return i.replace("postIndex=", "");
     }
 }
 
