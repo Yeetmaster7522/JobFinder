@@ -59,11 +59,15 @@ class JobPostFetcher {
     }
 
     scrollPost(forward = true) {
-        if (forward == true) {
+        if (forward == true && this.index < this.data.length) {
             this.index += 1;
         }
-        else if (forward == false) {
+        else if (forward == false && this.index > 0) {
             this.index -= 1
+        }
+        else if (forward == true && this.index == this.data.length-1) {
+            // make post overview dissappear, and show "no more jobs here!!! (quiet enrique)"
+            console.log("balalallalalalalalalalla");
         }
 
         this.savePostI();
