@@ -1,3 +1,9 @@
+class Main {
+    constructor() {
+        
+    }
+}
+
 // Load navbar on each page
 fetch("navbar.html")
     .then(res => res.text())

@@ -61,19 +61,34 @@ class JobPostFetcher {
     }
 
     scrollPost(forward = true) {
-        if (forward == true && this.index < this.data.length-1) {
+        const postOverview = document.getElementById("post-overview");
+        const actionButtons = document.getElementById("action-buttons");
+        const noneLeft = document.getElementById("none-left-header");
+
+        let valid = true;
+
+        if (forward == true && this.index < this.data.length) {
             this.index += 1;
+            if (this.index == this.data.length) {
+                valid = false;
+                postOverview.classList.toggle("d-none");
+                actionButtons.classList.toggle("d-none");
+                noneLeft.classList.toggle("d-none");
+            }
         }
         else if (forward == false && this.index > 0) {
             this.index -= 1
-        }
-        else if (forward == true && this.index == this.data.length-1) {
-            // make post overview dissappear, and show "no more jobs here!!! (quiet enrique)"
-            console.log("balalallalalalalalalalla");
+            if (this.index == 99) {
+                postOverview.classList.toggle("d-none")
+                actionButtons.classList.toggle("d-none");
+                noneLeft.classList.toggle("d-none");
+            }
         }
 
-        this.savePostI();
-        this.displayPostAtI(this.index);
+        if (valid == true) {
+            this.savePostI();
+            this.displayPostAtI(this.index);
+        }
     }
 
     savePostI() {
