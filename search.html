@@ -13,14 +13,23 @@
         <div class="row mb-2" id="navbar"></div>
         <!-- Search and filters -->
         <div class="row justify-content-center mb-2">
-            <div class="col bg-success col-1 me-3">
-                <h5 class="text-center" id="postCounter">0/0 Posts</h5>
+            <div class="col bg-success col-1 me-3 d-flex align-items-center">
+                <h5 id="postCounter">0/0 Posts</h5>
             </div>
-            <div class="col bg-danger col-1">
-                <h5 class="text-center">Search</h5>
+            <div class="col col-1">
+                <input type="text" class="form-control fs-5" placeholder="Search">
             </div>
-            <div class="col bg-success col-1 ms-3">
-                <h5 class="text-center">Filters</h5>
+            <div class="col col-1 ms-3">
+                <div class="dropdown text-start">
+                    <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Filters
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><button class="dropdown-item" type="button">XXXXXX</button></li>
+                        <li><button class="dropdown-item" type="button">XXXXXX</button></li>
+                        <li><button class="dropdown-item" type="button">XXXXXX</button></li>
+                    </ul>
+                </div>
             </div>
         </div>
         <!-- Overview of job -->
@@ -116,13 +125,13 @@
             <div class="col container col-auto bg-info">
                 <div class="row justify-content-center m-2">
                     <div class="col bg-danger me-2 col-auto">
-                        <h4 class="text-center">Apply</h4>
+                        <h4 class="text-center" id="apply-btn">Apply</h4>
                     </div>
                     <div class="col bg-success col-auto">
-                        <h4 class="text-center">Save</h4>
+                        <h4 class="text-center" id="save-btn">Save</h4>
                     </div>
                     <div class="col bg-danger ms-2 col-auto">
-                        <h4 class="text-center">Hide</h4>
+                        <h4 class="text-center" id="hide-btn">Hide</h4>
                     </div>
                 </div>
             </div>
@@ -134,7 +143,7 @@
         <button id="scroll-down-btn">↓</button>
     </div>
 
-    <script src="bootstrap-5.3.8-dist/js/bootstrap.min.js"></script>
+    <script src="bootstrap-5.3.8-dist/js/bootstrap.bundle.js"></script>
     <script src="jobFetcher.js"></script>
     <script src="main.js"></script>
 </body>

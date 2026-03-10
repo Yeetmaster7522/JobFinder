@@ -91,3 +91,11 @@ let upBtn = document.getElementById("scroll-up-btn");
 let downBtn = document.getElementById("scroll-down-btn");
 upBtn.addEventListener("click", () => jobFetcher.scrollPost(false));
 downBtn.addEventListener("click", () => jobFetcher.scrollPost());
+
+// quick buttons
+let applyBtn = document.getElementById("apply-btn");
+let saveBtn = document.getElementById("save-btn");
+let hideBtn = document.getElementById("hide-btn");
+applyBtn.addEventListener("click", () => alert("Applied"));
+saveBtn.addEventListener("click", () => alert("Saved"));
+hideBtn.addEventListener("click", () => alert("Hidden"));
