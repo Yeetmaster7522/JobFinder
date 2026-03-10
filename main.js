@@ -1,3 +1,16 @@
+class Main {
+    constructor() {
+        let name = getCookie("user");
+        if (name != "") {
+            this.setPN(name.split(" ")[0]);
+        }
+    }
+    setPN(name) {
+        const profileName = document.getElementById("profile-name");
+        profileName.innerText = name;
+    }
+}
+
 function getCookie(cname) {
   // https://www.w3schools.com/js/js_cookies.asp
   let name = cname + "=";
@@ -22,14 +35,10 @@ function setCookie(cname, cvalue, exdays) {
   document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
-function setNavBarPN(name) {
-    const profileName = document.getElementById("profile-name");
-    profileName.innerText = name;
-}
-
 // Load navbar on each page
 fetch("navbar.html")
     .then(res => res.text())
     .then(html => {
         document.getElementById("navbar").innerHTML = html;
+        const main = new Main();
     });
