@@ -1,5 +1,5 @@
 class JobPostFetcher {
-    constructor() {
+    constructor(display=true) {
         let pastIndex = getCookie("postIndex");
         if (pastIndex == "") {
             this.index = 0;
@@ -12,9 +12,10 @@ class JobPostFetcher {
             .then(response => response.json())
             .then(data => {
                 this.data = data
-                console.log(this.data);
 
-                this.displayPostAtI(this.index);
+                if (display == true) {
+                    this.displayPostAtI(this.index);
+                }
             })
             .catch(err => console.error("Error loading JSON:", err));
     }
@@ -91,6 +92,19 @@ class JobPostFetcher {
             this.displayPostAtI(this.index);
         }
     }
+
+    apply() {
+        let appliedJobs = []
+        try {
+            appliedJobs = JSON.parse(getCookie("appliedJobs"));
+        }
+        catch (error) {
+            console.log(error);
+        }
+        appliedJobs.push(this.data[this.index]);
+        setCookie("appliedJobs", JSON.stringify(appliedJobs), 30);
+        alert("Post saved");
+    }
 }
 
 // load class
@@ -105,6 +119,6 @@ downBtn.addEventListener("click", () => jobFetcher.scrollPost());
 let applyBtn = document.getElementById("apply-btn");
 let saveBtn = document.getElementById("save-btn");
 let hideBtn = document.getElementById("hide-btn");
-applyBtn.addEventListener("click", () => alert("Applied"));
+applyBtn.addEventListener("click", () => jobFetcher.apply());
 saveBtn.addEventListener("click", () => alert("Saved"));
 hideBtn.addEventListener("click", () => alert("Hidden"));
