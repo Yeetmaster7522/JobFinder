@@ -34,7 +34,7 @@ class JobPostFetcher {
         const deadline = document.getElementById("date-deadline");
         const summary = document.getElementsByClassName("summary-text");
 
-        postCounter.innerText = `${index+1}/${this.data.length} Job Posts`;
+        postCounter.innerText = `${index+1}/${this.data.length} Posts`;
 
         jobTitle.innerText = post.jobTitle;
         companyName.innerText = post.companyName;
