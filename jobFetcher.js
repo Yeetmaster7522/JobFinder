@@ -32,7 +32,8 @@ class JobPostFetcher {
         const skills = document.getElementById("skills");
         const datePosted = document.getElementById("date-posted");
         const deadline = document.getElementById("date-deadline");
-        const summary = document.getElementsByClassName("summary-text");
+        const fullSummary = document.getElementById("full-summary");
+        const shortSummary = document.getElementById("short-summary");
 
         postCounter.innerText = `${index+1}/${this.data.length} Posts`;
 
@@ -50,12 +51,13 @@ class JobPostFetcher {
         
         hours.innerText = "";
         for (let i=0; i<post.hours.length; i++) {
-            hours.innerText += post.hours[i] + "\n";
+            hours.innerText += `${post.hours[i][0]} - ${post.hours[i][1]}\n`;
         }
 
-        for (let text of summary) {
-            text.innerText = post.summary; // need to limit to first 20 words if id=shortsummary
-        }
+        fullSummary.innerText = post.summary;
+
+        let words = post.summary.split(" ");
+        shortSummary.innerText = `${words.slice(0,20).join(" ")}...`;
     }
 
     scrollPost(forward = true) {
