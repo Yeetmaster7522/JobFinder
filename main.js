@@ -3,6 +3,8 @@ class Main {
         let name = getCookie("user");
         if (name != "") {
             this.setPN(name.split(" ")[0]);
+            const profileName = document.getElementById("profile-name");
+            profileName.href = "profile.html";
         }
     }
     setPN(name) {
