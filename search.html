@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finder</title>
+    <link rel="stylesheet" href="bootstrap-5.3.8-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- Top navigation bar -->
+        <div class="row mb-2" id="navbar"></div>
+        <!-- Search and filters -->
+        <div class="row justify-content-center mb-2">
+            <div class="col bg-success col-1 me-3 d-flex align-items-center">
+                <h5 id="postCounter">0/0 Posts</h5>
+            </div>
+            <div class="col col-1">
+                <input type="text" class="form-control fs-5" placeholder="Search">
+            </div>
+            <div class="col col-1 ms-3">
+                <div class="dropdown text-start">
+                    <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Filters
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><button class="dropdown-item" type="button">XXXXXX</button></li>
+                        <li><button class="dropdown-item" type="button">XXXXXX</button></li>
+                        <li><button class="dropdown-item" type="button">XXXXXX</button></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Overview of job -->
+        <div class="row justify-content-center mb-2" id="post-overview">
+            <div class="col container col-4 bg-danger">
+                <div class="row">
+                    <div class="col container bg-info mt-3 mb-3 ms-3 me-3">
+                        <div class="row mb-2">
+                            <div class="col">
+                                <h4 class="text-center" id="job-title"></h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="text-center" id="company-name"></h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col bg-success ms-3 me-3">
+                        <h4 class="text-center" id="address"></h4>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col bg-primary me-2 ms-3">
+                        <h4 class="text-center" id="work-type"></h4>
+                    </div>
+                    <div class="col bg-secondary ms-2 me-3">
+                        <h4 class="text-center" id="employ-type"></h4>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col bg-secondary me-2 ms-3">
+                        <h4 class="text-center" id="salary-range"></h4>
+                    </div>
+                    <div class="col bg-primary ms-2 me-3">
+                        <h4 class="text-center" id="age-require"></h4>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col bg-primary me-2 ms-3">
+                        <h4 class="text-center" id="hours"></h4>
+                    </div>
+                    <div class="col bg-secondary ms-2 me-3 container">
+                        <div class="row">
+                            <div class="col">
+                                <h4 class="text-center" id="skills"></h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <ul>
+                                    <li>XXXXXX</li>
+                                    <li>XXXXXX</li>
+                                    <li>XXXXXX</li>
+                                    <li>XXXXXX</li>
+                                    <li>XXXXXX</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col container bg-info ms-3 me-3">
+                        <div class="row">
+                            <div class="col">
+                                <h4 class="text-center">Summary</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p class="text-start" id="short-summary"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3 justify-content-center">
+                    <div class="col bg-success col-4">
+                        <h4 class="text-center clickable" data-bs-toggle="collapse" data-bs-target="#summary-box">More Info</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col bg-info">
+                        <p class="text-start" id="date-posted"></p>
+                    </div>
+                    <div class="col bg-secondary">
+                        <p class="text-end" id="date-deadline"></p>
+                    </div>
+                </div>
+            </div>
+            <!-- Expanded summary -->
+            <div class="col container bg-warning collapse col-4" id="summary-box">
+                <div class="row">
+                    <div class="col">
+                        <h4 class="text-center">Summary</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p class="text-start" id="full-summary"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Quick actions -->
+        <div class="row" id="action-buttons">
+            <div class="col container col-auto bg-info">
+                <div class="row justify-content-center m-2">
+                    <div class="col bg-danger me-2 col-auto">
+                        <h4 class="text-center" id="apply-btn">Apply</h4>
+                    </div>
+                    <div class="col bg-success col-auto">
+                        <h4 class="text-center" id="save-btn">Save</h4>
+                    </div>
+                    <div class="col bg-danger ms-2 col-auto">
+                        <h4 class="text-center" id="hide-btn">Hide</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row d-none" id="none-left-header">
+        <div class="col justify-content-center d-flex align-items-center">
+            <h1>There are no more job posts to view.</h1>
+        </div>
+    </div>
+    <!-- Scroll arrows -->
+    <div class="position-absolute top-50 end-0 me-5 translate-middle-y d-flex flex-column gap-2">
+        <button id="scroll-up-btn">↑</button>
+        <button id="scroll-down-btn">↓</button>
+    </div>
+
+    <script src="bootstrap-5.3.8-dist/js/bootstrap.bundle.js"></script>
+    <script src="main.js"></script>
+    <script src="jobFetcher.js"></script>
+</body>
+</html>
