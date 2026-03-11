@@ -103,7 +103,33 @@ class JobPostFetcher {
         }
         appliedJobs.push(this.data[this.index]);
         setCookie("appliedJobs", JSON.stringify(appliedJobs), 30);
-        alert("Post saved");
+        alert("Application sent");
+    }
+
+    save() {
+        let savedJobs = [];
+        try {
+            savedJobs = JSON.parse(getCookie("savedJobs"));
+        }
+        catch (error) {
+            console.log(error);
+        }
+        savedJobs.push(this.data[this.index]);
+        setCookie("savedJobs", JSON.stringify(savedJobs), 30);
+        alert("Job saved");
+    }
+
+    hide() {
+        let hiddenJobs = [];
+        try {
+            hiddenJobs = JSON.parse(getCookie("hiddenJobs"));
+        }
+        catch (error) {
+            console.log(error);
+        }
+        hiddenJobs.push(this.data[this.index]);
+        setCookie("hiddenJobs", JSON.stringify(hiddenJobs), 30);
+        alert("Job hidden");
     }
 }
 
@@ -120,5 +146,5 @@ let applyBtn = document.getElementById("apply-btn");
 let saveBtn = document.getElementById("save-btn");
 let hideBtn = document.getElementById("hide-btn");
 applyBtn.addEventListener("click", () => jobFetcher.apply());
-saveBtn.addEventListener("click", () => alert("Saved"));
-hideBtn.addEventListener("click", () => alert("Hidden"));
+saveBtn.addEventListener("click", () => jobFetcher.save());
+hideBtn.addEventListener("click", () => jobFetcher.hide());
