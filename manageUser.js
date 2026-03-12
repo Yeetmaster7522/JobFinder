@@ -10,7 +10,7 @@ class UserManager {
         let appliedJobs = JSON.parse(getCookie("appliedJobs")) || [];
         for (let i=0; i<appliedJobs.length; i++) {
             let li = document.createElement("li");
-            li.classList = "list-group-item";
+            li.classList = "list-group-item bg-secondary text-light";
             let p = document.createElement("p");
             p.textContent = `MM.YY ${appliedJobs[i].jobTitle} / Not yet read`;
             li.appendChild(p);
@@ -21,7 +21,7 @@ class UserManager {
         const savedJobs = JSON.parse(getCookie("savedJobs")) || [];
         for (let i=0; i<savedJobs.length; i++) {
             let li = document.createElement("li");
-            li.classList = "list-group-item";
+            li.classList = "list-group-item bg-secondary text-light";
             let p = document.createElement("p");
             p.textContent = `${savedJobs[i].jobTitle}`;
             li.appendChild(p);
@@ -32,7 +32,7 @@ class UserManager {
         const hiddenJobs = JSON.parse(getCookie("hiddenJobs")) || [];
         for (let i=0; i<hiddenJobs.length; i++) {
             let li = document.createElement("li");
-            li.classList = "list-group-item";
+            li.classList = "list-group-item bg-secondary text-light";
             let p = document.createElement("p");
             p.textContent = hiddenJobs[i].jobTitle;
             li.appendChild(p);

@@ -7,21 +7,21 @@
     <link rel="stylesheet" href="bootstrap-5.3.8-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="main.css">
 </head>
-<body>
+<body class="bg-dark text-white">
     <div class="container-fluid">
         <!-- Top navigation bar -->
         <div class="row mb-2" id="navbar"></div>
         <!-- Search and filters -->
         <div class="row justify-content-center mb-2">
-            <div class="col bg-success col-1 me-3 d-flex align-items-center">
-                <h5 id="postCounter">0/0 Posts</h5>
+            <div class="col-1 me-3 d-flex align-items-center bg-teal">
+                <h5 class="text-light" id="postCounter">0/0 Posts</h5>
             </div>
-            <div class="col col-1">
-                <input type="text" class="form-control fs-5" placeholder="Search">
+            <div class="col-1">
+                <input type="text" class="form-control fs-5 bg-teal" placeholder="Search">
             </div>
-            <div class="col col-1 ms-3">
+            <div class="col-1 ms-3">
                 <div class="dropdown text-start">
-                    <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-success dropdown-toggle bg-teal" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Filters
                     </button>
                     <ul class="dropdown-menu">
@@ -34,9 +34,9 @@
         </div>
         <!-- Overview of job -->
         <div class="row justify-content-center mb-2" id="post-overview">
-            <div class="col container col-4 bg-danger">
+            <div class="col-4 container bg-teal">
                 <div class="row">
-                    <div class="col container bg-info mt-3 mb-3 ms-3 me-3">
+                    <div class="col container mt-3 mb-3 ms-3 me-3 bg-secondary">
                         <div class="row mb-2">
                             <div class="col">
                                 <h4 class="text-center" id="job-title"></h4>
@@ -50,31 +50,31 @@
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col bg-success ms-3 me-3">
+                    <div class="col ms-3 me-3 bg-secondary">
                         <h4 class="text-center" id="address"></h4>
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col bg-primary me-2 ms-3">
+                    <div class="col me-2 ms-3 bg-secondary">
                         <h4 class="text-center" id="work-type"></h4>
                     </div>
-                    <div class="col bg-secondary ms-2 me-3">
+                    <div class="col ms-2 me-3 bg-secondary">
                         <h4 class="text-center" id="employ-type"></h4>
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col bg-secondary me-2 ms-3">
+                    <div class="col me-2 ms-3 bg-secondary">
                         <h4 class="text-center" id="salary-range"></h4>
                     </div>
-                    <div class="col bg-primary ms-2 me-3">
+                    <div class="col ms-2 me-3 bg-secondary">
                         <h4 class="text-center" id="age-require"></h4>
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col bg-primary me-2 ms-3">
+                    <div class="col me-2 ms-3 bg-secondary">
                         <h4 class="text-center" id="hours"></h4>
                     </div>
-                    <div class="col bg-secondary ms-2 me-3 container">
+                    <div class="col ms-2 me-3 container bg-secondary">
                         <div class="row">
                             <div class="col">
                                 <h4 class="text-center" id="skills"></h4>
@@ -94,7 +94,7 @@
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col container bg-info ms-3 me-3">
+                    <div class="col container ms-3 me-3 bg-secondary">
                         <div class="row">
                             <div class="col">
                                 <h4 class="text-center">Summary</h4>
@@ -108,24 +108,24 @@
                     </div>
                 </div>
                 <div class="row mb-3 justify-content-center">
-                    <div class="col bg-success col-4">
+                    <div class="col col-4 bg-secondary">
                         <h4 class="text-center clickable" data-bs-toggle="collapse" data-bs-target="#summary-box">More Info</h4>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col bg-info">
-                        <p class="text-start" id="date-posted"></p>
+                    <div class="col">
+                        <p class="text-start text-light" id="date-posted"></p>
                     </div>
-                    <div class="col bg-secondary">
-                        <p class="text-end" id="date-deadline"></p>
+                    <div class="col">
+                        <p class="text-end text-light" id="date-deadline"></p>
                     </div>
                 </div>
             </div>
             <!-- Expanded summary -->
-            <div class="col container bg-warning collapse col-4" id="summary-box">
+            <div class="col-4 container collapse" id="summary-box" style="background-color: #3da19e;">
                 <div class="row">
                     <div class="col">
-                        <h4 class="text-center">Summary</h4>
+                        <h4 class="text-center">Description</h4>
                     </div>
                 </div>
                 <div class="row">
@@ -137,15 +137,15 @@
         </div>
         <!-- Quick actions -->
         <div class="row" id="action-buttons">
-            <div class="col container col-auto bg-info">
+            <div class="col container col-auto bg-teal">
                 <div class="row justify-content-center m-2">
-                    <div class="col bg-danger me-2 col-auto">
+                    <div class="col me-2 col-auto bg-secondary">
                         <h4 class="text-center" id="apply-btn">Apply</h4>
                     </div>
-                    <div class="col bg-success col-auto">
+                    <div class="col col-auto bg-secondary">
                         <h4 class="text-center" id="save-btn">Save</h4>
                     </div>
-                    <div class="col bg-danger ms-2 col-auto">
+                    <div class="col ms-2 col-auto bg-secondary">
                         <h4 class="text-center" id="hide-btn">Hide</h4>
                     </div>
                 </div>
