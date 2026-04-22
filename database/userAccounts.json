@@ -20,16 +20,10 @@
                 "industry": ""
             },
             "skills": [
-                "skill"
             ],
             "timeIntervals": [
-                {
-                    "start": 0,
-                    "end": 0
-                }
             ],
             "applications": [
-                "AID01"
             ]
         },
         "employer": {
@@ -39,7 +33,6 @@
             "contactEmail": "",
             "website": "",
             "jobPosts": [
-                "JPID01"
             ]
         }
     }
