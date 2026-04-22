@@ -1,0 +1,46 @@
+{
+    "UID01": {
+        "email": "",
+        "password": "",
+        "role": "",
+        "student": {
+            "name": "",
+            "age": "",
+            "phoneNumber": "",
+            "suburb": "",
+            "workEligibility": "",
+            "availability": "",
+            "experienceLevel": "",
+            "resume": "",
+            "preferences": {
+                "workType": "",
+                "employmentType": "",
+                "minSalary": "",
+                "locationRadius": "",
+                "industry": ""
+            },
+            "skills": [
+                "skill"
+            ],
+            "timeIntervals": [
+                {
+                    "start": 0,
+                    "end": 0
+                }
+            ],
+            "applications": [
+                "AID01"
+            ]
+        },
+        "employer": {
+            "companyName": "",
+            "address": "",
+            "contactNumber": "",
+            "contactEmail": "",
+            "website": "",
+            "jobPosts": [
+                "JPID01"
+            ]
+        }
+    }
+}
