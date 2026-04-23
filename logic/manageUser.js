@@ -1,10 +1,16 @@
 class UserManager {
     constructor() {
-        const name = document.getElementById("name");
-        const email = document.getElementById("email");
-
-        name.innerText = getCookie("user");
-        email.innerText = `${getCookie("user")}@gmail.com`;
+        const UID = getCookie("UID");
+        let user = users[UID];
+        
+        document.getElementById("profile-pic").src = "placeholder.png";
+        document.getElementById("name").innerText = user.student.name;
+        document.getElementById("email").innerText = user.email;
+        document.getElementById("number").innerText = user.student.phoneNumber;
+        document.getElementById("suburb").innerText = user.student.suburb;
+        document.getElementById("resume-title").innerText = user.student.resume.source;
+        document.getElementById("resume-date").innerText = `Added: ${user.student.resume.date}`;
+        document.getElementById("education").innerText = user.student.experienceLevel;
 
         const appliedJobsEl = document.getElementById("applied-jobs");
         let appliedJobs = JSON.parse(getCookie("appliedJobs")) || [];
@@ -42,4 +48,6 @@ class UserManager {
 
 }
 
-const userManager = new UserManager();
+window.addEventListener("mainReady", () => {
+    const userManager = new UserManager();
+});

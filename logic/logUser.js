@@ -17,13 +17,6 @@ function genUID() {
 
 class LogUser {
     constructor() {
-        fetch("database/userAccounts.json")
-            .then(response => response.json())
-            .then(data => {
-                this.users = data;
-            })
-            .catch(err => console.error("Error loading JSON:", err));
-
         const logInBtn = document.getElementById("log-in-btn");
         const signUpBtn = document.getElementById("sign-up-btn");
 
@@ -38,28 +31,30 @@ class LogUser {
     }
 
     logIn() {
-        // alert("Logged in!");
-        // let email = document.getElementById("email-input").value;
-        // let name = this.extractNames(email);
-        // setCookie("user", `${name[0]} ${name[1]}`, 1);
-        // window.location.href = "profile.html";
         const emailInp = document.getElementById("email-input").value;
         const passwordInp = document.getElementById("password-input").value;
-        console.log(this.users);
 
-        for (const uid in this.users) {
-            if (this.users[uid].email === emailInp) {
-                if (this.users[uid].password === passwordInp) {
-                    alert("Logged in.")
+        if (emailInp.trim() != "" && passwordInp.trim() != "") {
+            for (const uid in users) {
+                const user = users[uid]
+                if (user.email === emailInp) {
+                    if (user.password === passwordInp) {
+                        alert("Logged in.")
+                        setCookie("UID", uid, 1);
+                        window.location.href = "profile.html";
+                    }
+                    else {
+                        alert("Username or password incorrect.")
+                    }
                 }
                 else {
-                    alert("Username or password incorrect.")
+                    alert("Email does not exist in userbase, please sign up.");
+                    window.location.href = "signUp.html";
                 }
             }
-            else {
-                alert("Email does not exist in userbase, please sign up.");
-                // window.location.href = "signUp.html";
-            }
+        }
+        else {
+            alert("Please fill out fields")
         }
 
     }
@@ -68,14 +63,16 @@ class LogUser {
         const userEmail = document.getElementById("email-input").value;
         const userPassword = document.getElementById("password-input").value;
         const newUID = genUID();
-        this.users[newUID] = {
+        users[newUID] = {
             "email": userEmail,
             "password": userPassword,
             "role": ""
         }
-        console.log(this.users);
+        console.log(users);
         alert("Signed up");
     }
 }
 
-const logUser = new LogUser();
+window.addEventListener("mainReady", () => {
+    const logUser = new LogUser();
+});
