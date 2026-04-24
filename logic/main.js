@@ -43,13 +43,14 @@ fetch("database/userAccounts.json")
 	.then(response => response.json())
   	.then(data => {
 		users = data;
+		console.log(users);
 
         return fetch("navbar.html"); // fetch navbar
   	}) 
     .then(res => res.text())
     .then(html => {
         document.getElementById("navbar").innerHTML = html;
+		window.dispatchEvent(new Event("mainReady"));
         const main = new Main();
-        window.dispatchEvent(new Event("mainReady"));
     })
   	.catch(err => console.error("Error loading JSON:", err));
