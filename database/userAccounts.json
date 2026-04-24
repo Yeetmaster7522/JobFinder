@@ -1,0 +1,43 @@
+{
+    "UID01": {
+        "email": "jane.doe@gmail.com",
+        "password": "67",
+        "role": "student",
+        "profilePic": "",
+        "student": {
+            "name": "Jane Doe",
+            "age": "20",
+            "phoneNumber": "0401 234 567",
+            "suburb": "Chatswood",
+            "workEligibility": "",
+            "availability": "",
+            "experienceLevel": "College",
+            "resume": {
+                "source": "lskdajfl.asjdfl",
+                "date": "10.04.22"
+            },
+            "preferences": {
+                "workType": "",
+                "employmentType": "",
+                "minSalary": "",
+                "locationRadius": "",
+                "industry": ""
+            },
+            "skills": [
+            ],
+            "timeIntervals": [
+            ],
+            "applications": [
+            ]
+        },
+        "employer": {
+            "companyName": "",
+            "address": "",
+            "contactNumber": "",
+            "contactEmail": "",
+            "website": "",
+            "jobPosts": [
+            ]
+        }
+    }
+}
