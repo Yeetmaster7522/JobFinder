@@ -19,6 +19,7 @@ class LogUser {
     constructor() {
         const logInBtn = document.getElementById("log-in-btn");
         const signUpBtn = document.getElementById("sign-up-btn");
+        const forgotPswrd = document.getElementById("forgot-pswrd");
 
         if (logInBtn) {
             logInBtn.addEventListener("click", () => this.logIn());
@@ -26,6 +27,10 @@ class LogUser {
 
         if (signUpBtn) {
             signUpBtn.addEventListener("click", () => this.signUp());
+        }
+
+        if (forgotPswrd) {
+            forgotPswrd.addEventListener("click", () => {alert("email sent")});
         }
 
     }
