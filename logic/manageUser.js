@@ -1,5 +1,9 @@
 class UserManager {
     constructor() {
+        document.getElementById("log-out-btn").addEventListener("click", () => {
+            this.logOut();
+        });
+
         const UID = getCookie("UID");
         let user = users[UID];
         
@@ -88,6 +92,10 @@ class UserManager {
             li.appendChild(p);
             hiddenBox.appendChild(li);
         }
+    }
+
+    logOut() {
+        setCookie("UID", "", -1);
     }
 
 }
