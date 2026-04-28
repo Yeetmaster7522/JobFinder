@@ -8,7 +8,7 @@ class JobPostFetcher {
             this.index = parseInt(pastIndex, 10);
         }
         // get job posts
-        fetch("/data/data-mR36NBv3VwjMRsFCY26z5.json")
+        fetch("data/data-mR36NBv3VwjMRsFCY26z5.json")
             .then(response => response.json())
             .then(data => {
                 this.data = data
