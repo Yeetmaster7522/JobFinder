@@ -4,6 +4,10 @@ class UserManager {
             this.logOut();
         });
 
+        document.getElementById("profile-pic").addEventListener("click", () => {
+            console.log("change profile pic");
+        });
+
         const UID = getCookie("UID");
         let user = users[UID];
         
@@ -12,8 +16,6 @@ class UserManager {
         document.getElementById("email").innerText = user.email;
         document.getElementById("number").innerText = user.student.phoneNumber;
         document.getElementById("suburb").innerText = user.student.suburb;
-        document.getElementById("resume-title").innerText = user.student.resume.source;
-        document.getElementById("resume-date").innerText = `Added: ${user.student.resume.date}`;
         
         // qualifications
         document.getElementById("education").innerText = user.student.experienceLevel;
