@@ -42,6 +42,11 @@ function setCookie(cname, cvalue, exdays) {
   	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
+function editUserData(edits) {
+	console.log("editing...");
+	console.log(edits);
+}
+
 var users;
 
 // fetch database
@@ -49,7 +54,6 @@ fetch("database/userAccounts.json")
 	.then(response => response.json())
   	.then(data => {
 		users = data;
-		console.log(users);
 
         return fetch("navbar.html"); // fetch navbar
   	}) 

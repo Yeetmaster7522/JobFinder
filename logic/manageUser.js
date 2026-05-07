@@ -115,7 +115,7 @@ class UserManager {
         setCookie("UID", "", -1);
     }
 
-    getUserDetails() {
+    getUserDetailInp() {
         let name = document.getElementById("name").textContent;
         // let profilePic = document.getElementById("profile-pic");
         let email = document.getElementById("email").textContent;
@@ -134,14 +134,39 @@ class UserManager {
         let industries = document.getElementById("industry-list").querySelectorAll("li");
         industries = Array.from(industries).map(li => li.textContent.trim());
         let salary = document.getElementById("min-salary").textContent;
-        let hours = document.getElementById("hours").textContent;
+        let hours = document.getElementById("hours").querySelectorAll("li");
+        // hours = Array.from(hours).map(li => li.textContent);
+        hours = Array.from(hours).map(li => {
+            li = li.textContent;
+            li = li.split(" ");
+            li = {
+                "start": li[0],
+                "end": li[2]
+            };
+
+            return li;
+        });
         let workType = document.getElementById("work-type").textContent;
         let employmentType = document.getElementById("employment-type").textContent;
-        let locationRadius = document.getElementById("loc-radius").textContent;
+        let locRadius = document.getElementById("loc-radius").textContent;
 
-        console.log(name);
-        console.log(skills);
-        console.log(salary);
+        return {
+            "name": name,
+            "email": email,
+            "number": number,
+            "suburb": suburb,
+            "resume": resume,
+            "education": edu,
+            "skills": skills,
+            "certifications": certs,
+            "eligibility": eligibility,
+            "industries": industries,
+            "salary": salary,
+            "hours": hours,
+            "workType": workType,
+            "employmentType": employmentType,
+            "locationRadius": locRadius
+        };
     }
 
 }
@@ -157,7 +182,7 @@ function globalInit() {
         container.addEventListener("input", () => {
             clearTimeout(timeout);
             timeout = setTimeout(() => {
-                userManager.getUserDetails();
+                editUserData(userManager.getUserDetailInp());
             }, 3000);
         });
     };
