@@ -59,41 +59,56 @@ class UserManager {
         document.getElementById("employment-type").innerText = user.student.preferences.employmentType;
         document.getElementById("loc-radius").innerText = `${user.student.preferences.locationRadius}km`;
 
-        // // applied jobs
-        // const appliedJobsEl = document.getElementById("applied-jobs");
-        // let appliedJobs = JSON.parse(getCookie("appliedJobs")) || [];
-        // for (let i=0; i<appliedJobs.length; i++) {
-        //     let li = document.createElement("li");
-        //     li.classList = "list-group-item bg-secondary text-light";
-        //     let p = document.createElement("p");
-        //     p.textContent = `MM.YY ${appliedJobs[i].jobTitle} / Not yet read`;
-        //     li.appendChild(p);
-        //     appliedJobsEl.appendChild(li);
-        // }
+        // applied jobs
+        try {
+            const appliedJobsEl = document.getElementById("applied-jobs");
+            let appliedJobs = JSON.parse(getCookie("appliedJobs")) || [];
+            for (let i=0; i<appliedJobs.length; i++) {
+                let li = document.createElement("li");
+                li.classList = "list-group-item bg-secondary text-light";
+                let p = document.createElement("p");
+                p.textContent = `MM.YY ${appliedJobs[i].jobTitle} / Not yet read`;
+                li.appendChild(p);
+                appliedJobsEl.appendChild(li);
+            };
+        }
+        catch (err) {
+            console.log(err);
+        };
 
-        // // saved jobs
-        // const savedBox = document.getElementById("saved-jobs");
-        // const savedJobs = JSON.parse(getCookie("savedJobs")) || [];
-        // for (let i=0; i<savedJobs.length; i++) {
-        //     let li = document.createElement("li");
-        //     li.classList = "list-group-item bg-secondary text-light";
-        //     let p = document.createElement("p");
-        //     p.textContent = `${savedJobs[i].jobTitle}`;
-        //     li.appendChild(p);
-        //     savedBox.appendChild(li);
-        // }
+        // saved jobs
+        try {
+            const savedBox = document.getElementById("saved-jobs");
+            const savedJobs = JSON.parse(getCookie("savedJobs")) || [];
+            for (let i=0; i<savedJobs.length; i++) {
+                let li = document.createElement("li");
+                li.classList = "list-group-item bg-secondary text-light";
+                let p = document.createElement("p");
+                p.textContent = `${savedJobs[i].jobTitle}`;
+                li.appendChild(p);
+                savedBox.appendChild(li);
+            };
+        }
+        catch (err) {
+            console.log(err);
+        };
 
-        // // hidden jobs
-        // const hiddenBox = document.getElementById("hidden-jobs");
-        // const hiddenJobs = JSON.parse(getCookie("hiddenJobs")) || [];
-        // for (let i=0; i<hiddenJobs.length; i++) {
-        //     let li = document.createElement("li");
-        //     li.classList = "list-group-item bg-secondary text-light";
-        //     let p = document.createElement("p");
-        //     p.textContent = hiddenJobs[i].jobTitle;
-        //     li.appendChild(p);
-        //     hiddenBox.appendChild(li);
-        // }
+        // hidden jobs
+        try {
+            const hiddenBox = document.getElementById("hidden-jobs");
+            const hiddenJobs = JSON.parse(getCookie("hiddenJobs")) || [];
+            for (let i=0; i<hiddenJobs.length; i++) {
+                let li = document.createElement("li");
+                li.classList = "list-group-item bg-secondary text-light";
+                let p = document.createElement("p");
+                p.textContent = hiddenJobs[i].jobTitle;
+                li.appendChild(p);
+                hiddenBox.appendChild(li);
+            };
+        }
+        catch (err) {
+            console.log(err);
+        };
     }
 
     logOut() {
@@ -101,28 +116,28 @@ class UserManager {
     }
 
     getUserDetails() {
-        const name = document.getElementById("name").textContent;
-        // const profilePic = document.getElementById("profile-pic");
-        const email = document.getElementById("email").textContent;
-        const number = document.getElementById("number").textContent;
-        const suburb = document.getElementById("suburb").textContent;
+        let name = document.getElementById("name").textContent;
+        // let profilePic = document.getElementById("profile-pic");
+        let email = document.getElementById("email").textContent;
+        let number = document.getElementById("number").textContent;
+        let suburb = document.getElementById("suburb").textContent;
         
-        const resume = document.querySelector("#resume-file").files[0];
+        let resume = document.querySelector("#resume-file").files[0];
         
-        const edu = document.getElementById("education").textContent;
+        let edu = document.getElementById("education").textContent;
         let skills = document.getElementById("skills-list").querySelectorAll("li");
         skills = Array.from(skills).map(li => li.textContent.trim());
         let certs = document.getElementById("cert-list").querySelectorAll("li");
         certs = Array.from(certs).map(li => li.textContent.trim());
-        const eligibility = document.getElementById("work-eligibility").textContent;
+        let eligibility = document.getElementById("work-eligibility").textContent;
 
         let industries = document.getElementById("industry-list").querySelectorAll("li");
         industries = Array.from(industries).map(li => li.textContent.trim());
-        const salary = document.getElementById("min-salary").textContent;
-        const hours = document.getElementById("hours").textContent;
-        const workType = document.getElementById("work-type").textContent;
-        const employmentType = document.getElementById("employment-type").textContent;
-        const locationRadius = document.getElementById("loc-radius").textContent;
+        let salary = document.getElementById("min-salary").textContent;
+        let hours = document.getElementById("hours").textContent;
+        let workType = document.getElementById("work-type").textContent;
+        let employmentType = document.getElementById("employment-type").textContent;
+        let locationRadius = document.getElementById("loc-radius").textContent;
 
         console.log(name);
         console.log(skills);
