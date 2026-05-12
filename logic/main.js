@@ -43,8 +43,9 @@ function setCookie(cname, cvalue, exdays) {
 }
 
 function editUserData(edits) {
-	console.log("editing...");
 	console.log(edits);
+	const UID = getCookie("UID");
+	console.log(`UID ${UID} has been updated`);
 }
 
 var users;
