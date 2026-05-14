@@ -56,12 +56,23 @@ fetch("database/userAccounts.json")
   	.then(data => {
 		users = data;
 
-        return fetch("navbar.html"); // fetch navbar
+		return Promise.all([
+			fetch("navbar.html"),
+			fetch("navbarEmployer.html")
+		]);
   	}) 
-    .then(res => res.text())
-    .then(html => {
-        document.getElementById("navbar").innerHTML = html;
+	.then(async ([navbarRes, navbarERes]) => {
+		const navbarHTML = await navbarRes.text();
+		const navbarEHTML = await navbarERes.text();
+		try {
+			document.getElementById("navbar").innerHTML = navbarHTML;
+		}
+		catch (error) {
+			console.log(error);
+			document.getElementById("navbar-employer").innerHTML = navbarEHTML;
+		}
+
 		window.dispatchEvent(new Event("mainReady"));
         const main = new Main();
-    })
+	})
   	.catch(err => console.error("Error loading JSON:", err));
