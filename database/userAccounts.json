@@ -60,5 +60,44 @@
             "jobPosts": [
             ]
         }
+    },
+    "UID02": {
+        "email": "john.evans@gmail.com",
+        "password": "hi",
+        "role": "employer",
+        "profilePic": "",
+        "student": {
+            "name": "",
+            "age": "",
+            "phoneNumber": "",
+            "suburb": "",
+            "workEligibility": "",
+            "availability": "",
+            "experienceLevel": "",
+            "resume": {
+                "source": "",
+                "date": ""
+            },
+            "preferences": {
+                "workType": "",
+                "employmentType": "",
+                "minSalary": "",
+                "locationRadius": "",
+                "industries": []
+            },
+            "skills": [],
+            "certifications": [],
+            "timeIntervals": [],
+            "applications": []
+        },
+        "employer": {
+            "companyName": "Stark Industries",
+            "address": "Long Beach, California",
+            "contactNumber": "0612 780 933",
+            "contactEmail": "stark@gmail.com",
+            "website": "starkIndustries.com",
+            "jobPosts": [
+            ]
+        }
     }
 }
