@@ -1,7 +1,7 @@
 class JobTrendFinder {
     constructor() {
         // get job posts
-        fetch("/data/data-mR36NBv3VwjMRsFCY26z5.json")
+        fetch("data/data-mR36NBv3VwjMRsFCY26z5.json")
             .then(response => response.json())
             .then(data => {
                 this.data = data;
@@ -18,6 +18,13 @@ class JobTrendFinder {
 
         return Array.from(companies).slice(0,10);
     }
+
+    // getTrendingIndustries() {
+    //     let industries = new Set()
+    //     for (let i=0; i<this.data.length; i++) {
+
+    //     }
+    // }
 
     getTrendRoles() {
         let roles = new Map();
