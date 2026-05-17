@@ -26,7 +26,7 @@ def generateRandTime():
     return f"{hr}:{minute}"
 
 # load data
-with open("data-mR36NBv3VwjMRsFCY26z5.json", "r") as f:
+with open("Job Finder/JobFinder/data/data-mR36NBv3VwjMRsFCY26z5.json", "r") as f:
     jobPosts = load(f)
 
 print(jobPosts[0].keys()) # check program is working
@@ -51,10 +51,10 @@ for post in jobPosts:
     post["hours"] = hours
 
 # write changes
-with open("data-mR36NBv3VwjMRsFCY26z5.json", "w") as f:
+with open("Job Finder/JobFinder/data/data-mR36NBv3VwjMRsFCY26z5.json", "w") as f:
     dump(jobPosts, f)
 
 # check changes
-with open("data-mR36NBv3VwjMRsFCY26z5.json", "r") as f:
+with open("Job Finder/JobFinder/data/data-mR36NBv3VwjMRsFCY26z5.json", "r") as f:
     jobPosts = load(f)
     print(jobPosts)
