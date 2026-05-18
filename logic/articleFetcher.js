@@ -10,7 +10,7 @@ class ArticleFetcher {
             .catch(err => console.error("Error loading JSON:", err));
     }
 
-    appendArticle(parentID, article) {
+    appendArticle(parentID, article, id) {
         const parent = document.getElementById(parentID);
         
         let div = document.createElement("div");
@@ -18,7 +18,7 @@ class ArticleFetcher {
         div.style.maxWidth = "12vw";
 
         let a = document.createElement("a");
-        a.href = "article.html"
+        a.href = `article.html?id=${id}`;
         a.classList.add("navLink");
 
         let img = document.createElement("img");
@@ -41,12 +41,12 @@ class ArticleFetcher {
 
     displayArticles() {
         for (let i=0; i<3; i++) {
-            this.appendArticle("latest-advice", this.articles[i]);
+            this.appendArticle("latest-advice", this.articles[i], i);
         }
         for (let i=0; i<this.articles.length; i++) {
-            this.appendArticle("other-advice", this.articles[i]);
+            this.appendArticle("other-advice", this.articles[i], i);
         }
     }
 }
 
-af = new ArticleFetcher();
+const af = new ArticleFetcher();
