@@ -29,7 +29,7 @@ class ArticleFetcher {
 
         let p = document.createElement("p");
         p.classList.add("text-break", "text-start", "text-light");
-        p.innerText = article.desc;
+        p.innerText = article.title;
 
         a.appendChild(img);
         a.appendChild(p);
