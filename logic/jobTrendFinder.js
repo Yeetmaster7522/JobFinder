@@ -76,12 +76,6 @@ class JobTrendFinder {
 
     }
 
-    appendLI(parent, childText) {
-        let li = document.createElement("li");
-        li.textContent = childText;
-        parent.appendChild(li);
-    }
-
     displayResults() {
         const nearEmployers = document.getElementById("near-employers");
         const trendIndustries = document.getElementById("trend-industries");
@@ -94,16 +88,16 @@ class JobTrendFinder {
         const skills = this.getSkillsShortage();
 
         for (let i=0; i<employers.length; i++) {
-            this.appendLI(nearEmployers, employers[i]);
+            appendLI(nearEmployers, employers[i]);
         }
         for (let i=0; i<industries.length; i++) {
-            this.appendLI(trendIndustries, industries[i]);
+            appendLI(trendIndustries, industries[i]);
         }
         for (let i=0; i<roles.length; i++) {
-            this.appendLI(trendRoles, roles[i]);
+            appendLI(trendRoles, roles[i]);
         }
         for (let i=0; i<skills.length; i++) {
-            this.appendLI(skillShortage, skills[i]);
+            appendLI(skillShortage, skills[i]);
         }
     }
 }

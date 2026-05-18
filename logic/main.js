@@ -48,6 +48,12 @@ function editUserData(edits) {
 	console.log(`UID ${UID} has been updated`);
 }
 
+function appendLI(parent, childText) {
+	let li = document.createElement("li");
+	li.textContent = childText;
+	parent.appendChild(li);
+}
+
 var users;
 
 // fetch database

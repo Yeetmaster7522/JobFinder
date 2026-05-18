@@ -49,7 +49,10 @@ class JobPostFetcher {
         datePosted.innerText = post.datePosted;
         deadline.innerText = post.deadline;
 
-        skills.innerText = "SKILLS";
+        skills.innerText = "";
+        for (const skill of post.skills) {
+            appendLI(skills, skill)
+        }
         
         hours.innerText = "";
         for (let i=0; i<post.hours.length; i++) {
