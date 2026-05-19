@@ -39,14 +39,45 @@ class ArticleFetcher {
         parent.appendChild(div);
     }
 
-    displayArticles() {
+    resetDisplay() {
+        document.getElementById("latest-advice").innerText = "";
+        document.getElementById("other-advice").innerText = "";
+    }
+
+    displayArticles(ids=null) {
+        this.resetDisplay();
+
         for (let i=0; i<3; i++) {
             this.appendArticle("latest-advice", this.articles[i], i);
         }
-        for (let i=0; i<this.articles.length; i++) {
-            this.appendArticle("other-advice", this.articles[i], i);
+        if (ids == null || ids.length == 0) {
+            for (let i=0; i<this.articles.length; i++) {
+                this.appendArticle("other-advice", this.articles[i], i);
+            }
         }
+        else {
+            for (const id of ids) {
+                this.appendArticle("other-advice", this.articles[id], id);
+            }
+        }
+    }
+
+    searchArticle(event) {
+        const searchValue = event.target.value.toLowerCase();
+        let articleIds = [];
+
+        for (let i=0; i<this.articles.length; i++) {
+            if (this.articles[i].title.toLowerCase().includes(searchValue)) {
+                articleIds.push(i);
+            }
+        }
+
+        this.displayArticles(articleIds);
     }
 }
 
 const af = new ArticleFetcher();
+
+document.getElementById("search-bar").addEventListener("search", (e) => {
+    af.searchArticle(e);
+});
