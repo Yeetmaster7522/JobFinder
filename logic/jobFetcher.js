@@ -1,28 +1,69 @@
 class JobPostFetcher {
-    constructor(display=true) {
-        let pastIndex = getCookie("postIndex");
-        if (pastIndex == "") {
-            this.index = 0;
+    constructor() {
+        let pastPostId = getCookie("postIndex");
+        
+        if (pastPostId == "") {
+            this.currentPostId = 0;
         }
         else if (document.cookie != "") {
-            this.index = parseInt(pastIndex, 10);
+            this.currentPostId = parseInt(pastPostId, 10);
         }
+
         // get job posts
         fetch("data/data-mR36NBv3VwjMRsFCY26z5.json")
             .then(response => response.json())
             .then(data => {
                 this.data = data
+                this.posts = this.data
 
-                if (display == true) {
-                    this.displayPostAtI(this.index);
-                }
+                this.displayPostAtI(this.currentPostId);
             })
             .catch(err => console.error("Error loading JSON:", err));
     }
 
-    displayPostAtI(index) {
+    search(event) {
+        const search = event.target.value.toLowerCase();
+        let postIds = [];
+        
+        if (search != "") {
+            for (let i=0; i<this.data.length; i++) {
+                let post = this.data[i];
+
+                if (post.companyName.toLowerCase().includes(search)) {
+                    postIds.push(i);
+                }
+                else if (post.industry.toLowerCase().includes(search)) {
+                    postIds.push(i);
+                }
+                else if (post.jobTitle.toLowerCase().includes(search)) {
+                    postIds.push(i);
+                }
+                else if (post.skills.map(str => str.toLowerCase()).includes(search)) {
+                    postIds.push(i);
+                }
+            }
+        }
+        if (search == "" || postIds.length == 0) {
+            postIds = this.data.map((_, i) => i);
+        }
+
+        return postIds;
+    }
+
+    updatePosts(postIds) {
+        this.posts = [];
+        this.currentPostId = 0;
+
+        for (const id in postIds) {
+            this.posts.push(this.data[id]);
+        }
+
+        this.displayPostAtI(this.currentPostId);
+    }
+
+    displayPostAtI(ID) {
         const postCounter = document.getElementById("postCounter");
-        const post = this.data[index];
+        const post = this.posts[ID];
         const jobTitle = document.getElementById("job-title");
         const companyName = document.getElementById("company-name");
         const address = document.getElementById("address");
@@ -37,7 +78,7 @@ class JobPostFetcher {
         const fullSummary = document.getElementById("full-summary");
         const shortSummary = document.getElementById("short-summary");
 
-        postCounter.innerText = `${index+1}/${this.data.length} Posts`;
+        postCounter.innerText = `${ID+1}/${this.posts.length} Posts`;
 
         jobTitle.innerText = post.jobTitle;
         companyName.innerText = post.companyName;
@@ -72,18 +113,18 @@ class JobPostFetcher {
 
         let valid = true;
 
-        if (forward == true && this.index < this.data.length) {
-            this.index += 1;
-            if (this.index == this.data.length) {
+        if (forward == true && this.currentPostId < this.posts.length) {
+            this.currentPostId += 1;
+            if (this.currentPostId == this.posts.length) {
                 valid = false;
                 postOverview.classList.toggle("d-none");
                 actionButtons.classList.toggle("d-none");
                 noneLeft.classList.toggle("d-none");
             }
         }
-        else if (forward == false && this.index > 0) {
-            this.index -= 1
-            if (this.index == 99) {
+        else if (forward == false && this.currentPostId > 0) {
+            this.currentPostId -= 1
+            if (this.currentPostId == 99) {
                 postOverview.classList.toggle("d-none")
                 actionButtons.classList.toggle("d-none");
                 noneLeft.classList.toggle("d-none");
@@ -91,8 +132,8 @@ class JobPostFetcher {
         }
 
         if (valid == true) {
-            setCookie("postIndex", this.index, 1);
-            this.displayPostAtI(this.index);
+            setCookie("postIndex", this.currentPostId, 1);
+            this.displayPostAtI(this.currentPostId);
         }
     }
 
@@ -104,7 +145,7 @@ class JobPostFetcher {
         catch (error) {
             console.log(error);
         }
-        appliedJobs.push(this.data[this.index]);
+        appliedJobs.push(this.posts[this.currentPostId]);
         setCookie("appliedJobs", JSON.stringify(appliedJobs), 30);
         alert("Application sent");
     }
@@ -117,7 +158,7 @@ class JobPostFetcher {
         catch (error) {
             console.log(error);
         }
-        savedJobs.push(this.data[this.index]);
+        savedJobs.push(this.posts[this.currentPostId]);
         setCookie("savedJobs", JSON.stringify(savedJobs), 30);
         alert("Job saved");
     }
@@ -130,7 +171,7 @@ class JobPostFetcher {
         catch (error) {
             console.log(error);
         }
-        hiddenJobs.push(this.data[this.index]);
+        hiddenJobs.push(this.posts[this.currentPostId]);
         setCookie("hiddenJobs", JSON.stringify(hiddenJobs), 30);
         alert("Job hidden");
     }
@@ -147,4 +188,6 @@ document.getElementById("apply-btn").addEventListener("click", () => jobFetcher.
 document.getElementById("save-btn").addEventListener("click", () => jobFetcher.save());
 document.getElementById("hide-btn").addEventListener("click", () => jobFetcher.hide());
 
-// document.getElementById("search-bar").
+document.getElementById("search-bar").addEventListener("search", (event) => {
+    jobFetcher.updatePosts(jobFetcher.search(event));
+});
