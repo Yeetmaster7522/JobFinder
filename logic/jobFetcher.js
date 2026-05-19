@@ -139,15 +139,12 @@ class JobPostFetcher {
 // load class
 const jobFetcher = new JobPostFetcher();
 
-let upBtn = document.getElementById("scroll-up-btn");
-let downBtn = document.getElementById("scroll-down-btn");
-upBtn.addEventListener("click", () => jobFetcher.scrollPost(false));
-downBtn.addEventListener("click", () => jobFetcher.scrollPost());
+document.getElementById("scroll-up-btn").addEventListener("click", () => jobFetcher.scrollPost(false));
+document.getElementById("scroll-down-btn").addEventListener("click", () => jobFetcher.scrollPost());
 
 // quick buttons
-let applyBtn = document.getElementById("apply-btn");
-let saveBtn = document.getElementById("save-btn");
-let hideBtn = document.getElementById("hide-btn");
-applyBtn.addEventListener("click", () => jobFetcher.apply());
-saveBtn.addEventListener("click", () => jobFetcher.save());
-hideBtn.addEventListener("click", () => jobFetcher.hide());
+document.getElementById("apply-btn").addEventListener("click", () => jobFetcher.apply());
+document.getElementById("save-btn").addEventListener("click", () => jobFetcher.save());
+document.getElementById("hide-btn").addEventListener("click", () => jobFetcher.hide());
+
+// document.getElementById("search-bar").
