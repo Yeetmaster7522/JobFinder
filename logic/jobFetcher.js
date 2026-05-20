@@ -9,6 +9,8 @@ class JobPostFetcher {
             this.currentPostId = parseInt(pastPostId, 10);
         }
 
+        this.appliedFilters = new Set();
+
         // get job posts
         fetch("data/data-mR36NBv3VwjMRsFCY26z5.json")
             .then(response => response.json())
@@ -21,7 +23,7 @@ class JobPostFetcher {
             .catch(err => console.error("Error loading JSON:", err));
     }
 
-    search(event) {
+    searchPosts(event) {
         const search = event.target.value.toLowerCase();
         let postIds = [];
         
@@ -175,6 +177,39 @@ class JobPostFetcher {
         setCookie("hiddenJobs", JSON.stringify(hiddenJobs), 30);
         alert("Job hidden");
     }
+
+    applyFilters(filter) {
+        if (filter == "None") {
+            this.appliedFilters.clear();
+            console.log("cleared")
+        }
+        else {
+            this.appliedFilters.add(filter);
+        }
+
+        let postIds = [];
+
+        for (const filter of this.appliedFilters) {
+            if (filter == "employ-part") {
+                console.log("employ-part");
+            }
+            else if (filter == "employ-casual") {
+                console.log("employ-casual");
+            }
+            else if (filter == "employ-full") {
+                console.log("employ-full")
+            }
+            else if (filter == "work-onsite") {
+                console.log("work-onsite");
+            }
+            else if (filter == "work-remote") {
+                console.log("work-remote");
+            }
+            else if (filter == "work-hybrid") {
+                console.log("work-hybrid");
+            };
+        }
+    }
 }
 
 // load class
@@ -189,12 +224,14 @@ document.getElementById("save-btn").addEventListener("click", () => jobFetcher.s
 document.getElementById("hide-btn").addEventListener("click", () => jobFetcher.hidePost());
 
 document.getElementById("search-bar").addEventListener("search", (event) => {
-    jobFetcher.updatePosts(jobFetcher.search(event));
+    jobFetcher.updatePosts(jobFetcher.searchPosts(event));
 });
 
 document.querySelectorAll(".dropdown-item").forEach(item => {
     item.addEventListener("click", (event) => {
         const selectedVal = event.target.value;
-        console.log(selectedVal);
+        if (selectedVal != "") {
+            jobFetcher.applyFilters(selectedVal);
+        }
     });
 });
