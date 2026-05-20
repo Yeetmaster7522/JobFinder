@@ -21,13 +21,27 @@
             </div>
             <div class="col-1 ms-3">
                 <div class="dropdown text-start">
-                    <button class="btn btn-success dropdown-toggle bg-teal" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-success dropdown-toggle bg-teal" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                         Filters
                     </button>
                     <ul class="dropdown-menu">
-                        <li><button class="dropdown-item" type="button">XXXXXX</button></li>
-                        <li><button class="dropdown-item" type="button">XXXXXX</button></li>
-                        <li><button class="dropdown-item" type="button">XXXXXX</button></li>
+                        <li><button class="dropdown-item" type="button" value="None">Remove all</button></li>
+                        <li class="btn-group dropend">
+                            <button class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown">Employment Type</button>
+                            <ul class="dropdown-menu">
+                                <li><button class="dropdown-item" value="employ-part">Part time</button></li>
+                                <li><button class="dropdown-item" value="employ-casual">Casual</button></li>
+                                <li><button class="dropdown-item" value="employ-full">Full time</button></li>
+                            </ul>
+                        </li>
+                        <li class="btn-group dropend">
+                            <button class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown">Work Type</button>
+                            <ul class="dropdown-menu">
+                                <li><button class="dropdown-item" value="work-onsite">Onsite</button></li>
+                                <li><button class="dropdown-item" value="work-remote">Remote</button></li>
+                                <li><button class="dropdown-item" value="work-hybrid">Hybrid</button></li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>

@@ -137,7 +137,7 @@ class JobPostFetcher {
         }
     }
 
-    apply() {
+    applyToPost() {
         let appliedJobs = []
         try {
             appliedJobs = JSON.parse(getCookie("appliedJobs"));
@@ -150,7 +150,7 @@ class JobPostFetcher {
         alert("Application sent");
     }
 
-    save() {
+    savePost() {
         let savedJobs = [];
         try {
             savedJobs = JSON.parse(getCookie("savedJobs"));
@@ -163,7 +163,7 @@ class JobPostFetcher {
         alert("Job saved");
     }
 
-    hide() {
+    hidePost() {
         let hiddenJobs = [];
         try {
             hiddenJobs = JSON.parse(getCookie("hiddenJobs"));
@@ -184,10 +184,17 @@ document.getElementById("scroll-up-btn").addEventListener("click", () => jobFetc
 document.getElementById("scroll-down-btn").addEventListener("click", () => jobFetcher.scrollPost());
 
 // quick buttons
-document.getElementById("apply-btn").addEventListener("click", () => jobFetcher.apply());
-document.getElementById("save-btn").addEventListener("click", () => jobFetcher.save());
-document.getElementById("hide-btn").addEventListener("click", () => jobFetcher.hide());
+document.getElementById("apply-btn").addEventListener("click", () => jobFetcher.applyToPost());
+document.getElementById("save-btn").addEventListener("click", () => jobFetcher.savePost());
+document.getElementById("hide-btn").addEventListener("click", () => jobFetcher.hidePost());
 
 document.getElementById("search-bar").addEventListener("search", (event) => {
     jobFetcher.updatePosts(jobFetcher.search(event));
+});
+
+document.querySelectorAll(".dropdown-item").forEach(item => {
+    item.addEventListener("click", (event) => {
+        const selectedVal = event.target.value;
+        console.log(selectedVal);
+    });
 });
