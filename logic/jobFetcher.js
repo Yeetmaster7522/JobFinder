@@ -186,10 +186,7 @@ class JobPostFetcher {
 
         for (let i=0; i<this.data.length; i++) {
             let post = this.data[i];
-            if (filters.includes(post.employmentType.toLowerCase())) {
-                postIds.push(i);
-            }
-            else if (filters.includes(post.workType.toLowerCase())) {
+            if (filters.includes(post.employmentType.toLowerCase()) && filters.includes(post.workType.toLowerCase())) {
                 postIds.push(i);
             }
         };
@@ -210,16 +207,15 @@ document.getElementById("save-btn").addEventListener("click", () => jobFetcher.s
 document.getElementById("hide-btn").addEventListener("click", () => jobFetcher.hidePost());
 
 // combine search and dropdown stuff
-
-document.getElementById("search-bar").addEventListener("search", (event) => {
+const searchBar = document.getElementById("search-bar");
+searchBar.addEventListener("search", (event) => {
     let postIds = jobFetcher.filterSearch().filter(x => jobFetcher.searchPosts(event.target.value).includes(x))
     jobFetcher.updatePosts(postIds);
 });
 
 document.querySelectorAll(".dropdown-item:not(.submenu):not(#clear-filters)").forEach(item => {
     item.addEventListener("click", () => {
-        let postIds = jobFetcher.filterSearch().filter(x => jobFetcher.searchPosts("").includes(x))
-        console.log(postIds)
+        let postIds = jobFetcher.filterSearch().filter(x => jobFetcher.searchPosts(searchBar.value).includes(x))
         jobFetcher.updatePosts(postIds);
     });
 });
@@ -228,6 +224,6 @@ document.getElementById("clear-filters").addEventListener("click", () => {
     document.querySelectorAll(".dropdown-item").forEach(item => {
         item.classList.remove("active");
         item.setAttribute("aria-pressed", "false");
-        jobFetcher.updatePosts(jobFetcher.filterSearch());
+        jobFetcher.updatePosts([]);
     });
 });
