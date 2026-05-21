@@ -9,8 +9,6 @@ class JobPostFetcher {
             this.currentPostId = parseInt(pastPostId, 10);
         }
 
-        this.appliedFilters = new Set();
-
         // get job posts
         fetch("data/data-mR36NBv3VwjMRsFCY26z5.json")
             .then(response => response.json())
@@ -23,8 +21,8 @@ class JobPostFetcher {
             .catch(err => console.error("Error loading JSON:", err));
     }
 
-    searchPosts(event) {
-        const search = event.target.value.toLowerCase();
+    searchPosts(searchTerm) {
+        const search = searchTerm.toLowerCase();
         let postIds = [];
         
         if (search != "") {
@@ -178,37 +176,25 @@ class JobPostFetcher {
         alert("Job hidden");
     }
 
-    applyFilters(filter) {
-        if (filter == "None") {
-            this.appliedFilters.clear();
-            console.log("cleared")
-        }
-        else {
-            this.appliedFilters.add(filter);
-        }
-
+    filterSearch() {
         let postIds = [];
+        let filters = [];
 
-        for (const filter of this.appliedFilters) {
-            if (filter == "employ-part") {
-                console.log("employ-part");
+        document.querySelectorAll(".active").forEach(item => {
+            filters.push(item.value);
+        });
+
+        for (let i=0; i<this.data.length; i++) {
+            let post = this.data[i];
+            if (filters.includes(post.employmentType.toLowerCase())) {
+                postIds.push(i);
             }
-            else if (filter == "employ-casual") {
-                console.log("employ-casual");
+            else if (filters.includes(post.workType.toLowerCase())) {
+                postIds.push(i);
             }
-            else if (filter == "employ-full") {
-                console.log("employ-full")
-            }
-            else if (filter == "work-onsite") {
-                console.log("work-onsite");
-            }
-            else if (filter == "work-remote") {
-                console.log("work-remote");
-            }
-            else if (filter == "work-hybrid") {
-                console.log("work-hybrid");
-            };
-        }
+        };
+
+        return postIds;
     }
 }
 
@@ -223,15 +209,25 @@ document.getElementById("apply-btn").addEventListener("click", () => jobFetcher.
 document.getElementById("save-btn").addEventListener("click", () => jobFetcher.savePost());
 document.getElementById("hide-btn").addEventListener("click", () => jobFetcher.hidePost());
 
+// combine search and dropdown stuff
+
 document.getElementById("search-bar").addEventListener("search", (event) => {
-    jobFetcher.updatePosts(jobFetcher.searchPosts(event));
+    let postIds = jobFetcher.filterSearch().filter(x => jobFetcher.searchPosts(event.target.value).includes(x))
+    jobFetcher.updatePosts(postIds);
 });
 
-document.querySelectorAll(".dropdown-item").forEach(item => {
-    item.addEventListener("click", (event) => {
-        const selectedVal = event.target.value;
-        if (selectedVal != "") {
-            jobFetcher.applyFilters(selectedVal);
-        }
+document.querySelectorAll(".dropdown-item:not(.submenu):not(#clear-filters)").forEach(item => {
+    item.addEventListener("click", () => {
+        let postIds = jobFetcher.filterSearch().filter(x => jobFetcher.searchPosts("").includes(x))
+        console.log(postIds)
+        jobFetcher.updatePosts(postIds);
+    });
+});
+
+document.getElementById("clear-filters").addEventListener("click", () => {
+    document.querySelectorAll(".dropdown-item").forEach(item => {
+        item.classList.remove("active");
+        item.setAttribute("aria-pressed", "false");
+        jobFetcher.updatePosts(jobFetcher.filterSearch());
     });
 });

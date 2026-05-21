@@ -25,21 +25,21 @@
                         Filters
                     </button>
                     <ul class="dropdown-menu">
-                        <li><button class="dropdown-item" type="button" value="None">Remove all</button></li>
+                        <li><button class="dropdown-item" type="button" value="None" id="clear-filters">Remove all</button></li>
                         <li class="btn-group dropend">
-                            <button class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown">Employment Type</button>
+                            <button class="dropdown-item dropdown-toggle submenu" data-bs-toggle="dropdown">Employment Type</button>
                             <ul class="dropdown-menu">
-                                <li><button class="dropdown-item" value="employ-part">Part time</button></li>
-                                <li><button class="dropdown-item" value="employ-casual">Casual</button></li>
-                                <li><button class="dropdown-item" value="employ-full">Full time</button></li>
+                                <li><button class="dropdown-item active" value="part-time" data-bs-toggle="button" aria-pressed="true">Part time</button></li>
+                                <li><button class="dropdown-item active" value="casual" data-bs-toggle="button" aria-pressed="true">Casual</button></li>
+                                <li><button class="dropdown-item active" value="full-time" data-bs-toggle="button" aria-pressed="true">Full time</button></li>
                             </ul>
                         </li>
                         <li class="btn-group dropend">
-                            <button class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown">Work Type</button>
+                            <button class="dropdown-item dropdown-toggle submenu" data-bs-toggle="dropdown">Work Type</button>
                             <ul class="dropdown-menu">
-                                <li><button class="dropdown-item" value="work-onsite">Onsite</button></li>
-                                <li><button class="dropdown-item" value="work-remote">Remote</button></li>
-                                <li><button class="dropdown-item" value="work-hybrid">Hybrid</button></li>
+                                <li><button class="dropdown-item active" value="onsite" data-bs-toggle="button" aria-pressed="true">Onsite</button></li>
+                                <li><button class="dropdown-item active" value="remote" data-bs-toggle="button" aria-pressed="true">Remote</button></li>
+                                <li><button class="dropdown-item active" value="hybrid" data-bs-toggle="button" aria-pressed="true">Hybrid</button></li>
                             </ul>
                         </li>
                     </ul>
