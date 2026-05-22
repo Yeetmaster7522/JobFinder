@@ -9,16 +9,24 @@ class JobPostFetcher {
             this.currentPostId = parseInt(pastPostId, 10);
         }
 
-        // get job posts
-        fetch("data/data-mR36NBv3VwjMRsFCY26z5.json")
-            .then(response => response.json())
-            .then(data => {
-                this.data = data
-                this.posts = this.data
+        // fetch data
+        Promise.all([
+            fetch("database/userAccounts.json").then(r => r.json()),
+            fetch("data/data-mR36NBv3VwjMRsFCY26z5.json").then(r => r.json())
+        ])
+        .then(([userData, postData]) => {
+            const UID = getCookie("UID");
+            if (UID != "") {
+                this.user = userData[UID];
+            }
 
-                this.displayPostAtI(this.currentPostId);
-            })
-            .catch(err => console.error("Error loading JSON:", err));
+            this.data = postData;
+            this.posts = postData;
+
+            this.displayPostAtI(this.currentPostId);
+            this.preferenceSearch();
+        })
+        .catch(err => console.error("Error loading JSON:", err))
     }
 
     searchPosts(searchTerm) {
@@ -192,6 +200,67 @@ class JobPostFetcher {
         };
 
         return postIds;
+    }
+
+    preferenceSearch() {
+        let postIds = [];
+
+        for (let i=0; i<this.data.length; i++) {
+            let valid = true;
+            let post = this.data[i];
+            
+            if (post.salaryMin < this.user.minSalary) {
+                valid = false;
+            }
+
+            let fits = false;
+            for (const studentInterval of this.user.student.timeIntervals) {
+                for (const postInterval of post.hours) {
+                    let comparison = this.compareTimestamps(postInterval, studentInterval);
+                    if (comparison == true) {
+                        fits = true;
+                    }
+                }
+
+            }
+            if (fits == false) {
+                valid = false;
+            }
+
+            if (!this.user.student.skills.some(skill => post.skills.includes(skill))) {
+                valid = false;
+            }
+
+            if (!this.user.student.skill.includes(post.industry)) {
+                valid = false;
+            }
+
+            if (valid == true) {
+                postIds.push(i);
+            }
+        }
+
+        return postIds;
+    }
+
+    compareTimestamps(t1, t2) {
+        const start = this.toMin(t1[0]);
+        const end = this.toMin(t1[1]);
+        let valid = true;
+
+        if (start < this.toMin(t2.start) || start > this.toMin(t2.end)) {
+            valid = false;
+        }
+        if (end > this.toMin(t2.end)) {
+            valid = false;
+        }
+
+        return valid;
+    }
+
+    toMin(time) {
+        const [hr, min] = time.split(":").map(Number);
+        return hr*60 + min;
     }
 }
 
