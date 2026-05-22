@@ -42,3 +42,7 @@
   -webkit-box-shadow: 0 0 0px 1000px #008080 inset !important; /* force background */
   -webkit-text-fill-color: #fff !important; /* force white text */
 }
+
+#skills li:nth-child(n+11) {
+  display: none;
+}
