@@ -1,6 +1,6 @@
 class ArticleFetcher {
     constructor() {
-        fetch("data/articles.json")
+        fetch("database/articles.json")
             .then(response => response.json())
             .then(data => {
                 this.articles = data

@@ -1,7 +1,7 @@
 class JobTrendFinder {
     constructor() {
         // get job posts
-        fetch("data/data-mR36NBv3VwjMRsFCY26z5.json")
+        fetch("database/data-mR36NBv3VwjMRsFCY26z5.json")
             .then(response => response.json())
             .then(data => {
                 this.data = data;
