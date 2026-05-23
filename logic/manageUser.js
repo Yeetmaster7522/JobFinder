@@ -182,7 +182,7 @@ function globalInit() {
         container.addEventListener("input", () => {
             clearTimeout(timeout);
             timeout = setTimeout(() => {
-                editUserData(userManager.getUserDetailInp());
+                main.editUserData(userManager.getUserDetailInp());
             }, 3000);
         });
     };

@@ -1,14 +1,19 @@
 class Main {
-	constructor() {
-		const UID = getCookie("UID");
-		this.setPN(users[UID].student.name);
-        const profileName = document.getElementById("profile-name");
+	constructor(users, jobPosts) {
+		this.users = users;
+		this.jobPosts = jobPosts;
+
+		this.UID = getCookie("UID");
+		this.user = users[this.UID];
+
+		const profileName = document.getElementById("profile-name");
+		profileName.innerText = this.user.student.name;
         profileName.href = "/webpages/student/profile.html";
   	}
-  	
-	setPN(name) {
-		const profileName = document.getElementById("profile-name");
-		profileName.innerText = name;
+
+	editUserData(edits) {
+		console.log(edits);
+		console.log(`UID ${this.UID} has been updated`);
 	}
 }
 
@@ -42,43 +47,35 @@ function setCookie(cname, cvalue, exdays) {
   	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
-function editUserData(edits) {
-	console.log(edits);
-	const UID = getCookie("UID");
-	console.log(`UID ${UID} has been updated`);
-}
-
 function appendLI(parent, childText) {
 	let li = document.createElement("li");
 	li.textContent = childText;
 	parent.appendChild(li);
 }
 
-var users;
+window.addEventListener("DOMContentLoaded", () => {
+	Promise.all([
+		fetch("/database/userAccounts.json").then(r => r.json()),
+		fetch("/database/data-mR36NBv3VwjMRsFCY26z5.json").then(r => r.json()),
+		fetch("/webpages/student/navbar.html"),
+		fetch("/webpages/employer/navbar.html")
+	])
+	.then(async ([userData, postData, studentNav, employerNav]) => {
+		const users = userData;
+		const posts = postData;
+		const navbarHTML = await studentNav.text();
+		const navbarEHTML = await employerNav.text();
 
-// fetch database
-fetch("/database/userAccounts.json")
-	.then(response => response.json())
-  	.then(data => {
-		users = data;
-
-		return Promise.all([
-			fetch("/webpages/student/navbar.html"),
-			fetch("/webpages/employer/navbar.html")
-		]);
-  	}) 
-	.then(async ([navbarRes, navbarERes]) => {
-		const navbarHTML = await navbarRes.text();
-		const navbarEHTML = await navbarERes.text();
 		try {
 			document.getElementById("navbar").innerHTML = navbarHTML;
 		}
-		catch (error) {
-			console.log(error);
+		catch (e) {
+			console.log(e);
 			document.getElementById("navbar-employer").innerHTML = navbarEHTML;
 		}
 
+		window.main = new Main(users, posts);
 		window.dispatchEvent(new Event("mainReady"));
-        const main = new Main();
 	})
-  	.catch(err => console.error("Error loading JSON:", err));
+	.catch(e => console.error("Error loading JSON:", e));
+});
