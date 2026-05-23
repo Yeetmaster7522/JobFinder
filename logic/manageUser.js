@@ -11,7 +11,7 @@ class UserManager {
         const UID = getCookie("UID");
         let user = users[UID];
         
-        document.getElementById("profile-pic").src = "placeholder.png";
+        document.getElementById("profile-pic").src = "/placeholder.png";
         document.getElementById("name").innerText = user.student.name;
         document.getElementById("email").innerText = user.email;
         document.getElementById("number").innerText = user.student.phoneNumber;

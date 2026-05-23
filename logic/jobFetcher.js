@@ -11,8 +11,8 @@ class JobPostFetcher {
 
         // fetch data
         Promise.all([
-            fetch("database/userAccounts.json").then(r => r.json()),
-            fetch("database/data-mR36NBv3VwjMRsFCY26z5.json").then(r => r.json())
+            fetch("/database/userAccounts.json").then(r => r.json()),
+            fetch("/database/data-mR36NBv3VwjMRsFCY26z5.json").then(r => r.json())
         ])
         .then(([userData, postData]) => {
             const UID = getCookie("UID");

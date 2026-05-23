@@ -3,7 +3,7 @@ class Main {
 		const UID = getCookie("UID");
 		this.setPN(users[UID].student.name);
         const profileName = document.getElementById("profile-name");
-        profileName.href = "student/profile.html";
+        profileName.href = "/webpages/student/profile.html";
   	}
   	
 	setPN(name) {
@@ -57,14 +57,14 @@ function appendLI(parent, childText) {
 var users;
 
 // fetch database
-fetch("../database/userAccounts.json")
+fetch("/database/userAccounts.json")
 	.then(response => response.json())
   	.then(data => {
 		users = data;
 
 		return Promise.all([
-			fetch("student/navbar.html"),
-			fetch("employer/navbar.html")
+			fetch("/webpages/student/navbar.html"),
+			fetch("/webpages/employer/navbar.html")
 		]);
   	}) 
 	.then(async ([navbarRes, navbarERes]) => {

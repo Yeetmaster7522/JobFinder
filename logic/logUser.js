@@ -46,7 +46,7 @@ class LogUser {
                     if (user.password === passwordInp) {
                         alert("Logged in.")
                         setCookie("UID", uid, 1);
-                        window.location.href = "profile.html";
+                        window.location.href = "/webpages/student/profile.html";
                     }
                     else {
                         alert("Username or password incorrect.")
@@ -54,7 +54,7 @@ class LogUser {
                 }
                 else {
                     alert("Email does not exist in userbase, please sign up.");
-                    window.location.href = "signUp.html";
+                    window.location.href = "/webpages/shared/signUp.html";
                 }
             }
         }
