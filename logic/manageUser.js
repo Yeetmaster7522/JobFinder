@@ -1,5 +1,5 @@
 class UserManager {
-    constructor() {
+    constructor(user) {
         document.getElementById("log-out-btn").addEventListener("click", () => {
             this.logOut();
         });
@@ -7,9 +7,6 @@ class UserManager {
         document.getElementById("profile-pic").addEventListener("click", () => {
             console.log("change profile pic");
         });
-
-        const UID = getCookie("UID");
-        let user = users[UID];
         
         document.getElementById("profile-pic").src = "/placeholder.png";
         document.getElementById("name").innerText = user.student.name;
@@ -171,32 +168,17 @@ class UserManager {
 
 }
 
-function globalInit() {
-    if (mainReady && DOMContentLoaded) {
-        console.log("ready")
-        const userManager = new UserManager();
-        const container = document.getElementById("form-container");
-
-        let timeout = null;
-
-        container.addEventListener("input", () => {
-            clearTimeout(timeout);
-            timeout = setTimeout(() => {
-                main.editUserData(userManager.getUserDetailInp());
-            }, 3000);
-        });
-    };
-}
-
-let mainReady = false;
-let DOMContentLoaded = false;
-
 window.addEventListener("mainReady", () => {
-    mainReady = true;
-    globalInit();
-});
+    const userManager = new UserManager(window.main.user);
+    const container = document.getElementById("form-container");
 
-window.addEventListener("DOMContentLoaded", () => {
-    DOMContentLoaded = true;
-    globalInit();
+    let timeout = null;
+
+    container.addEventListener("input", () => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            main.editUserData(userManager.getUserDetailInp());
+        }, 3000);
+    });
+
 });
