@@ -3,14 +3,21 @@ class Main {
 		this.users = users;
 		this.jobPosts = jobPosts;
 		this.articles = articles;
-
 		this.UID = getCookie("UID");
-		this.user = users[this.UID];
 
 		const profileName = document.getElementById("profile-name");
-		profileName.innerText = this.user.student.name;
-        profileName.href = "/webpages/student/profile.html";
+		try {
+			profileName.innerText = this.getUser().student.name;
+        	profileName.href = "/webpages/student/profile.html";
+		}
+		catch (e) {
+			console.log(e);
+		}
   	}
+
+	getUser() {
+		return this.users[this.UID];
+	}
 
 	editUserData(edits) {
 		console.log(edits);

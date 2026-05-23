@@ -272,7 +272,7 @@ class JobPostFetcher {
 }
 
 window.addEventListener("mainReady", () => {
-    const jf = new JobPostFetcher(window.main.user, window.main.jobPosts);
+    const jf = new JobPostFetcher(window.main.getUser(), window.main.jobPosts);
 
     document.getElementById("scroll-up-btn").addEventListener("click", () => jf.scrollPost(false));
     document.getElementById("scroll-down-btn").addEventListener("click", () => jf.scrollPost());

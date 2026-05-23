@@ -169,7 +169,7 @@ class UserManager {
 }
 
 window.addEventListener("mainReady", () => {
-    const userManager = new UserManager(window.main.user);
+    const userManager = new UserManager(window.main.getUser());
     const container = document.getElementById("form-container");
 
     let timeout = null;
