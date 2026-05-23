@@ -1,16 +1,7 @@
 class ArticleViewer {
-    constructor() {
-        fetch("/database/articles.json")
-            .then(response => response.json())
-            .then(data => {
-                this.articles = data
+    constructor(articles) {
+        this.articles = articles;
 
-                this.updateText()
-            })
-            .catch(err => console.error("Error loading JSON:", err));
-    }
-
-    updateText() {
         const params = new URLSearchParams(window.location.search);
         const id = params.get("id");
         const title = document.getElementById("title");
@@ -24,4 +15,6 @@ class ArticleViewer {
     }
 }
 
-const av = new ArticleViewer();
+window.addEventListener("mainReady", () => {
+    const av = new ArticleViewer(window.main.articles);
+})
