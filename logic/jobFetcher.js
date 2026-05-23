@@ -307,7 +307,8 @@ window.addEventListener("mainReady", () => {
         document.querySelectorAll(".dropdown-item").forEach(item => {
             item.classList.remove("active");
             item.setAttribute("aria-pressed", "false");
-            jobFetcher.updatePosts([]);
+            
+            jobFetcher.updatePosts(jobFetcher.ogPosts);
         });
     });
 });
