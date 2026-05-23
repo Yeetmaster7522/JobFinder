@@ -17,17 +17,31 @@
                 <h5 class="text-light" id="postCounter">0/0 Posts</h5>
             </div>
             <div class="col-1">
-                <input type="text" class="form-control fs-5 bg-teal" placeholder="Search">
+                <input type="search" class="form-control fs-5 bg-teal" placeholder="Search" id="search-bar">
             </div>
             <div class="col-1 ms-3">
                 <div class="dropdown text-start">
-                    <button class="btn btn-success dropdown-toggle bg-teal" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-success dropdown-toggle bg-teal" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                         Filters
                     </button>
                     <ul class="dropdown-menu">
-                        <li><button class="dropdown-item" type="button">XXXXXX</button></li>
-                        <li><button class="dropdown-item" type="button">XXXXXX</button></li>
-                        <li><button class="dropdown-item" type="button">XXXXXX</button></li>
+                        <li><button class="dropdown-item" type="button" value="None" id="clear-filters">Remove all</button></li>
+                        <li class="btn-group dropend">
+                            <button class="dropdown-item dropdown-toggle submenu" data-bs-toggle="dropdown">Employment Type</button>
+                            <ul class="dropdown-menu">
+                                <li><button class="dropdown-item" value="part-time" data-bs-toggle="button" aria-pressed="false" id="part-time-btn">Part-time</button></li>
+                                <li><button class="dropdown-item" value="casual" data-bs-toggle="button" aria-pressed="false" id="casual-btn">Casual</button></li>
+                                <li><button class="dropdown-item" value="full-time" data-bs-toggle="button" aria-pressed="false" id="full-time-btn">Full-time</button></li>
+                            </ul>
+                        </li>
+                        <li class="btn-group dropend">
+                            <button class="dropdown-item dropdown-toggle submenu" data-bs-toggle="dropdown">Work Type</button>
+                            <ul class="dropdown-menu">
+                                <li><button class="dropdown-item" value="onsite" data-bs-toggle="button" aria-pressed="false" id="onsite-btn">Onsite</button></li>
+                                <li><button class="dropdown-item" value="remote" data-bs-toggle="button" aria-pressed="false" id="remote-btn">Remote</button></li>
+                                <li><button class="dropdown-item" value="hybrid" data-bs-toggle="button" aria-pressed="false" id="hybrid-btn">Hybrid</button></li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -86,17 +100,12 @@
                     <div class="col ms-2 me-3 container bg-secondary">
                         <div class="row">
                             <div class="col">
-                                <h4 class="text-center" id="skills"></h4>
+                                <h4 class="text-center">SKILLS</h4>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-                                <ul>
-                                    <li>XXXXXX</li>
-                                    <li>XXXXXX</li>
-                                    <li>XXXXXX</li>
-                                    <li>XXXXXX</li>
-                                    <li>XXXXXX</li>
+                                <ul id="skills">
                                 </ul>
                             </div>
                         </div>

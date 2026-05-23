@@ -8,17 +8,18 @@
     <link rel="stylesheet" href="main.css">
 </head>
 <body class="bg-dark text-light">
+    <a href="logIn.html" class="z-1 position-absolute bottom-0 end-0" id="log-out-btn" style="margin-right: 1em;">Log Out</a>
     <div class="container-fluid">
         <!-- Top navigation bar -->
         <div class="row mb-3" id="navbar"></div>
         <div class="row">
-            <div class="col ms-5 me-3">
+            <div class="col ms-5 me-3" id="form-container">
                 <!-- Personal details -->
                 <div class="row mb-2">
                     <div class="col container">
                         <div class="row">
                             <div class="col">
-                                <h3 id="name"></h3>
+                                <h3 id="name" contenteditable="true"></h3>
                             </div>
                             <div class="col">
                                 <img alt="profile picture" width="50vw" height="50vh" id="profile-pic">
@@ -26,17 +27,17 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                <p id="email"></p>
+                                <p id="email" contenteditable="true"></p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-                                <p id="number"></p>
+                                <p id="number" contenteditable="true"></p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-                                <p id="suburb"></p>
+                                <p id="suburb" contenteditable="true"></p>
                             </div>
                         </div>
                     </div>
@@ -56,11 +57,18 @@
                                         <img src="placeholder.png" alt="pdf icon" width="30vh" height="30vh">
                                     </div>
                                     <div class="col">
-                                        <p id="resume-title"></p>
-                                        <p id="resume-date"></p>
+                                        <label for="resume-file" class="form-label">Insert File</label>
+                                        <input class="form-control" type="file" id="resume-file">
                                     </div>
                                     <div class="col">
-                                        <p>...</p>
+                                        <div class="dropdown">
+                                            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                ...
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="#">Edit</a></li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -83,7 +91,7 @@
                                 <h4>Education:</h4>
                             </div>
                             <div class="col">
-                                <h4 id="education"></h4>
+                                <h4 id="education" contenteditable="true"></h4>
                             </div>
                         </div>
                         <div class="row">
@@ -93,10 +101,7 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                <ul>
-                                    <li>XXXXXX</li>
-                                    <li>XXXXXX</li>
-                                    <li>XXXXXX</li>
+                                <ul id="skills-list" contenteditable="true">
                                 </ul>
                             </div>
                         </div>
@@ -107,10 +112,7 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                <ul>
-                                    <li>XXXXXX</li>
-                                    <li>XXXXXX</li>
-                                    <li>XXXXXX</li>
+                                <ul id="cert-list" contenteditable="true">
                                 </ul>
                             </div>
                         </div>
@@ -121,11 +123,7 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                <ul>
-                                    <li>XXXXXX</li>
-                                    <li>XXXXXX</li>
-                                    <li>XXXXXX</li>
-                                </ul>
+                                <p id="work-eligibility" contenteditable="true"></p>
                             </div>
                         </div>
                     </div>
@@ -143,44 +141,21 @@
                     <div class="col container">
                         <div class="row">
                             <div class="col">
-                                <h4>Roles</h4>
+                                <h4>Industries</h4>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-                                <ul>
-                                    <li>XXXXXX</li>
-                                    <li>XXXXXX</li>
-                                    <li>XXXXXX</li>
+                                <ul id="industry-list" contenteditable="true">
                                 </ul>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-                                <h4>Salary range:</h4>
+                                <h4>Min salary:</h4>
                             </div>
                             <div class="col">
-                                <h4>$XX</h4>
-                            </div>
-                            <div class="col">
-                                <h4>-</h4>
-                            </div>
-                            <div class="col">
-                                <h4>$XX</h4>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <h4>Skills</h4>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <ul>
-                                    <li>XXXXXX</li>
-                                    <li>XXXXXX</li>
-                                    <li>XXXXXX</li>
-                                </ul>
+                                <h4 id="min-salary" contenteditable="true"></h4>
                             </div>
                         </div>
                         <div class="row">
@@ -190,11 +165,7 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                <ul>
-                                    <li>XX:XX - XX:XX</li>
-                                    <li>XX:XX - XX:XX</li>
-                                    <li>XX:XX - XX:XX</li>
-                                    <li>XX:XX - XX:XX</li>
+                                <ul id="hours" contenteditable="true">
                                 </ul>
                             </div>
                         </div>
@@ -203,7 +174,7 @@
                                 <h4>Work type:</h4>
                             </div>
                             <div class="col">
-                                <h4>XXXXXX</h4>
+                                <h4 id="work-type" contenteditable="true"></h4>
                             </div>
                         </div>
                         <div class="row">
@@ -211,7 +182,7 @@
                                 <h4>Employment type:</h4>
                             </div>
                             <div class="col">
-                                <h4>XXXXXX</h4>
+                                <h4 id="employment-type" contenteditable="true"></h4>
                             </div>
                         </div>
                         <div class="row">
@@ -219,7 +190,7 @@
                                 <h4>Location radius:</h4>
                             </div>
                             <div class="col">
-                                <h4>X.Xkm</h4>
+                                <h4 id="loc-radius" contenteditable="true"></h4>
                             </div>
                         </div>
                     </div>

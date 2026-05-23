@@ -1,5 +1,13 @@
 class UserManager {
     constructor() {
+        document.getElementById("log-out-btn").addEventListener("click", () => {
+            this.logOut();
+        });
+
+        document.getElementById("profile-pic").addEventListener("click", () => {
+            console.log("change profile pic");
+        });
+
         const UID = getCookie("UID");
         let user = users[UID];
         
@@ -8,46 +16,187 @@ class UserManager {
         document.getElementById("email").innerText = user.email;
         document.getElementById("number").innerText = user.student.phoneNumber;
         document.getElementById("suburb").innerText = user.student.suburb;
-        document.getElementById("resume-title").innerText = user.student.resume.source;
-        document.getElementById("resume-date").innerText = `Added: ${user.student.resume.date}`;
+        
+        // qualifications
         document.getElementById("education").innerText = user.student.experienceLevel;
 
-        const appliedJobsEl = document.getElementById("applied-jobs");
-        let appliedJobs = JSON.parse(getCookie("appliedJobs")) || [];
-        for (let i=0; i<appliedJobs.length; i++) {
+        const skillsList = document.getElementById("skills-list");
+        for (const i in user.student.skills) {
             let li = document.createElement("li");
-            li.classList = "list-group-item bg-secondary text-light";
-            let p = document.createElement("p");
-            p.textContent = `MM.YY ${appliedJobs[i].jobTitle} / Not yet read`;
-            li.appendChild(p);
-            appliedJobsEl.appendChild(li);
+            li.innerText = user.student.skills[i];
+            skillsList.appendChild(li);
         }
 
-        const savedBox = document.getElementById("saved-jobs");
-        const savedJobs = JSON.parse(getCookie("savedJobs")) || [];
-        for (let i=0; i<savedJobs.length; i++) {
+        const certList = document.getElementById("cert-list");
+        for (const i in user.student.certifications) {
             let li = document.createElement("li");
-            li.classList = "list-group-item bg-secondary text-light";
-            let p = document.createElement("p");
-            p.textContent = `${savedJobs[i].jobTitle}`;
-            li.appendChild(p);
-            savedBox.appendChild(li);
+            li.innerText = user.student.certifications[i];
+            certList.appendChild(li);
         }
 
-        const hiddenBox = document.getElementById("hidden-jobs");
-        const hiddenJobs = JSON.parse(getCookie("hiddenJobs")) || [];
-        for (let i=0; i<hiddenJobs.length; i++) {
+        document.getElementById("work-eligibility").innerText = user.student.workEligibility;
+
+        // preferences
+        const industryList = document.getElementById("industry-list");
+        for (const i in user.student.preferences.industries) {
             let li = document.createElement("li");
-            li.classList = "list-group-item bg-secondary text-light";
-            let p = document.createElement("p");
-            p.textContent = hiddenJobs[i].jobTitle;
-            li.appendChild(p);
-            hiddenBox.appendChild(li);
+            li.innerText = user.student.preferences.industries[i];
+            industryList.appendChild(li);
         }
+
+        document.getElementById("min-salary").innerText = user.student.preferences.minSalary;
+
+        const hours = document.getElementById("hours");
+        for (const i in user.student.timeIntervals) {
+            let li = document.createElement("li");
+            let interval = user.student.timeIntervals[i];
+            li.innerText = `${interval.start} - ${interval.end}`;
+            hours.appendChild(li);
+
+        }
+
+        document.getElementById("work-type").innerText = user.student.preferences.workType;
+        document.getElementById("employment-type").innerText = user.student.preferences.employmentType;
+        document.getElementById("loc-radius").innerText = `${user.student.preferences.locationRadius}km`;
+
+        // applied jobs
+        try {
+            const appliedJobsEl = document.getElementById("applied-jobs");
+            let appliedJobs = JSON.parse(getCookie("appliedJobs")) || [];
+            for (let i=0; i<appliedJobs.length; i++) {
+                let li = document.createElement("li");
+                li.classList = "list-group-item bg-secondary text-light";
+                let p = document.createElement("p");
+                p.textContent = `MM.YY ${appliedJobs[i].jobTitle} / Not yet read`;
+                li.appendChild(p);
+                appliedJobsEl.appendChild(li);
+            };
+        }
+        catch (err) {
+            console.log(err);
+        };
+
+        // saved jobs
+        try {
+            const savedBox = document.getElementById("saved-jobs");
+            const savedJobs = JSON.parse(getCookie("savedJobs")) || [];
+            for (let i=0; i<savedJobs.length; i++) {
+                let li = document.createElement("li");
+                li.classList = "list-group-item bg-secondary text-light";
+                let p = document.createElement("p");
+                p.textContent = `${savedJobs[i].jobTitle}`;
+                li.appendChild(p);
+                savedBox.appendChild(li);
+            };
+        }
+        catch (err) {
+            console.log(err);
+        };
+
+        // hidden jobs
+        try {
+            const hiddenBox = document.getElementById("hidden-jobs");
+            const hiddenJobs = JSON.parse(getCookie("hiddenJobs")) || [];
+            for (let i=0; i<hiddenJobs.length; i++) {
+                let li = document.createElement("li");
+                li.classList = "list-group-item bg-secondary text-light";
+                let p = document.createElement("p");
+                p.textContent = hiddenJobs[i].jobTitle;
+                li.appendChild(p);
+                hiddenBox.appendChild(li);
+            };
+        }
+        catch (err) {
+            console.log(err);
+        };
+    }
+
+    logOut() {
+        setCookie("UID", "", -1);
+    }
+
+    getUserDetailInp() {
+        let name = document.getElementById("name").textContent;
+        // let profilePic = document.getElementById("profile-pic");
+        let email = document.getElementById("email").textContent;
+        let number = document.getElementById("number").textContent;
+        let suburb = document.getElementById("suburb").textContent;
+        
+        let resume = document.querySelector("#resume-file").files[0];
+        
+        let edu = document.getElementById("education").textContent;
+        let skills = document.getElementById("skills-list").querySelectorAll("li");
+        skills = Array.from(skills).map(li => li.textContent.trim());
+        let certs = document.getElementById("cert-list").querySelectorAll("li");
+        certs = Array.from(certs).map(li => li.textContent.trim());
+        let eligibility = document.getElementById("work-eligibility").textContent;
+
+        let industries = document.getElementById("industry-list").querySelectorAll("li");
+        industries = Array.from(industries).map(li => li.textContent.trim());
+        let salary = document.getElementById("min-salary").textContent;
+        let hours = document.getElementById("hours").querySelectorAll("li");
+        // hours = Array.from(hours).map(li => li.textContent);
+        hours = Array.from(hours).map(li => {
+            li = li.textContent;
+            li = li.split(" ");
+            li = {
+                "start": li[0],
+                "end": li[2]
+            };
+
+            return li;
+        });
+        let workType = document.getElementById("work-type").textContent;
+        let employmentType = document.getElementById("employment-type").textContent;
+        let locRadius = document.getElementById("loc-radius").textContent;
+
+        return {
+            "name": name,
+            "email": email,
+            "number": number,
+            "suburb": suburb,
+            "resume": resume,
+            "education": edu,
+            "skills": skills,
+            "certifications": certs,
+            "eligibility": eligibility,
+            "industries": industries,
+            "salary": salary,
+            "hours": hours,
+            "workType": workType,
+            "employmentType": employmentType,
+            "locationRadius": locRadius
+        };
     }
 
 }
 
+function globalInit() {
+    if (mainReady && DOMContentLoaded) {
+        console.log("ready")
+        const userManager = new UserManager();
+        const container = document.getElementById("form-container");
+
+        let timeout = null;
+
+        container.addEventListener("input", () => {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                editUserData(userManager.getUserDetailInp());
+            }, 3000);
+        });
+    };
+}
+
+let mainReady = false;
+let DOMContentLoaded = false;
+
 window.addEventListener("mainReady", () => {
-    const userManager = new UserManager();
+    mainReady = true;
+    globalInit();
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+    DOMContentLoaded = true;
+    globalInit();
 });

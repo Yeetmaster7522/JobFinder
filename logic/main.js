@@ -32,8 +32,26 @@ function getCookie(cname) {
 function setCookie(cname, cvalue, exdays) {
 	const d = new Date();
   	d.setTime(d.getTime() + (exdays*24*60*60*1000));
-  	let expires = "expires="+ d.toUTCString();
+	let expires = "";
+	if (exdays === -1) {
+		expires = "expires=Thu, 01 Jan 1970 00:00:00 UTC";
+	}
+	else {
+		expires = "expires="+ d.toUTCString();
+	}
   	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function editUserData(edits) {
+	console.log(edits);
+	const UID = getCookie("UID");
+	console.log(`UID ${UID} has been updated`);
+}
+
+function appendLI(parent, childText) {
+	let li = document.createElement("li");
+	li.textContent = childText;
+	parent.appendChild(li);
 }
 
 var users;
@@ -44,12 +62,23 @@ fetch("database/userAccounts.json")
   	.then(data => {
 		users = data;
 
-        return fetch("navbar.html"); // fetch navbar
+		return Promise.all([
+			fetch("navbar.html"),
+			fetch("navbarEmployer.html")
+		]);
   	}) 
-    .then(res => res.text())
-    .then(html => {
-        document.getElementById("navbar").innerHTML = html;
+	.then(async ([navbarRes, navbarERes]) => {
+		const navbarHTML = await navbarRes.text();
+		const navbarEHTML = await navbarERes.text();
+		try {
+			document.getElementById("navbar").innerHTML = navbarHTML;
+		}
+		catch (error) {
+			console.log(error);
+			document.getElementById("navbar-employer").innerHTML = navbarEHTML;
+		}
+
+		window.dispatchEvent(new Event("mainReady"));
         const main = new Main();
-        window.dispatchEvent(new Event("mainReady"));
-    })
+	})
   	.catch(err => console.error("Error loading JSON:", err));

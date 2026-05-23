@@ -9,7 +9,7 @@
             "age": "20",
             "phoneNumber": "0401 234 567",
             "suburb": "Chatswood",
-            "workEligibility": "",
+            "workEligibility": "Australian citizen",
             "availability": "",
             "experienceLevel": "College",
             "resume": {
@@ -17,15 +17,35 @@
                 "date": "10.04.22"
             },
             "preferences": {
-                "workType": "",
-                "employmentType": "",
-                "minSalary": "",
-                "locationRadius": "",
-                "industry": ""
+                "workType": "onsite",
+                "employmentType": "part-time",
+                "minSalary": "10",
+                "locationRadius": "5",
+                "industries": [
+                    "IT",
+                    "customer service",
+                    "fashion"
+                ]
             },
             "skills": [
+                "Naval Architecture", 
+                "Emergency Nursing", 
+                "Immigration Law", 
+                "Art History"
+            ],
+            "certifications": [
+                "first aid",
+                "Python foundations"
             ],
             "timeIntervals": [
+                { "start": "06:00", "end": "09:00" },
+                { "start": "09:00", "end": "12:00" },
+                { "start": "12:00", "end": "15:00" },
+                { "start": "15:00", "end": "18:00" },
+                { "start": "18:00", "end": "21:00" },
+                { "start": "21:00", "end": "00:00" },
+                { "start": "00:00", "end": "03:00" },
+                { "start": "03:00", "end": "06:00" }
             ],
             "applications": [
             ]
@@ -36,6 +56,45 @@
             "contactNumber": "",
             "contactEmail": "",
             "website": "",
+            "jobPosts": [
+            ]
+        }
+    },
+    "UID02": {
+        "email": "john.evans@gmail.com",
+        "password": "hi",
+        "role": "employer",
+        "profilePic": "",
+        "student": {
+            "name": "",
+            "age": "",
+            "phoneNumber": "",
+            "suburb": "",
+            "workEligibility": "",
+            "availability": "",
+            "experienceLevel": "",
+            "resume": {
+                "source": "",
+                "date": ""
+            },
+            "preferences": {
+                "workType": "",
+                "employmentType": "",
+                "minSalary": "",
+                "locationRadius": "",
+                "industries": []
+            },
+            "skills": [],
+            "certifications": [],
+            "timeIntervals": [],
+            "applications": []
+        },
+        "employer": {
+            "companyName": "Stark Industries",
+            "address": "Long Beach, California",
+            "contactNumber": "0612 780 933",
+            "contactEmail": "stark@gmail.com",
+            "website": "starkIndustries.com",
             "jobPosts": [
             ]
         }

@@ -1,28 +1,87 @@
 class JobPostFetcher {
-    constructor(display=true) {
-        let pastIndex = getCookie("postIndex");
-        if (pastIndex == "") {
-            this.index = 0;
+    constructor() {
+        let pastPostId = getCookie("postIndex");
+        
+        if (pastPostId == "") {
+            this.currentPostId = 0;
         }
         else if (document.cookie != "") {
-            this.index = parseInt(pastIndex, 10);
+            this.currentPostId = parseInt(pastPostId, 10);
         }
-        // get job posts
-        fetch("/data/data-mR36NBv3VwjMRsFCY26z5.json")
-            .then(response => response.json())
-            .then(data => {
-                this.data = data
 
-                if (display == true) {
-                    this.displayPostAtI(this.index);
-                }
-            })
-            .catch(err => console.error("Error loading JSON:", err));
+        // fetch data
+        Promise.all([
+            fetch("database/userAccounts.json").then(r => r.json()),
+            fetch("database/data-mR36NBv3VwjMRsFCY26z5.json").then(r => r.json())
+        ])
+        .then(([userData, postData]) => {
+            const UID = getCookie("UID");
+            if (UID != "") {
+                this.user = userData[UID];
+            }
+
+            this.data = postData;
+            this.posts = postData;
+
+            this.setEnabledWorkEmploymentType(this.user.student.preferences.workType, this.user.student.preferences.employmentType);
+
+            let idLists = [
+                this.filterSearch(),
+                this.preferenceSearch()
+            ];
+            let postIds = idLists.reduce(
+                (acc, list) => acc.filter(id => list.includes(id))
+            );
+            this.updatePosts(postIds);
+
+            this.displayPostAtI(this.currentPostId);
+        })
+        .catch(err => console.error("Error loading JSON:", err))
     }
 
-    displayPostAtI(index) {
+    searchPosts(searchTerm) {
+        const search = searchTerm.toLowerCase();
+        let postIds = [];
+        
+        if (search != "") {
+            for (let i=0; i<this.data.length; i++) {
+                let post = this.data[i];
+
+                if (post.companyName.toLowerCase().includes(search)) {
+                    postIds.push(i);
+                }
+                else if (post.industry.toLowerCase().includes(search)) {
+                    postIds.push(i);
+                }
+                else if (post.jobTitle.toLowerCase().includes(search)) {
+                    postIds.push(i);
+                }
+                else if (post.skills.map(str => str.toLowerCase()).includes(search)) {
+                    postIds.push(i);
+                }
+            }
+        }
+        if (search == "" || postIds.length == 0) {
+            postIds = this.data.map((_, i) => i);
+        }
+
+        return postIds;
+    }
+
+    updatePosts(postIds) {
+        this.posts = [];
+        this.currentPostId = 0;
+
+        for (const id in postIds) {
+            this.posts.push(this.data[id]);
+        }
+
+        this.displayPostAtI(this.currentPostId);
+    }
+
+    displayPostAtI(ID) {
         const postCounter = document.getElementById("postCounter");
-        const post = this.data[index];
+        const post = this.posts[ID];
         const jobTitle = document.getElementById("job-title");
         const companyName = document.getElementById("company-name");
         const address = document.getElementById("address");
@@ -37,7 +96,7 @@ class JobPostFetcher {
         const fullSummary = document.getElementById("full-summary");
         const shortSummary = document.getElementById("short-summary");
 
-        postCounter.innerText = `${index+1}/${this.data.length} Posts`;
+        postCounter.innerText = `${ID+1}/${this.posts.length} Posts`;
 
         jobTitle.innerText = post.jobTitle;
         companyName.innerText = post.companyName;
@@ -49,7 +108,10 @@ class JobPostFetcher {
         datePosted.innerText = post.datePosted;
         deadline.innerText = post.deadline;
 
-        skills.innerText = "SKILLS";
+        skills.innerText = "";
+        for (const skill of post.skills) {
+            appendLI(skills, skill)
+        }
         
         hours.innerText = "";
         for (let i=0; i<post.hours.length; i++) {
@@ -69,18 +131,18 @@ class JobPostFetcher {
 
         let valid = true;
 
-        if (forward == true && this.index < this.data.length) {
-            this.index += 1;
-            if (this.index == this.data.length) {
+        if (forward == true && this.currentPostId < this.posts.length) {
+            this.currentPostId += 1;
+            if (this.currentPostId == this.posts.length) {
                 valid = false;
                 postOverview.classList.toggle("d-none");
                 actionButtons.classList.toggle("d-none");
                 noneLeft.classList.toggle("d-none");
             }
         }
-        else if (forward == false && this.index > 0) {
-            this.index -= 1
-            if (this.index == 99) {
+        else if (forward == false && this.currentPostId > 0) {
+            this.currentPostId -= 1
+            if (this.currentPostId == 99) {
                 postOverview.classList.toggle("d-none")
                 actionButtons.classList.toggle("d-none");
                 noneLeft.classList.toggle("d-none");
@@ -88,12 +150,12 @@ class JobPostFetcher {
         }
 
         if (valid == true) {
-            setCookie("postIndex", this.index, 1);
-            this.displayPostAtI(this.index);
+            setCookie("postIndex", this.currentPostId, 1);
+            this.displayPostAtI(this.currentPostId);
         }
     }
 
-    apply() {
+    applyToPost() {
         let appliedJobs = []
         try {
             appliedJobs = JSON.parse(getCookie("appliedJobs"));
@@ -101,12 +163,12 @@ class JobPostFetcher {
         catch (error) {
             console.log(error);
         }
-        appliedJobs.push(this.data[this.index]);
+        appliedJobs.push(this.posts[this.currentPostId]);
         setCookie("appliedJobs", JSON.stringify(appliedJobs), 30);
         alert("Application sent");
     }
 
-    save() {
+    savePost() {
         let savedJobs = [];
         try {
             savedJobs = JSON.parse(getCookie("savedJobs"));
@@ -114,12 +176,12 @@ class JobPostFetcher {
         catch (error) {
             console.log(error);
         }
-        savedJobs.push(this.data[this.index]);
+        savedJobs.push(this.posts[this.currentPostId]);
         setCookie("savedJobs", JSON.stringify(savedJobs), 30);
         alert("Job saved");
     }
 
-    hide() {
+    hidePost() {
         let hiddenJobs = [];
         try {
             hiddenJobs = JSON.parse(getCookie("hiddenJobs"));
@@ -127,24 +189,153 @@ class JobPostFetcher {
         catch (error) {
             console.log(error);
         }
-        hiddenJobs.push(this.data[this.index]);
+        hiddenJobs.push(this.posts[this.currentPostId]);
         setCookie("hiddenJobs", JSON.stringify(hiddenJobs), 30);
         alert("Job hidden");
+    }
+
+    filterSearch() {
+        let postIds = [];
+        let filters = [];
+
+        document.querySelectorAll(".active").forEach(item => {
+            filters.push(item.value);
+        });
+
+        for (let i=0; i<this.data.length; i++) {
+            let post = this.data[i];
+            if (filters.includes(post.employmentType.toLowerCase()) && filters.includes(post.workType.toLowerCase())) {
+                postIds.push(i);
+            }
+        };
+
+        return postIds;
+    }
+
+    preferenceSearch() {
+        let postIds = [];
+
+        for (let i=0; i<this.data.length; i++) {
+            let valid = true;
+            let post = this.data[i];
+            
+            if (post.salaryMin < this.user.minSalary) {
+                valid = false;
+            }
+
+            let fits = false;
+            for (const studentInterval of this.user.student.timeIntervals) {
+                for (const postInterval of post.hours) {
+                    let comparison = this.compareTimestamps(postInterval, studentInterval);
+                    if (comparison == true) {
+                        fits = true;
+                    }
+                }
+
+            }
+            if (fits == false) {
+                valid = false;
+            }
+
+            if (!this.user.student.skills.some(skill => post.skills.includes(skill))) {
+                valid = false;
+            }
+
+            if (valid == true) {
+                postIds.push(i);
+            }
+        }
+
+        return postIds;
+    }
+
+    compareTimestamps(t1, t2) {
+        const start = this.toMin(t1[0]);
+        const end = this.toMin(t1[1]);
+        let valid = true;
+
+        if (start < this.toMin(t2.start) || start > this.toMin(t2.end)) {
+            valid = false;
+        }
+        if (end > this.toMin(t2.end)) {
+            valid = false;
+        }
+
+        return valid;
+    }
+
+    toMin(time) {
+        const [hr, min] = time.split(":").map(Number);
+        return hr*60 + min;
+    }
+
+    setEnabledWorkEmploymentType(workType, employmentType) {        
+        // work type
+        if (workType == "onsite") {
+            this.enableBtn(document.getElementById("onsite-btn"));
+
+        }
+        else if (workType == "hybrid") {
+            this.enableBtn(document.getElementById("hybrid-btn"));
+        }
+        else if (workType == "remote") {
+            this.enableBtn(document.getElementById("remote-btn"));
+        }
+
+        // employment type
+        if (employmentType == "part-time") {
+            this.enableBtn(document.getElementById("part-time-btn"));
+        }
+        else if (employmentType == "casual") {
+            this.enableBtn(document.getElementById("casual-btn"));
+        }
+        else if (employmentType == "full-time") {
+            this.enableBtn(document.getElementById("full-time-btn"));
+        }
+    }
+
+    enableBtn(btn) {
+        btn.classList.add("active");
+        btn.setAttribute("aria-pressed", "true");
     }
 }
 
 // load class
 const jobFetcher = new JobPostFetcher();
 
-let upBtn = document.getElementById("scroll-up-btn");
-let downBtn = document.getElementById("scroll-down-btn");
-upBtn.addEventListener("click", () => jobFetcher.scrollPost(false));
-downBtn.addEventListener("click", () => jobFetcher.scrollPost());
+document.getElementById("scroll-up-btn").addEventListener("click", () => jobFetcher.scrollPost(false));
+document.getElementById("scroll-down-btn").addEventListener("click", () => jobFetcher.scrollPost());
 
 // quick buttons
-let applyBtn = document.getElementById("apply-btn");
-let saveBtn = document.getElementById("save-btn");
-let hideBtn = document.getElementById("hide-btn");
-applyBtn.addEventListener("click", () => jobFetcher.apply());
-saveBtn.addEventListener("click", () => jobFetcher.save());
-hideBtn.addEventListener("click", () => jobFetcher.hide());
+document.getElementById("apply-btn").addEventListener("click", () => jobFetcher.applyToPost());
+document.getElementById("save-btn").addEventListener("click", () => jobFetcher.savePost());
+document.getElementById("hide-btn").addEventListener("click", () => jobFetcher.hidePost());
+
+// combine search and dropdown stuff
+const searchBar = document.getElementById("search-bar");
+searchBar.addEventListener("search", (event) => {
+    let postIds = jobFetcher.filterSearch().filter(x => jobFetcher.searchPosts(event.target.value).includes(x))
+    jobFetcher.updatePosts(postIds);
+});
+
+document.querySelectorAll(".dropdown-item:not(.submenu):not(#clear-filters)").forEach(item => {
+    item.addEventListener("click", () => {
+        let idLists = [
+            jobFetcher.filterSearch(),
+            jobFetcher.searchPosts(searchBar.value),
+            jobFetcher.preferenceSearch()
+        ]
+        let postIds = idLists.reduce(
+            (acc, list) => acc.filter(id => list.includes(id))
+        );
+        jobFetcher.updatePosts(postIds);
+    });
+});
+
+document.getElementById("clear-filters").addEventListener("click", () => {
+    document.querySelectorAll(".dropdown-item").forEach(item => {
+        item.classList.remove("active");
+        item.setAttribute("aria-pressed", "false");
+        jobFetcher.updatePosts([]);
+    });
+});

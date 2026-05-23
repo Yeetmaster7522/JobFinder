@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finder</title>
+    <link rel="stylesheet" href="bootstrap-5.3.8-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="main.css">
+</head>
+<body class="bg-dark text-light">
+    <a href="logIn.html" class="z-1 position-absolute bottom-0 end-0" id="log-out-btn" style="margin-right: 1em;">Log Out</a>
+    <div class="container-fluid">
+        <!-- Top navigation bar -->
+        <div class="row mb-3" id="navbar-employer"></div>
+        <div class="row">
+            <div class="col ms-5 me-3" id="form-container">
+                <!-- Personal details -->
+                <div class="row mb-2">
+                    <div class="col container">
+                        <div class="row">
+                            <div class="col">
+                                <h3 id="name" contenteditable="true"></h3>
+                            </div>
+                            <div class="col">
+                                <img alt="profile picture" width="50vw" height="50vh" id="profile-pic">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p id="email" contenteditable="true"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p id="number" contenteditable="true"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p id="address" contenteditable="true">Address</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col container bg-secondary">
+                <div class="row">
+                    <div class="col">
+                        <p>Company name</p>
+                    </div>
+                    <div class="col">
+                        <p>XXXXXXXXXX</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Address</p>
+                    </div>
+                    <div class="col">
+                        <p>XXXXXXXXXX</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Contact number</p>
+                    </div>
+                    <div class="col">
+                        <p>XXXXXXXXXX</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Contact email</p>
+                    </div>
+                    <div class="col">
+                        <p>XXXXXXXXXX</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Website</p>
+                    </div>
+                    <div class="col">
+                        <p>XXXXXXXXXX</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="bootstrap-5.3.8-dist/js/bootstrap.bundle.js"></script>
+    <script src="logic/main.js"></script>
+    <script src="logic/manageUser.js"></script>
+</body>
+</html>
