@@ -53,6 +53,31 @@ function appendLI(parent, childText) {
 	parent.appendChild(li);
 }
 
+function insideTimestamp(t1, t2) {
+	const start = toMin(t1[0]);
+	const end = toMin(t1[1]);
+	let inside = true;
+
+	if (start < toMin(t2.start) || start > this.toMin(t2.end)) {
+		inside = false;
+	}
+	if (end > toMin(t2.end)) {
+		inside = false;
+	}
+
+	return inside;
+}
+
+function toMin(time) {
+	const [hr, min] = time.split(":").map(Number);
+	return hr*60 + min;
+}
+
+function enableBtn(btn) {
+	btn.classList.add("active");
+	btn.setAttribute("aria-pressed", "true");
+}
+
 window.addEventListener("DOMContentLoaded", () => {
 	Promise.all([
 		fetch("/database/userAccounts.json").then(r => r.json()),

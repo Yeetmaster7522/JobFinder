@@ -22,8 +22,8 @@ class JobPostFetcher {
         let postIds = idLists.reduce(
             (acc, list) => acc.filter(id => list.includes(id))
         );
-        this.updatePosts(postIds);
 
+        this.updatePosts(postIds);
         this.displayPostAtI(this.currentPostId);
     }
 
@@ -197,6 +197,10 @@ class JobPostFetcher {
             }
         };
 
+        if (postIds.length == 0) {
+            postIds = this.ogPosts.map((_, i) => i);
+        }
+
         return postIds;
     }
 
@@ -214,7 +218,7 @@ class JobPostFetcher {
             let fits = false;
             for (const studentInterval of this.user.student.timeIntervals) {
                 for (const postInterval of post.hours) {
-                    let comparison = this.compareTimestamps(postInterval, studentInterval);
+                    let comparison = insideTimestamp(postInterval, studentInterval);
                     if (comparison == true) {
                         fits = true;
                     }
@@ -234,57 +238,36 @@ class JobPostFetcher {
             }
         }
 
+        if (postIds.length == 0) {
+            postIds = this.ogPosts.map((_, i) => i);
+        }
+
         return postIds;
-    }
-
-    compareTimestamps(t1, t2) {
-        const start = this.toMin(t1[0]);
-        const end = this.toMin(t1[1]);
-        let valid = true;
-
-        if (start < this.toMin(t2.start) || start > this.toMin(t2.end)) {
-            valid = false;
-        }
-        if (end > this.toMin(t2.end)) {
-            valid = false;
-        }
-
-        return valid;
-    }
-
-    toMin(time) {
-        const [hr, min] = time.split(":").map(Number);
-        return hr*60 + min;
     }
 
     setEnabledWorkEmploymentType(workType, employmentType) {        
         // work type
         if (workType == "onsite") {
-            this.enableBtn(document.getElementById("onsite-btn"));
+            enableBtn(document.getElementById("onsite-btn"));
 
         }
         else if (workType == "hybrid") {
-            this.enableBtn(document.getElementById("hybrid-btn"));
+            enableBtn(document.getElementById("hybrid-btn"));
         }
         else if (workType == "remote") {
-            this.enableBtn(document.getElementById("remote-btn"));
+            enableBtn(document.getElementById("remote-btn"));
         }
 
         // employment type
         if (employmentType == "part-time") {
-            this.enableBtn(document.getElementById("part-time-btn"));
+            enableBtn(document.getElementById("part-time-btn"));
         }
         else if (employmentType == "casual") {
-            this.enableBtn(document.getElementById("casual-btn"));
+            enableBtn(document.getElementById("casual-btn"));
         }
         else if (employmentType == "full-time") {
-            this.enableBtn(document.getElementById("full-time-btn"));
+            enableBtn(document.getElementById("full-time-btn"));
         }
-    }
-
-    enableBtn(btn) {
-        btn.classList.add("active");
-        btn.setAttribute("aria-pressed", "true");
     }
 }
 
