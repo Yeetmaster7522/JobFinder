@@ -272,34 +272,34 @@ class JobPostFetcher {
 }
 
 window.addEventListener("mainReady", () => {
-    const jobFetcher = new JobPostFetcher(window.main.user, window.main.jobPosts);
+    const jf = new JobPostFetcher(window.main.user, window.main.jobPosts);
 
-    document.getElementById("scroll-up-btn").addEventListener("click", () => jobFetcher.scrollPost(false));
-    document.getElementById("scroll-down-btn").addEventListener("click", () => jobFetcher.scrollPost());
+    document.getElementById("scroll-up-btn").addEventListener("click", () => jf.scrollPost(false));
+    document.getElementById("scroll-down-btn").addEventListener("click", () => jf.scrollPost());
 
     // quick buttons
-    document.getElementById("apply-btn").addEventListener("click", () => jobFetcher.applyToPost());
-    document.getElementById("save-btn").addEventListener("click", () => jobFetcher.savePost());
-    document.getElementById("hide-btn").addEventListener("click", () => jobFetcher.hidePost());
+    document.getElementById("apply-btn").addEventListener("click", () => jf.applyToPost());
+    document.getElementById("save-btn").addEventListener("click", () => jf.savePost());
+    document.getElementById("hide-btn").addEventListener("click", () => jf.hidePost());
 
     // combine search and dropdown stuff
     const searchBar = document.getElementById("search-bar");
     searchBar.addEventListener("search", (event) => {
-        let postIds = jobFetcher.filterSearch().filter(x => jobFetcher.searchPosts(event.target.value).includes(x))
-        jobFetcher.updatePosts(postIds);
+        let postIds = jf.filterSearch().filter(x => jf.searchPosts(event.target.value).includes(x))
+        jf.updatePosts(postIds);
     });
 
     document.querySelectorAll(".dropdown-item:not(.submenu):not(#clear-filters)").forEach(item => {
         item.addEventListener("click", () => {
             let idLists = [
-                jobFetcher.filterSearch(),
-                jobFetcher.searchPosts(searchBar.value),
-                jobFetcher.preferenceSearch()
+                jf.filterSearch(),
+                jf.searchPosts(searchBar.value),
+                jf.preferenceSearch()
             ]
             let postIds = idLists.reduce(
                 (acc, list) => acc.filter(id => list.includes(id))
             );
-            jobFetcher.updatePosts(postIds);
+            jf.updatePosts(postIds);
         });
     });
 
@@ -308,7 +308,7 @@ window.addEventListener("mainReady", () => {
             item.classList.remove("active");
             item.setAttribute("aria-pressed", "false");
             
-            jobFetcher.updatePosts(jobFetcher.ogPosts);
+            jf.updatePosts(jf.ogPosts);
         });
     });
 });

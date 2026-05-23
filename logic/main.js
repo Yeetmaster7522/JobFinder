@@ -1,7 +1,8 @@
 class Main {
-	constructor(users, jobPosts) {
+	constructor(users, jobPosts, articles) {
 		this.users = users;
 		this.jobPosts = jobPosts;
+		this.articles = articles;
 
 		this.UID = getCookie("UID");
 		this.user = users[this.UID];
@@ -82,12 +83,11 @@ window.addEventListener("DOMContentLoaded", () => {
 	Promise.all([
 		fetch("/database/userAccounts.json").then(r => r.json()),
 		fetch("/database/data-mR36NBv3VwjMRsFCY26z5.json").then(r => r.json()),
+		fetch("/database/articles.json").then(r => r.json()),
 		fetch("/webpages/student/navbar.html"),
 		fetch("/webpages/employer/navbar.html")
 	])
-	.then(async ([userData, postData, studentNav, employerNav]) => {
-		const users = userData;
-		const posts = postData;
+	.then(async ([userData, postData, articles, studentNav, employerNav]) => {
 		const navbarHTML = await studentNav.text();
 		const navbarEHTML = await employerNav.text();
 
@@ -99,7 +99,7 @@ window.addEventListener("DOMContentLoaded", () => {
 			document.getElementById("navbar-employer").innerHTML = navbarEHTML;
 		}
 
-		window.main = new Main(users, posts);
+		window.main = new Main(userData, postData, articles);
 		window.dispatchEvent(new Event("mainReady"));
 	})
 	.catch(e => console.error("Error loading JSON:", e));
