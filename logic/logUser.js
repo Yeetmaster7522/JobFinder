@@ -1,22 +1,7 @@
-function getRndInteger(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) ) + min;
-}
-
-function randomChar() {
-    const chars = "QWERTYUIOPASDFGHJKLZXCVBNM1234567890";
-    return chars[getRndInteger(0, chars.length)];
-}
-
-function genUID() {
-    let UID = "";
-    for (let i=0; i<8; i++) {
-        UID += randomChar();
-    }
-    return UID;
-}
-
 class LogUser {
-    constructor() {
+    constructor(users) {
+        this.users = users;
+
         const logInBtn = document.getElementById("log-in-btn");
         const signUpBtn = document.getElementById("sign-up-btn");
         const forgotPswrd = document.getElementById("forgot-pswrd");
@@ -40,8 +25,8 @@ class LogUser {
         const passwordInp = document.getElementById("password-input").value;
 
         if (emailInp.trim() != "" && passwordInp.trim() != "") {
-            for (const uid in users) {
-                const user = users[uid]
+            for (const uid in this.users) {
+                let user = this.users[uid]
                 if (user.email === emailInp) {
                     if (user.password === passwordInp) {
                         alert("Logged in.")
@@ -67,17 +52,17 @@ class LogUser {
     signUp() {
         const userEmail = document.getElementById("email-input").value;
         const userPassword = document.getElementById("password-input").value;
-        const newUID = genUID();
-        users[newUID] = {
+        const newUID = window.main.genUID();
+        this.users[newUID] = {
             "email": userEmail,
             "password": userPassword,
             "role": ""
         }
-        console.log(users);
+        console.log(this.users);
         alert("Signed up");
     }
 }
 
 window.addEventListener("mainReady", () => {
-    const logUser = new LogUser();
+    const logUser = new LogUser(window.main.users);
 });

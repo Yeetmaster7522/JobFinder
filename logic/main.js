@@ -16,6 +16,24 @@ class Main {
 		console.log(edits);
 		console.log(`UID ${this.UID} has been updated`);
 	}
+
+	genUID() {
+		let UID = "";
+		for (let i=0; i<8; i++) {
+			UID += randomChar();
+		}
+
+		return UID;
+	}
+}
+
+function getRndInteger(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) ) + min;
+}
+
+function randomChar() {
+    const chars = "QWERTYUIOPASDFGHJKLZXCVBNM1234567890";
+    return chars[getRndInteger(0, chars.length)];
 }
 
 function getCookie(cname) {
