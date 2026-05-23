@@ -24,7 +24,10 @@ class JobPostFetcher {
             this.posts = postData;
 
             this.displayPostAtI(this.currentPostId);
-            this.preferenceSearch();
+            this.setEnabledWorkEmploymentType(this.user.student.preferences.workType, this.user.student.preferences.employmentType);
+            let postIds = jobFetcher.filterSearch().filter(x => jobFetcher.searchPosts(searchBar.value).includes(x))
+            jobFetcher.updatePosts(postIds);
+            // this.preferenceSearch();
         })
         .catch(err => console.error("Error loading JSON:", err))
     }
@@ -231,7 +234,7 @@ class JobPostFetcher {
                 valid = false;
             }
 
-            if (!this.user.student.skill.includes(post.industry)) {
+            if (!this.user.student.skills.includes(post.industry)) {
                 valid = false;
             }
 
@@ -261,6 +264,36 @@ class JobPostFetcher {
     toMin(time) {
         const [hr, min] = time.split(":").map(Number);
         return hr*60 + min;
+    }
+
+    setEnabledWorkEmploymentType(workType, employmentType) {        
+        // work type
+        if (workType == "onsite") {
+            this.enableBtn(document.getElementById("onsite-btn"));
+
+        }
+        else if (workType == "hybrid") {
+            this.enableBtn(document.getElementById("hybrid-btn"));
+        }
+        else if (workType == "remote") {
+            this.enableBtn(document.getElementById("remote-btn"));
+        }
+
+        // employment type
+        if (employmentType == "part-time") {
+            this.enableBtn(document.getElementById("part-time-btn"));
+        }
+        else if (employmentType == "casual") {
+            this.enableBtn(document.getElementById("casual-btn"));
+        }
+        else if (employmentType == "full-time") {
+            this.enableBtn(document.getElementById("full-time-btn"));
+        }
+    }
+
+    enableBtn(btn) {
+        btn.classList.add("active");
+        btn.setAttribute("aria-pressed", "true");
     }
 }
 
