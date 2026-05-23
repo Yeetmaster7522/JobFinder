@@ -23,11 +23,18 @@ class JobPostFetcher {
             this.data = postData;
             this.posts = postData;
 
-            this.displayPostAtI(this.currentPostId);
             this.setEnabledWorkEmploymentType(this.user.student.preferences.workType, this.user.student.preferences.employmentType);
-            let postIds = jobFetcher.filterSearch().filter(x => jobFetcher.searchPosts(searchBar.value).includes(x))
-            jobFetcher.updatePosts(postIds);
-            // this.preferenceSearch();
+
+            let idLists = [
+                this.filterSearch(),
+                this.preferenceSearch()
+            ];
+            let postIds = idLists.reduce(
+                (acc, list) => acc.filter(id => list.includes(id))
+            );
+            this.updatePosts(postIds);
+
+            this.displayPostAtI(this.currentPostId);
         })
         .catch(err => console.error("Error loading JSON:", err))
     }
@@ -234,10 +241,6 @@ class JobPostFetcher {
                 valid = false;
             }
 
-            if (!this.user.student.skills.includes(post.industry)) {
-                valid = false;
-            }
-
             if (valid == true) {
                 postIds.push(i);
             }
@@ -317,7 +320,14 @@ searchBar.addEventListener("search", (event) => {
 
 document.querySelectorAll(".dropdown-item:not(.submenu):not(#clear-filters)").forEach(item => {
     item.addEventListener("click", () => {
-        let postIds = jobFetcher.filterSearch().filter(x => jobFetcher.searchPosts(searchBar.value).includes(x))
+        let idLists = [
+            jobFetcher.filterSearch(),
+            jobFetcher.searchPosts(searchBar.value),
+            jobFetcher.preferenceSearch()
+        ]
+        let postIds = idLists.reduce(
+            (acc, list) => acc.filter(id => list.includes(id))
+        );
         jobFetcher.updatePosts(postIds);
     });
 });
