@@ -43,6 +43,6 @@
   -webkit-text-fill-color: #fff !important; /* force white text */
 }
 
-#skills li:nth-child(n+11) {
+#skills li:nth-child(n+10) {
   display: none;
 }
