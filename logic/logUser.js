@@ -31,7 +31,12 @@ class LogUser {
                     if (user.password === passwordInp) {
                         alert("Logged in.")
                         setCookie("UID", uid, 1);
-                        window.location.href = "/webpages/student/profile.html";
+                        if (user.role == "student") {
+                            window.location.href = "/webpages/student/profile.html";
+                        }
+                        else if (user.role == "employer") {
+                            window.location.href = "/webpages/employer/profile.html";
+                        }
                     }
                     else {
                         alert("Username or password incorrect.")

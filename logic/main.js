@@ -6,12 +6,18 @@ class Main {
 		this.UID = getCookie("UID");
 
 		const profileName = document.getElementById("profile-name");
-		try {
-			profileName.innerText = this.getUser().student.name;
-        	profileName.href = "/webpages/student/profile.html";
+		if (this.UID === "") {
+			profileName.innerText = "guest";
 		}
-		catch (e) {
-			console.log(e);
+		else {
+			const user = this.getUser()
+			if (user.role == "employer") {
+				profileName.innerText = user.email;	
+			}
+			else {
+				profileName.innerText = user.student.name;
+        		profileName.href = "/webpages/student/profile.html";
+			}
 		}
   	}
 
@@ -116,13 +122,7 @@ window.addEventListener("DOMContentLoaded", () => {
 		const navbarHTML = await studentNav.text();
 		const navbarEHTML = await employerNav.text();
 
-		try {
-			document.getElementById("navbar").innerHTML = navbarHTML;
-		}
-		catch (e) {
-			console.log(e);
-			document.getElementById("navbar-employer").innerHTML = navbarEHTML;
-		}
+		document.getElementById("navbar").innerHTML = navbarHTML;
 
 		window.main = new Main(userData, postData, articles);
 		window.dispatchEvent(new Event("mainReady"));
