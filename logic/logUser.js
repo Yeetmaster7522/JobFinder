@@ -1,7 +1,5 @@
 class LogUser {
-    constructor(users) {
-        this.users = users;
-
+    constructor() {
         const logInBtn = document.getElementById("log-in-btn");
         const signUpBtn = document.getElementById("sign-up-btn");
         const forgotPswrd = document.getElementById("forgot-pswrd");
@@ -23,12 +21,13 @@ class LogUser {
     logIn() {
         const emailInp = document.getElementById("email-input").value;
         const passwordInp = document.getElementById("password-input").value;
+        const users = window.main.users;
 
         if (emailInp.trim() != "" && passwordInp.trim() != "") {
-            for (const uid in this.users) {
-                let user = this.users[uid]
-                if (user.email === emailInp) {
-                    if (user.password === passwordInp) {
+            for (const uid in users) {
+                let user = users[uid]
+                if (user.email.toLowerCase() == emailInp.toLowerCase()) {
+                    if (user.password == passwordInp) {
                         alert("Logged in.")
                         setCookie("UID", uid, 1);
                         if (user.role == "student") {
@@ -37,6 +36,7 @@ class LogUser {
                         else if (user.role == "employer") {
                             window.location.href = "/webpages/employer/profile.html";
                         }
+                        break;
                     }
                     else {
                         alert("Username or password incorrect.")
@@ -58,12 +58,11 @@ class LogUser {
         const userEmail = document.getElementById("email-input").value;
         const userPassword = document.getElementById("password-input").value;
         const newUID = window.main.genUID();
-        this.users[newUID] = {
+        window.main.users[newUID] = {
             "email": userEmail,
             "password": userPassword,
             "role": ""
         }
-        console.log(this.users);
         alert("Signed up");
     }
 }
