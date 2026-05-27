@@ -14,7 +14,10 @@ class Main {
 
 			window.navbarManager.applyNavbar(role);
 			if (role == "employer") {
-				window.navbarManager.setProfileName(user.email);
+				window.navbarManager.setProfileName(
+					user.email, 
+					"/webpages/employer/profile.html"
+				);
 			}
 			else {
 				window.navbarManager.setProfileName(

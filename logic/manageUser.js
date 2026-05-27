@@ -7,7 +7,17 @@ class UserManager {
         document.getElementById("profile-pic").addEventListener("click", () => {
             console.log("change profile pic");
         });
-        
+    }
+
+    logOut() {
+        setCookie("UID", "", -1);
+    }
+}
+
+class StudentManager extends UserManager {
+    constructor(user) {
+        super(user);
+
         document.getElementById("profile-pic").src = "/placeholder.png";
         document.getElementById("name").innerText = user.student.name;
         document.getElementById("email").innerText = user.email;
@@ -108,31 +118,17 @@ class UserManager {
         };
     }
 
-    logOut() {
-        setCookie("UID", "", -1);
-    }
-
     getUserDetailInp() {
-        let name = document.getElementById("name").textContent;
-        // let profilePic = document.getElementById("profile-pic");
-        let email = document.getElementById("email").textContent;
-        let number = document.getElementById("number").textContent;
-        let suburb = document.getElementById("suburb").textContent;
-        
-        let resume = document.querySelector("#resume-file").files[0];
-        
-        let edu = document.getElementById("education").textContent;
+        // const profilePic = document.getElementById("profile-pic");
         let skills = document.getElementById("skills-list").querySelectorAll("li");
         skills = Array.from(skills).map(li => li.textContent.trim());
         let certs = document.getElementById("cert-list").querySelectorAll("li");
         certs = Array.from(certs).map(li => li.textContent.trim());
-        let eligibility = document.getElementById("work-eligibility").textContent;
+        const eligibility = document.getElementById("work-eligibility").textContent;
 
         let industries = document.getElementById("industry-list").querySelectorAll("li");
         industries = Array.from(industries).map(li => li.textContent.trim());
-        let salary = document.getElementById("min-salary").textContent;
         let hours = document.getElementById("hours").querySelectorAll("li");
-        // hours = Array.from(hours).map(li => li.textContent);
         hours = Array.from(hours).map(li => {
             li = li.textContent;
             li = li.split(" ");
@@ -143,33 +139,35 @@ class UserManager {
 
             return li;
         });
-        let workType = document.getElementById("work-type").textContent;
-        let employmentType = document.getElementById("employment-type").textContent;
-        let locRadius = document.getElementById("loc-radius").textContent;
 
         return {
-            "name": name,
-            "email": email,
-            "number": number,
-            "suburb": suburb,
-            "resume": resume,
-            "education": edu,
+            "name": document.getElementById("name").textContent,
+            "email": document.getElementById("email").textContent,
+            "number": document.getElementById("number").textContent,
+            "suburb": document.getElementById("suburb").textContent,
+            "resume": document.querySelector("#resume-file").files[0],
+            "education": document.getElementById("education").textContent,
             "skills": skills,
             "certifications": certs,
             "eligibility": eligibility,
             "industries": industries,
-            "salary": salary,
+            "salary": document.getElementById("min-salary").textContent,
             "hours": hours,
-            "workType": workType,
-            "employmentType": employmentType,
-            "locationRadius": locRadius
+            "workType": document.getElementById("work-type").textContent,
+            "employmentType": document.getElementById("employment-type").textContent,
+            "locationRadius": document.getElementById("loc-radius").textContent
         };
     }
+}
 
+class EmployerManager extends UserManager {
+    constructor(user) {
+        super(user);
+    }
 }
 
 window.addEventListener("mainReady", () => {
-    const userManager = new UserManager(window.main.getUser());
+    const studentManager = new StudentManager(window.main.getUser());
     const container = document.getElementById("form-container");
 
     let timeout = null;
@@ -177,7 +175,7 @@ window.addEventListener("mainReady", () => {
     container.addEventListener("input", () => {
         clearTimeout(timeout);
         timeout = setTimeout(() => {
-            main.editUserData(userManager.getUserDetailInp());
+            main.editUserData(studentManager.getUserDetailInp());
         }, 3000);
     });
 
