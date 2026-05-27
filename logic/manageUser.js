@@ -1,11 +1,14 @@
 class UserManager {
     constructor(user) {
-        document.getElementById("log-out-btn").addEventListener("click", () => {
-            this.logOut();
+        const profilePic = document.getElementById("profile-pic");
+        
+        profilePic.src = "/placeholder.png";
+        profilePic.addEventListener("click", () => {
+            console.log("change profile pic");
         });
 
-        document.getElementById("profile-pic").addEventListener("click", () => {
-            console.log("change profile pic");
+        document.getElementById("log-out-btn").addEventListener("click", () => {
+            this.logOut();
         });
     }
 
@@ -18,7 +21,6 @@ class StudentManager extends UserManager {
     constructor(user) {
         super(user);
 
-        document.getElementById("profile-pic").src = "/placeholder.png";
         document.getElementById("name").innerText = user.student.name;
         document.getElementById("email").innerText = user.email;
         document.getElementById("number").innerText = user.student.phoneNumber;
@@ -164,9 +166,6 @@ class EmployerManager extends UserManager {
     constructor(user) {
         super(user);
 
-        document.getElementById("profile-pic").src = "/placeholder.png";
-        document.getElementById("name").innerText = user.email;
-
         document.getElementById("company-name").innerText = user.employer.companyName;
         document.getElementById("address").innerText = user.employer.address;
         document.getElementById("contact-number").innerText = user.employer.contactNumber;
@@ -175,7 +174,13 @@ class EmployerManager extends UserManager {
     }
 
     getUserDetailInp() {
-        return null;
+        return {
+            "company-name": document.getElementById("company-name").textContent,
+            "address": document.getElementById("address").textContent,
+            "contact-number": document.getElementById("contact-number").textContent,
+            "contact-email": document.getElementById("contact-email").textContent,
+            "website": document.getElementById("website").textContent,
+        };
     }
 }
 
