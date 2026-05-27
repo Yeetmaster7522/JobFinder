@@ -18,40 +18,44 @@ class LogUser {
 
     }
 
+    findUser(email, pswrd) {
+        const users = window.main.users;
+        let UID = -1;
+
+        for (const uid in users) {
+            const user = users[uid];
+            if (
+                email.toLowerCase() == user.email.toLowerCase()
+                && pswrd == user.password
+            ) {
+                UID = uid;
+            }
+        }
+
+        return UID;
+    }
+
     logIn() {
         const emailInp = document.getElementById("email-input").value;
-        const passwordInp = document.getElementById("password-input").value;
-        const users = window.main.users;
+        const pswrdInp = document.getElementById("password-input").value;
 
-        if (emailInp.trim() != "" && passwordInp.trim() != "") {
-            for (const uid in users) {
-                let user = users[uid]
-                if (user.email.toLowerCase() == emailInp.toLowerCase()) {
-                    if (user.password == passwordInp) {
-                        alert("Logged in.")
-                        setCookie("UID", uid, 1);
-                        if (user.role == "student") {
-                            window.location.href = "/webpages/student/profile.html";
-                        }
-                        else if (user.role == "employer") {
-                            window.location.href = "/webpages/employer/profile.html";
-                        }
-                        break;
-                    }
-                    else {
-                        alert("Username or password incorrect.")
-                    }
-                }
-                else {
-                    alert("Email does not exist in userbase, please sign up.");
-                    window.location.href = "/webpages/shared/signUp.html";
-                }
+        if (emailInp.trim() != "" && pswrdInp.trim() != "") {
+            const userUid = this.findUser(emailInp, pswrdInp);
+
+            if (userUid == -1) {
+                alert("Email does not exist in userbase, please sign up.");
+            }
+            else {
+                const user = window.main.users[userUid];
+
+                setCookie("UID", userUid, 1);
+                window.location.href = `/webpages/${user.role}/profile.html`;
+                alert("Logged in");
             }
         }
         else {
-            alert("Please fill out fields")
+            alert("Please fill out fields");
         }
-
     }
 
     signUp() {
