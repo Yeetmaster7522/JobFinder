@@ -12,7 +12,7 @@
         <div class="row mb-3" id="navbar"></div>
         <div class="row">
             <div class="col">
-                <p>create job post</p>
+                <h2>create job post</h2>
             </div>
         </div>
         <div class="row">
@@ -25,10 +25,10 @@
         </div>
         <div class="row">
             <div class="col">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" id="job-title-entry">
             </div>
             <div class="col">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" id="recruitment-period-entry">
             </div>
         </div>
         <div class="row">
@@ -41,10 +41,10 @@
         </div>
         <div class="row">
             <div class="col">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" id="work-type-entry">
             </div>
             <div class="col">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" id="employment-type-entry">
             </div>
         </div>
         <div class="row">
@@ -57,10 +57,10 @@
         </div>
         <div class="row">
             <div class="col">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" id="industry-entry">
             </div>
             <div class="col">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" id="age-entry">
             </div>
         </div>
         <div class="row">
@@ -73,10 +73,10 @@
         </div>
         <div class="row">
             <div class="col">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" id="hours-entry">
             </div>
             <div class="col">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" id="skills-entry">
             </div>
         </div>
         <div class="row">
@@ -86,7 +86,7 @@
         </div>
         <div class="row">
             <div class="col">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" id="description-entry">
             </div>
         </div>
         <div class="row">
@@ -94,21 +94,21 @@
                 <p>contact email</p>
             </div>
             <div class="col">
-                <p>use profile email</p>
+                <a href="#">use profile email</a>
             </div>
             <div class="col">
                 <p>contact number</p>
             </div>
             <div class="col">
-                <p>use profile number</p>
+                <a href="#">use profile number</a>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" id="email-entry">
             </div>
             <div class="col">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" id="number-entry">
             </div>
         </div>
         <div class="row">
@@ -119,26 +119,26 @@
                 <p>address</p>
             </div>
             <div class="col">
-                <p>use profile address</p>
+                <a href="#">use profile address</a>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" id="salary-min-entry">
             </div>
             <div class="col">
                 <p>to</p>
             </div>
             <div class="col">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" id="salary-max-entry">
             </div>
             <div class="col">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" id="address-entry">
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <button type="button btn-secondary" class="btn">Create post</button>
+                <button type="button" class="btn bg-secondary" id="submit-btn">Create post</button>
             </div>
         </div>
     </div>
@@ -146,5 +146,6 @@
     <script src="/bootstrap-5.3.8-dist/js/bootstrap.bundle.js"></script>
     <script src="/logic/main.js"></script>
     <script src="/logic/navbar.js"></script>
+    <script src="/logic/jobCreater.js"></script>
 </body>
 </html>
