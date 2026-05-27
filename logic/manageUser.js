@@ -163,19 +163,38 @@ class StudentManager extends UserManager {
 class EmployerManager extends UserManager {
     constructor(user) {
         super(user);
+
+        document.getElementById("profile-pic").src = "/placeholder.png";
+        document.getElementById("name").innerText = user.email;
+
+        document.getElementById("company-name").innerText = user.employer.companyName;
+        document.getElementById("address").innerText = user.employer.address;
+        document.getElementById("contact-number").innerText = user.employer.contactNumber;
+        document.getElementById("contact-email").innerText = user.employer.contactEmail;
+        document.getElementById("website").innerText = user.employer.website;
+    }
+
+    getUserDetailInp() {
+        return null;
     }
 }
 
 window.addEventListener("mainReady", () => {
-    const studentManager = new StudentManager(window.main.getUser());
-    const container = document.getElementById("form-container");
+    const user = window.main.getUser();
+    let userManager;
+    let timeout;
 
-    let timeout = null;
+    if (user.role == "employer") {
+        userManager = new EmployerManager(user);
+    }
+    else {
+        userManager = new StudentManager(user);
+    }
 
-    container.addEventListener("input", () => {
+    document.getElementById("form-container").addEventListener("input", () => {
         clearTimeout(timeout);
         timeout = setTimeout(() => {
-            main.editUserData(studentManager.getUserDetailInp());
+            main.editUserData(userManager.getUserDetailInp());
         }, 3000);
     });
 
