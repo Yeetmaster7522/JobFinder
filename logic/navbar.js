@@ -4,15 +4,18 @@ class Navbar {
     #employerHTML
     #profileName
 
-    constructor(student, employer) {
+    constructor() {
         this.#element = document.getElementById("navbar");
-        this.#profileName = document.getElementById("profile-name");
+    }
+
+    setHTML(student, employer) {
         this.#studentHTML = student;
         this.#employerHTML = employer;
     }
 
     insertHTML(html) {
         this.#element.innerHTML = html;
+        this.#profileName = document.getElementById("profile-name");
     }
 
     setProfileName(text="Log In", href="/webpages/shared/logIn.html") {

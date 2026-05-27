@@ -5,18 +5,22 @@ class Main {
 		this.articles = articles;
 		this.UID = getCookie("UID");
 
-		const profileName = document.getElementById("profile-name");
 		if (this.UID === "") {
-			profileName.innerText = "guest";
+			window.navbarManager.applyNavbar();
 		}
 		else {
 			const user = this.getUser()
-			if (user.role == "employer") {
-				profileName.innerText = user.email;	
+			const role = user.role;
+
+			window.navbarManager.applyNavbar(role);
+			if (role == "employer") {
+				window.navbarManager.setProfileName(user.email);
 			}
 			else {
-				profileName.innerText = user.student.name;
-        		profileName.href = "/webpages/student/profile.html";
+				window.navbarManager.setProfileName(
+					user.student.name, 
+					"/webpages/student/profile.html"
+				);
 			}
 		}
   	}
@@ -119,10 +123,12 @@ window.addEventListener("DOMContentLoaded", () => {
 		fetch("/webpages/employer/navbar.html")
 	])
 	.then(async ([userData, postData, articles, studentNav, employerNav]) => {
-		const navbarHTML = await studentNav.text();
-		const navbarEHTML = await employerNav.text();
+		const studentHTML = await studentNav.text();
+		const employerHTML = await employerNav.text();
 
-		document.getElementById("navbar").innerHTML = navbarHTML;
+		window.navbarManager = new Navbar();
+		window.navbarManager.setHTML(studentHTML, employerHTML);
+		// document.getElementById("navbar").innerHTML = navbarHTML;
 
 		window.main = new Main(userData, postData, articles);
 		window.dispatchEvent(new Event("mainReady"));
