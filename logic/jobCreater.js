@@ -3,8 +3,33 @@ class JobCreater {
         this.submitBtn = document.getElementById("submit-btn");
 
         this.submitBtn.addEventListener("click", () => {
-            console.log(this.submit());
+            const post = this.submit();
+            console.log(post, this.validatePost(post));
         });
+    }
+
+    validatePost(post) {
+        let valid = true;
+        if (
+            post.companyName.trim() == "" ||
+            post.datePosted.trim() == "" ||
+            post.deadline.trim() == "" ||
+            post.address.trim() == "" ||
+            post.summary.trim() == "" ||
+            post.jobTitle.trim() == "" ||
+            post.workType.trim() == "" ||
+            post.employmentType.trim() == "" ||
+            post.ageRequirement.trim() == "" ||
+            post.salaryMin.trim() == "" ||
+            post.salaryMax.trim() == "" ||
+            post.skills.length == 0 ||
+            post.industry.trim() == "" ||
+            post.hours.length == 0
+        ) {
+            valid = false;
+        }
+
+        return valid
     }
 
     submit() {
