@@ -25,6 +25,8 @@ class JobEditor {
     }
 
     attachPost(post) {
+        const postId = `post-${post.ID}`;
+
         const li = document.createElement("li");
         li.classList.add("list-group-item");
         
@@ -34,7 +36,7 @@ class JobEditor {
         // front
         const front = document.createElement("div");
         front.setAttribute("data-bs-toggle", "collapse");
-        front.setAttribute("data-bs-target", "#job1");
+        front.setAttribute("data-bs-target", `#${postId}`);
 
         // row 1
         const f_row1 = document.createElement("div");
@@ -44,7 +46,7 @@ class JobEditor {
         f_r1_col1.classList.add("col");
 
         const title = document.createElement("p");
-        title.textContent = "Job Title";
+        title.textContent = post.jobTitle;
 
         // row 2
         const f_row2 = document.createElement("div");
@@ -64,14 +66,48 @@ class JobEditor {
         f_r3_col1.classList.add("col");
 
         const deadline = document.createElement("p");
-        deadline.textContent = "Job Title";
+        deadline.textContent = `Deadline: ${post.deadline}`
 
         const f_r3_col2 = document.createElement("div");
         f_r3_col2.classList.add("col");
 
         const status = document.createElement("p");
-        status.textContent = "status";
+        const date = new Date();
+        const postDate = new Date(post.deadline);
 
+        if (date.getTime() <= postDate.getTime()) {
+            status.textContent = "OPEN";
+        }
+        else {
+            status.textContent = "CLOSED";
+        }
+
+        // pop-up
+        const back = document.createElement("div");
+        back.classList.add("collapse");
+        back.id = postId;
+
+        // row 1
+        const b_row1 = document.createElement("div");
+        b_row1.classList.add("row");
+
+        const b_r1_col1 = document.createElement("div");
+        b_r1_col1.classList.add("col");
+
+        const edit = document.createElement("p");
+        edit.textContent = "Edit Post";
+
+        // row 2
+        const b_row2 = document.createElement("div");
+        b_row2.classList.add("row");
+
+        const b_r2_col1 = document.createElement("div");
+        b_r2_col1.classList.add("col");
+        
+        const view = document.createElement("p");
+        view.textContent = "View applicants";
+
+        // put it all together
         f_r1_col1.appendChild(title);
         f_row1.appendChild(f_r1_col1);
 
@@ -83,20 +119,21 @@ class JobEditor {
         f_row3.appendChild(f_r3_col1);
         f_row3.appendChild(f_r3_col2);
 
-        // pop-up
-        const back = document.createElement("div");
-        back.classList.add("collapse");
-        back.id = "job1";
-
-        const b_row1 = document.createElement("div");
-        b_row1.classList.add("row");
-        const b_r1_col1 = document.createElement("div");
-        b_r1_col1.classList.add("col");
-
         front.appendChild(f_row1);
         front.appendChild(f_row2);
         front.appendChild(f_row3);
+
+        b_r1_col1.appendChild(edit);
+        b_row1.append(b_r1_col1);
+
+        b_r2_col1.appendChild(view);
+        b_row2.appendChild(b_r2_col1);
+
+        back.appendChild(b_row1);
+        back.appendChild(b_row2);
+
         container.appendChild(front);
+        container.appendChild(back);
         li.appendChild(container);
 
         this.listHTML.appendChild(li);
