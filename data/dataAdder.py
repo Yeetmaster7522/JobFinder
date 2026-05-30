@@ -1,33 +1,12 @@
-from json import load, dump
-from pandas import read_csv
-import random as rd
+import json
+import random
 
-#RNG to determine index i and j of skills/industries
-def returnRandomSubList(array):
-    i = rd.randint(0, len(array))
-    j = rd.randint(i, len(array))
-    
-    return array[i:j]
+with open("data/jobPosts (OLD).json", "r") as f:
+    data = json.load(f)
 
-df = read_csv("Job Finder/JobFinder/data/skills_industries.csv")
+for post in data:
+    post["ID"] = random.randint(100000, 999999)
 
-skills = df["Skills"].tolist()[:100]
-industries = df["Industry"].tolist()[:100]
 
-with open("Job Finder/JobFinder/data/data-mR36NBv3VwjMRsFCY26z5.json", "r") as f:
-    jobPosts = load(f)
-
-print(jobPosts[0].keys())
-
-i = 0
-for post in jobPosts:
-    post["skills"] = returnRandomSubList(skills)
-    post["industry"] = industries[rd.randint(0,len(industries)-1)]
-
-with open("Job Finder/JobFinder/data/data-mR36NBv3VwjMRsFCY26z5.json", "w") as f:
-    dump(jobPosts, f)
-
-# check changes
-with open("Job Finder/JobFinder/data/data-mR36NBv3VwjMRsFCY26z5.json", "r") as f:
-    jobPosts = load(f)
-    print(jobPosts)
+with open("data/jobPosts.json", "w") as f:
+    json.dump(data, f)
