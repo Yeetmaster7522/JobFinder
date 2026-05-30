@@ -120,7 +120,7 @@ function enableBtn(btn) {
 window.addEventListener("DOMContentLoaded", () => {
 	Promise.all([
 		fetch("/database/userAccounts.json").then(r => r.json()),
-		fetch("/database/data-mR36NBv3VwjMRsFCY26z5.json").then(r => r.json()),
+		fetch("/database/jobPosts.json").then(r => r.json()),
 		fetch("/database/articles.json").then(r => r.json()),
 		fetch("/webpages/student/navbar.html"),
 		fetch("/webpages/employer/navbar.html")
