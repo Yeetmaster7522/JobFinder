@@ -94,8 +94,9 @@ class JobEditor {
         const b_r1_col1 = document.createElement("div");
         b_r1_col1.classList.add("col");
 
-        const edit = document.createElement("p");
+        const edit = document.createElement("a");
         edit.textContent = "Edit Post";
+        edit.href = `/webpages/employer/editPost.html?id=${post.ID}`;
 
         // row 2
         const b_row2 = document.createElement("div");
@@ -104,8 +105,9 @@ class JobEditor {
         const b_r2_col1 = document.createElement("div");
         b_r2_col1.classList.add("col");
         
-        const view = document.createElement("p");
+        const view = document.createElement("a");
         view.textContent = "View applicants";
+        view.href = `/webpages/employer/applicantView.html?id=${post.ID}`;
 
         // put it all together
         f_r1_col1.appendChild(title);
