@@ -15,35 +15,41 @@ class ApplicantViewer {
 
     showAll() {
         for (const application of this.applications) {
-            this.createPreview();
+            this.createPreview(application.UID, application);
         }
     }
 
-    createPreview(userId) {
+    createPreview(uid, application) {
+        const user = window.main.users[uid];
+
         const previews = document.getElementById("previews");
         const li = document.createElement("li");
         li.classList.add("list-group-item");
+
+        li.addEventListener("click", () => {
+            this.showDetails(uid);
+        })
         
         const row1 = document.createElement("div");
         row1.classList.add("row");
         const col1 = document.createElement("div");
         col1.classList.add("col");
         const name = document.createElement("p");
-        name.textContent = "applicant name";
+        name.textContent = user.student.name;
 
         const row2 = document.createElement("div");
         row2.classList.add("row");
         const col2 = document.createElement("div");
         col2.classList.add("col");
         const email = document.createElement("p");
-        email.textContent = "email";
+        email.textContent = user.email;
 
         const row3 = document.createElement("div");
         row3.classList.add("row");
         const col3 = document.createElement("div");
         col3.classList.add("col");
         const number = document.createElement("p");
-        number.textContent = "number";
+        number.textContent = user.student.phoneNumber;
 
         const row4 = document.createElement("div");
         row4.classList.add("row");
@@ -54,7 +60,7 @@ class ApplicantViewer {
         const col4_2 = document.createElement("div");
         col4_2.classList.add("col");
         const date = document.createElement("p");
-        date.textContent = "DD.MM";
+        date.textContent = application.dateApplied;
 
         col1.appendChild(name);
         row1.appendChild(col1);
@@ -78,8 +84,17 @@ class ApplicantViewer {
         previews.append(li);
     }
 
-    showDetails() {
-
+    showDetails(uid) {
+        const user = window.main.users[uid];
+        
+        document.getElementById("name").textContent = user.student.name;
+        document.getElementById("resume").textContent = user.student.resume.source;
+        document.getElementById("skills-list").innerHTML = "";
+        document.getElementById("education-level").textContent = user.student.experienceLevel;
+        document.getElementById("certifications-list").innerHTML = "";
+        document.getElementById("availability-timestamp").innerHTML = "";
+        document.getElementById("email").textContent = user.email;
+        document.getElementById("phone-contact").textContent = user.student.phoneNumber;
     }
 }
 

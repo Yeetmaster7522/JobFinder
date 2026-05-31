@@ -103,5 +103,213 @@
                 398818
             ]
         }
-    }
+    },
+    "UID1621": {
+        "email": "emily.carter@example.com",
+        "password": "82",
+        "role": "student",
+        "profilePic": "",
+        "student": {
+            "name": "Emily Carter",
+            "age": "21",
+            "phoneNumber": "0412 998 221",
+            "suburb": "Parramatta",
+            "workEligibility": "Permanent resident",
+            "availability": "",
+            "experienceLevel": "Undergraduate",
+            "resume": {
+            "source": "resume_emily.pdf",
+            "date": "12.03.23"
+            },
+            "preferences": {
+            "workType": "hybrid",
+            "employmentType": "casual",
+            "minSalary": "18",
+            "locationRadius": "10",
+            "industries": ["hospitality", "retail", "IT"]
+            },
+            "skills": ["Customer Service", "JavaScript", "Graphic Design"],
+            "certifications": ["RSA", "Barista Basics"],
+            "timeIntervals": [
+            { "start": "06:00", "end": "09:00" },
+            { "start": "09:00", "end": "12:00" },
+            { "start": "12:00", "end": "15:00" },
+            { "start": "15:00", "end": "18:00" }
+            ],
+            "applications": []
+        },
+        "employer": {
+            "companyName": "",
+            "address": "",
+            "contactNumber": "",
+            "contactEmail": "",
+            "website": "",
+            "jobPosts": []
+        }
+    },
+    "UID1625": {
+        "email": "lucas.nguyen@example.com",
+        "password": "45",
+        "role": "student",
+        "profilePic": "",
+        "student": {
+            "name": "Lucas Nguyen",
+            "age": "19",
+            "phoneNumber": "0403 552 889",
+            "suburb": "Burwood",
+            "workEligibility": "Student visa (20 hrs/week)",
+            "availability": "",
+            "experienceLevel": "High School",
+            "resume": {
+            "source": "lucas_resume.docx",
+            "date": "05.11.23"
+            },
+            "preferences": {
+            "workType": "onsite",
+            "employmentType": "part-time",
+            "minSalary": "15",
+            "locationRadius": "7",
+            "industries": ["logistics", "customer service"]
+            },
+            "skills": ["Warehouse Picking", "Teamwork", "Basic Excel"],
+            "certifications": ["White Card"],
+            "timeIntervals": [
+            { "start": "12:00", "end": "15:00" },
+            { "start": "15:00", "end": "18:00" },
+            { "start": "18:00", "end": "21:00" }
+            ],
+            "applications": []
+        },
+        "employer": {
+            "companyName": "",
+            "address": "",
+            "contactNumber": "",
+            "contactEmail": "",
+            "website": "",
+            "jobPosts": []
+        }
+    },
+    "UID6644": {
+        "email": "sarah.ibrahim@example.com",
+        "password": "91",
+        "role": "student",
+        "profilePic": "",
+        "student": {
+            "name": "Sarah Ibrahim",
+            "age": "23",
+            "phoneNumber": "0421 778 004",
+            "suburb": "Strathfield",
+            "workEligibility": "Australian citizen",
+            "availability": "",
+            "experienceLevel": "Graduate",
+            "resume": {
+            "source": "sarah_cv.pdf",
+            "date": "22.01.24"
+            },
+            "preferences": {
+            "workType": "remote",
+            "employmentType": "internship",
+            "minSalary": "0",
+            "locationRadius": "0",
+            "industries": ["marketing", "media", "education"]
+            },
+            "skills": ["Copywriting", "Social Media Strategy", "Canva"],
+            "certifications": ["Google Analytics"],
+            "timeIntervals": [
+            { "start": "09:00", "end": "12:00" },
+            { "start": "12:00", "end": "15:00" }
+            ],
+            "applications": []
+        },
+        "employer": {
+            "companyName": "",
+            "address": "",
+            "contactNumber": "",
+            "contactEmail": "",
+            "website": "",
+            "jobPosts": []
+        }
+    },
+    "UID4111": {
+        "email": "daniel.rossi@example.com",
+        "password": "73",
+        "role": "student",
+        "profilePic": "",
+        "student": {
+            "name": "Daniel Rossi",
+            "age": "22",
+            "phoneNumber": "0435 112 998",
+            "suburb": "Randwick",
+            "workEligibility": "Permanent resident",
+            "availability": "",
+            "experienceLevel": "College",
+            "resume": {
+            "source": "daniel_resume.pdf",
+            "date": "14.08.23"
+            },
+            "preferences": {
+            "workType": "onsite",
+            "employmentType": "full-time",
+            "minSalary": "20",
+            "locationRadius": "8",
+            "industries": ["construction", "IT support"]
+            },
+            "skills": ["Networking", "Hardware Repair", "Troubleshooting"],
+            "certifications": ["CompTIA A+"],
+            "timeIntervals": [
+            { "start": "06:00", "end": "09:00" },
+            { "start": "09:00", "end": "12:00" }
+            ],
+            "applications": []
+        },
+        "employer": {
+            "companyName": "",
+            "address": "",
+            "contactNumber": "",
+            "contactEmail": "",
+            "website": "",
+            "jobPosts": []
+        }
+    },
+    "UID6727": {
+        "email": "chloe.zhang@example.com",
+        "password": "58",
+        "role": "student",
+        "profilePic": "",
+        "student": {
+            "name": "Chloe Zhang",
+            "age": "20",
+            "phoneNumber": "0410 889 334",
+            "suburb": "Hurstville",
+            "workEligibility": "Student visa (48 hrs/fortnight)",
+            "availability": "",
+            "experienceLevel": "Undergraduate",
+            "resume": {
+            "source": "chloe_cv.pdf",
+            "date": "30.09.23"
+            },
+            "preferences": {
+            "workType": "hybrid",
+            "employmentType": "casual",
+            "minSalary": "22",
+            "locationRadius": "12",
+            "industries": ["finance", "admin", "customer service"]
+            },
+            "skills": ["Data Entry", "Excel", "Bookkeeping"],
+            "certifications": ["MYOB Essentials"],
+            "timeIntervals": [
+            { "start": "15:00", "end": "18:00" },
+            { "start": "18:00", "end": "21:00" }
+            ],
+            "applications": []
+        },
+        "employer": {
+            "companyName": "",
+            "address": "",
+            "contactNumber": "",
+            "contactEmail": "",
+            "website": "",
+            "jobPosts": []
+        }
+        }
 }
