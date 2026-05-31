@@ -1,8 +1,8 @@
-{
-    "AID01": {
+[
+    {
         "UID": "UID01",
-        "JPID": "JPID01",
+        "JPID": 446487,
         "status": "",
         "dateApplied": ""
     }
-}
+]
