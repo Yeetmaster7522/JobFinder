@@ -1,60 +1,21 @@
-from json import load, dump
-from random import randint
+import json
+import random
 
-# to help replace things
-workTypes = {
-    1: "onsite",
-    2: "remote",
-    3: "hybrid"
-}
+with open("data/applications2.json", "r") as f:
+    data = json.load(f)
 
-employmentTypes = {
-    1: "full-time",
-    2: "part-time",
-    3: "casual"
-}
+statuses = [
+    "submitted",
+    "in review",
+    "offered",
+    "rejected"
+]
 
-def generateRandTime():
-    """
-    Generates a random time in format
-    hr:min
-    """
-    
-    hr = randint(9,17)
-    minute = randint(0,59)
+for x in data:
+    x["UID"] = f"UID{random.randint(10,9999)}"
+    if x["status"] > 4:
+        x["status"] = 4
+    x["status"] = statuses[x["status"]-1]
 
-    return f"{hr}:{minute}"
-
-# load data
-with open("Job Finder/JobFinder/data/data-mR36NBv3VwjMRsFCY26z5.json", "r") as f:
-    jobPosts = load(f)
-
-print(jobPosts[0].keys()) # check program is working
-
-# replace numerical values that are supposed to be words
-# and append hours
-for post in jobPosts:
-    workType = post["workType"]
-    employType = post["employmentType"]
-    
-    # work type replacement
-    post["workType"] = workTypes[workType]
-
-    # employment type replacement
-    post["employmentType"] = employmentTypes[employType]
-
-    # add array of timeranges for hours
-    hours = []
-    days = randint(1,5)
-    for d in range(days):
-        hours.append([generateRandTime(), generateRandTime()])
-    post["hours"] = hours
-
-# write changes
-with open("Job Finder/JobFinder/data/data-mR36NBv3VwjMRsFCY26z5.json", "w") as f:
-    dump(jobPosts, f)
-
-# check changes
-with open("Job Finder/JobFinder/data/data-mR36NBv3VwjMRsFCY26z5.json", "r") as f:
-    jobPosts = load(f)
-    print(jobPosts)
+with open("data/applications2_edit.json", "w") as f:
+    json.dump(data, f)
