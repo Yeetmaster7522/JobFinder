@@ -25,12 +25,17 @@ class PostViwer {
         document.getElementById("work-type-entry").value = this.post.workType;
         document.getElementById("employment-type-entry").value = this.post.employmentType;
         document.getElementById("industry-entry").value = this.post.industry;
-        document.getElementById("hours-entry").value = "";
-        document.getElementById("skills-entry").value = "";
         document.getElementById("description-entry").value = this.post.summary;
         document.getElementById("salary-min-entry").value = this.post.salaryMin;
         document.getElementById("salary-max-entry").value = this.post.salaryMax;
         document.getElementById("address-entry").value = this.post.address;
+        
+        document.getElementById("skills-entry").value = this.post.skills.join("\n");
+
+        const hoursEntry = document.getElementById("hours-entry");
+        for (const timestamp of this.post.hours) {
+            hoursEntry.value += timestamp.join(" - ") + "\n";
+        }
     }
 }
 
