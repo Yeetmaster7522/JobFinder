@@ -61,13 +61,22 @@ class LogUser {
     signUp() {
         const userEmail = document.getElementById("email-input").value;
         const userPassword = document.getElementById("password-input").value;
-        const newUID = window.main.genUID();
+        const newUID = this.genUID();
         window.main.users[newUID] = {
             "email": userEmail,
             "password": userPassword,
             "role": ""
         }
         alert("Signed up");
+    }
+
+    genUID() {
+        let UID = "";
+        for (let i=0; i<8; i++) {
+            UID += randomChar();
+        }
+
+        return UID;
     }
 }
 

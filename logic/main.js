@@ -1,12 +1,14 @@
 class Main {
+	#uid
+
 	constructor(users, jobPosts, articles, applications) {
 		this.users = users;
 		this.jobPosts = jobPosts;
 		this.articles = articles;
 		this.applications = applications;
-		this.UID = getCookie("UID");
+		this.#uid = getCookie("UID");
 
-		if (this.UID === "") {
+		if (this.#uid === "") {
 			window.navbarManager.applyNavbar();
 		}
 		else {
@@ -30,21 +32,12 @@ class Main {
   	}
 
 	getUser() {
-		return this.users[this.UID];
+		return this.users[this.#uid];
 	}
 
 	editUserData(edits) {
 		console.log(edits);
-		console.log(`UID ${this.UID} has been updated`);
-	}
-
-	genUID() {
-		let UID = "";
-		for (let i=0; i<8; i++) {
-			UID += randomChar();
-		}
-
-		return UID;
+		console.log(`UID ${this.#uid} has been updated`);
 	}
 }
 
