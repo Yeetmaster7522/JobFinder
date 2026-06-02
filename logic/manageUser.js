@@ -1,17 +1,26 @@
 class UserManager {
-    constructor() {
-        document.getElementById("log-out-btn").addEventListener("click", () => {
-            this.logOut();
-        });
-
-        document.getElementById("profile-pic").addEventListener("click", () => {
+    constructor(user) {
+        const profilePic = document.getElementById("profile-pic");
+        
+        profilePic.src = "/placeholder.png";
+        profilePic.addEventListener("click", () => {
             console.log("change profile pic");
         });
 
-        const UID = getCookie("UID");
-        let user = users[UID];
-        
-        document.getElementById("profile-pic").src = "placeholder.png";
+        document.getElementById("log-out-btn").addEventListener("click", () => {
+            this.logOut();
+        });
+    }
+
+    logOut() {
+        setCookie("UID", "", -1);
+    }
+}
+
+class StudentManager extends UserManager {
+    constructor(user) {
+        super(user);
+
         document.getElementById("name").innerText = user.student.name;
         document.getElementById("email").innerText = user.email;
         document.getElementById("number").innerText = user.student.phoneNumber;
@@ -111,31 +120,17 @@ class UserManager {
         };
     }
 
-    logOut() {
-        setCookie("UID", "", -1);
-    }
-
     getUserDetailInp() {
-        let name = document.getElementById("name").textContent;
-        // let profilePic = document.getElementById("profile-pic");
-        let email = document.getElementById("email").textContent;
-        let number = document.getElementById("number").textContent;
-        let suburb = document.getElementById("suburb").textContent;
-        
-        let resume = document.querySelector("#resume-file").files[0];
-        
-        let edu = document.getElementById("education").textContent;
+        // const profilePic = document.getElementById("profile-pic");
         let skills = document.getElementById("skills-list").querySelectorAll("li");
         skills = Array.from(skills).map(li => li.textContent.trim());
         let certs = document.getElementById("cert-list").querySelectorAll("li");
         certs = Array.from(certs).map(li => li.textContent.trim());
-        let eligibility = document.getElementById("work-eligibility").textContent;
+        const eligibility = document.getElementById("work-eligibility").textContent;
 
         let industries = document.getElementById("industry-list").querySelectorAll("li");
         industries = Array.from(industries).map(li => li.textContent.trim());
-        let salary = document.getElementById("min-salary").textContent;
         let hours = document.getElementById("hours").querySelectorAll("li");
-        // hours = Array.from(hours).map(li => li.textContent);
         hours = Array.from(hours).map(li => {
             li = li.textContent;
             li = li.split(" ");
@@ -146,57 +141,66 @@ class UserManager {
 
             return li;
         });
-        let workType = document.getElementById("work-type").textContent;
-        let employmentType = document.getElementById("employment-type").textContent;
-        let locRadius = document.getElementById("loc-radius").textContent;
 
         return {
-            "name": name,
-            "email": email,
-            "number": number,
-            "suburb": suburb,
-            "resume": resume,
-            "education": edu,
+            "name": document.getElementById("name").textContent,
+            "email": document.getElementById("email").textContent,
+            "number": document.getElementById("number").textContent,
+            "suburb": document.getElementById("suburb").textContent,
+            "resume": document.querySelector("#resume-file").files[0],
+            "education": document.getElementById("education").textContent,
             "skills": skills,
             "certifications": certs,
             "eligibility": eligibility,
             "industries": industries,
-            "salary": salary,
+            "salary": document.getElementById("min-salary").textContent,
             "hours": hours,
-            "workType": workType,
-            "employmentType": employmentType,
-            "locationRadius": locRadius
+            "workType": document.getElementById("work-type").textContent,
+            "employmentType": document.getElementById("employment-type").textContent,
+            "locationRadius": document.getElementById("loc-radius").textContent
         };
     }
-
 }
 
-function globalInit() {
-    if (mainReady && DOMContentLoaded) {
-        console.log("ready")
-        const userManager = new UserManager();
-        const container = document.getElementById("form-container");
+class EmployerManager extends UserManager {
+    constructor(user) {
+        super(user);
 
-        let timeout = null;
+        document.getElementById("company-name").innerText = user.employer.companyName;
+        document.getElementById("address").innerText = user.employer.address;
+        document.getElementById("contact-number").innerText = user.employer.contactNumber;
+        document.getElementById("contact-email").innerText = user.employer.contactEmail;
+        document.getElementById("website").innerText = user.employer.website;
+    }
 
-        container.addEventListener("input", () => {
-            clearTimeout(timeout);
-            timeout = setTimeout(() => {
-                editUserData(userManager.getUserDetailInp());
-            }, 3000);
-        });
-    };
+    getUserDetailInp() {
+        return {
+            "company-name": document.getElementById("company-name").textContent,
+            "address": document.getElementById("address").textContent,
+            "contact-number": document.getElementById("contact-number").textContent,
+            "contact-email": document.getElementById("contact-email").textContent,
+            "website": document.getElementById("website").textContent,
+        };
+    }
 }
-
-let mainReady = false;
-let DOMContentLoaded = false;
 
 window.addEventListener("mainReady", () => {
-    mainReady = true;
-    globalInit();
-});
+    const user = window.main.getUser();
+    let userManager;
+    let timeout;
 
-window.addEventListener("DOMContentLoaded", () => {
-    DOMContentLoaded = true;
-    globalInit();
+    if (user.role == "employer") {
+        userManager = new EmployerManager(user);
+    }
+    else {
+        userManager = new StudentManager(user);
+    }
+
+    document.getElementById("form-container").addEventListener("input", () => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            main.editUserData(userManager.getUserDetailInp());
+        }, 3000);
+    });
+
 });

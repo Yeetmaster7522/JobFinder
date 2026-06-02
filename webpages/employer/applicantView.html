@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finder</title>
-    <link rel="stylesheet" href="bootstrap-5.3.8-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="/bootstrap-5.3.8-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/main.css">
 </head>
 <body class="bg-dark text-light">
     <div class="container-fluid">
-        <a href="managePosts.html" class="z-1 position-absolute top-0 start-0" id="back-btn" style="margin-left: 1em;">Back</a>
+        <a href="/webpages/employer/managePosts.html" class="z-1 position-absolute top-0 start-0" id="back-btn" style="margin-left: 1em;">Back</a>
         <!-- Top navigation bar -->
-        <div class="row mb-3" id="navbar-employer"></div>
+        <div class="row mb-3" id="navbar"></div>
         <div class="row">
             <div class="col">
-                <ul class="list-group">
-                    <li class="list-group-item">
+                <ul class="list-group" id="previews">
+                    <!-- <li class="list-group-item">
                         <div class="row">
                             <div class="col">
                                 <p>Applicant name</p>
@@ -39,18 +39,18 @@
                                 <p>DD.MM</p>
                             </div>
                         </div>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
             <div class="col container">
                 <div class="row">
                     <div class="col">
-                        <p>Name</p>
+                        <p id="name">Name</p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
-                        <p>resume</p>
+                        <p id="resume">resume</p>
                     </div>
                 </div>
                 <div class="row">
@@ -60,10 +60,7 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <ul>
-                            <li>xxxxx</li>
-                            <li>xxxxx</li>
-                            <li>xxxxx</li>
+                        <ul id="skills-list">
                         </ul>
                     </div>
                 </div>
@@ -72,7 +69,7 @@
                         <p>Education level:</p>
                     </div>
                     <div class="col">
-                        <p>xxxxx</p>
+                        <p id="education-level"></p>
                     </div>
                 </div>
                 <div class="row">
@@ -82,9 +79,7 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <ul>
-                            <li>xxxxx</li>
-                            <li>xxxxx</li>
+                        <ul id="certifications-list">
                         </ul>
                     </div>
                 </div>
@@ -95,9 +90,7 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <ul>
-                            <li>XX:XX - XX:XX</li>
-                            <li>XX:XX - XX:XX</li>
+                        <ul id="availability-timestamp">
                         </ul>
                     </div>
                 </div>
@@ -106,7 +99,7 @@
                         <p>Email:</p>
                     </div>
                     <div class="col">
-                        <p>EMAIL@gmail.com</p>
+                        <p id="email"></p>
                     </div>
                 </div>
                 <div class="row">
@@ -114,23 +107,24 @@
                         <p>Phone Contact</p>
                     </div>
                     <div class="col">
-                        <p>XXXX XXX XXX</p>
+                        <p id="phone-contact"></p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
-                        <p>interested</p>
+                        <a href="#">interested</a>
                     </div>
                     <div class="col">
-                        <p>reject</p>
+                        <a href="#">reject</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="bootstrap-5.3.8-dist/js/bootstrap.bundle.js"></script>
-    <script src="logic/main.js"></script>
-    <script src=""></script>
+    <script src="/bootstrap-5.3.8-dist/js/bootstrap.bundle.js"></script>
+    <script src="/logic/main.js"></script>
+    <script src="/logic/navbar.js"></script>
+    <script src="/logic/applicantViewer.js"></script>
 </body>
 </html>

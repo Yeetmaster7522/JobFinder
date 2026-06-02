@@ -1,13 +1,7 @@
 class ArticleFetcher {
-    constructor() {
-        fetch("database/articles.json")
-            .then(response => response.json())
-            .then(data => {
-                this.articles = data
-
-                this.displayArticles();
-            })
-            .catch(err => console.error("Error loading JSON:", err));
+    constructor(articles) {
+        this.articles = articles;
+        this.displayArticles();
     }
 
     appendArticle(parentID, article, id) {
@@ -76,8 +70,10 @@ class ArticleFetcher {
     }
 }
 
-const af = new ArticleFetcher();
+window.addEventListener("mainReady", () => {
+    const af = new ArticleFetcher(window.main.articles);
 
-document.getElementById("search-bar").addEventListener("search", (e) => {
-    af.searchArticle(e);
+    document.getElementById("search-bar").addEventListener("search", (e) => {
+        af.searchArticle(e);
+    });
 });

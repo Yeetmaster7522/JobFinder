@@ -1,13 +1,7 @@
 class JobTrendFinder {
-    constructor() {
-        // get job posts
-        fetch("database/data-mR36NBv3VwjMRsFCY26z5.json")
-            .then(response => response.json())
-            .then(data => {
-                this.data = data;
-                this.displayResults();
-            })
-            .catch(err => console.error("Error loading JSON:", err));
+    constructor(data) {
+        this.data = data;
+        this.displayResults();
     }
 
     getNearEmployers() {
@@ -102,4 +96,6 @@ class JobTrendFinder {
     }
 }
 
-const trendFinder = new JobTrendFinder();
+window.addEventListener("mainReady", () => {
+    const trendFinder = new JobTrendFinder(window.main.jobPosts);
+});

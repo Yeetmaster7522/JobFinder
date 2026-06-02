@@ -1,15 +1,60 @@
 class Main {
-	constructor() {
-		const UID = getCookie("UID");
-		this.setPN(users[UID].student.name);
-        const profileName = document.getElementById("profile-name");
-        profileName.href = "profile.html";
+	constructor(users, jobPosts, articles, applications) {
+		this.users = users;
+		this.jobPosts = jobPosts;
+		this.articles = articles;
+		this.applications = applications;
+		this.UID = getCookie("UID");
+
+		if (this.UID === "") {
+			window.navbarManager.applyNavbar();
+		}
+		else {
+			const user = this.getUser()
+			const role = user.role;
+
+			window.navbarManager.applyNavbar(role);
+			if (role == "employer") {
+				window.navbarManager.setProfileName(
+					user.email, 
+					"/webpages/employer/profile.html"
+				);
+			}
+			else {
+				window.navbarManager.setProfileName(
+					user.student.name, 
+					"/webpages/student/profile.html"
+				);
+			}
+		}
   	}
-  	
-	setPN(name) {
-		const profileName = document.getElementById("profile-name");
-		profileName.innerText = name;
+
+	getUser() {
+		return this.users[this.UID];
 	}
+
+	editUserData(edits) {
+		console.log(edits);
+		console.log(`UID ${this.UID} has been updated`);
+	}
+
+	genUID() {
+		let UID = "";
+		for (let i=0; i<8; i++) {
+			UID += randomChar();
+		}
+
+		return UID;
+	}
+}
+
+function getRndInteger(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) ) + min;
+}
+
+function randomChar() {
+    const chars = "QWERTYUIOPASDFGHJKLZXCVBNM1234567890";
+    return chars[getRndInteger(0, chars.length)];
 }
 
 function getCookie(cname) {
@@ -42,43 +87,56 @@ function setCookie(cname, cvalue, exdays) {
   	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
-function editUserData(edits) {
-	console.log(edits);
-	const UID = getCookie("UID");
-	console.log(`UID ${UID} has been updated`);
-}
-
 function appendLI(parent, childText) {
 	let li = document.createElement("li");
 	li.textContent = childText;
 	parent.appendChild(li);
 }
 
-var users;
+function insideTimestamp(t1, t2) {
+	const start = toMin(t1[0]);
+	const end = toMin(t1[1]);
+	let inside = true;
 
-// fetch database
-fetch("database/userAccounts.json")
-	.then(response => response.json())
-  	.then(data => {
-		users = data;
+	if (start < toMin(t2.start) || start > this.toMin(t2.end)) {
+		inside = false;
+	}
+	if (end > toMin(t2.end)) {
+		inside = false;
+	}
 
-		return Promise.all([
-			fetch("navbar.html"),
-			fetch("navbarEmployer.html")
-		]);
-  	}) 
-	.then(async ([navbarRes, navbarERes]) => {
-		const navbarHTML = await navbarRes.text();
-		const navbarEHTML = await navbarERes.text();
-		try {
-			document.getElementById("navbar").innerHTML = navbarHTML;
-		}
-		catch (error) {
-			console.log(error);
-			document.getElementById("navbar-employer").innerHTML = navbarEHTML;
-		}
+	return inside;
+}
 
+function toMin(time) {
+	const [hr, min] = time.split(":").map(Number);
+	return hr*60 + min;
+}
+
+function enableBtn(btn) {
+	btn.classList.add("active");
+	btn.setAttribute("aria-pressed", "true");
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+	Promise.all([
+		fetch("/database/userAccounts.json").then(r => r.json()),
+		fetch("/database/jobPosts.json").then(r => r.json()),
+		fetch("/database/articles.json").then(r => r.json()),
+		fetch("/database/applications.json").then(r => r.json()),
+		fetch("/webpages/student/navbar.html"),
+		fetch("/webpages/employer/navbar.html")
+	])
+	.then(async ([userData, postData, articles, applications, studentNav, employerNav]) => {
+		const studentHTML = await studentNav.text();
+		const employerHTML = await employerNav.text();
+
+		window.navbarManager = new Navbar();
+		window.navbarManager.setHTML(studentHTML, employerHTML);
+		// document.getElementById("navbar").innerHTML = navbarHTML;
+
+		window.main = new Main(userData, postData, articles, applications);
 		window.dispatchEvent(new Event("mainReady"));
-        const main = new Main();
 	})
-  	.catch(err => console.error("Error loading JSON:", err));
+	.catch(e => console.error("Error loading JSON:", e));
+});

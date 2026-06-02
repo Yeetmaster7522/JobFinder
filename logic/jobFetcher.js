@@ -1,6 +1,10 @@
 class JobPostFetcher {
-    constructor() {
-        let pastPostId = getCookie("postIndex");
+    constructor(user, posts) {
+        this.user = user;
+        this.ogPosts = posts;
+        this.posts = posts;
+
+        const pastPostId = getCookie("postIndex");
         
         if (pastPostId == "") {
             this.currentPostId = 0;
@@ -9,34 +13,18 @@ class JobPostFetcher {
             this.currentPostId = parseInt(pastPostId, 10);
         }
 
-        // fetch data
-        Promise.all([
-            fetch("database/userAccounts.json").then(r => r.json()),
-            fetch("database/data-mR36NBv3VwjMRsFCY26z5.json").then(r => r.json())
-        ])
-        .then(([userData, postData]) => {
-            const UID = getCookie("UID");
-            if (UID != "") {
-                this.user = userData[UID];
-            }
+        this.setEnabledWorkEmploymentType(this.user.student.preferences.workType, this.user.student.preferences.employmentType);
 
-            this.data = postData;
-            this.posts = postData;
+        let idLists = [
+            this.filterSearch(),
+            this.preferenceSearch()
+        ];
+        let postIds = idLists.reduce(
+            (acc, list) => acc.filter(id => list.includes(id))
+        );
 
-            this.setEnabledWorkEmploymentType(this.user.student.preferences.workType, this.user.student.preferences.employmentType);
-
-            let idLists = [
-                this.filterSearch(),
-                this.preferenceSearch()
-            ];
-            let postIds = idLists.reduce(
-                (acc, list) => acc.filter(id => list.includes(id))
-            );
-            this.updatePosts(postIds);
-
-            this.displayPostAtI(this.currentPostId);
-        })
-        .catch(err => console.error("Error loading JSON:", err))
+        this.updatePosts(postIds);
+        this.displayPostAtI(this.currentPostId);
     }
 
     searchPosts(searchTerm) {
@@ -44,8 +32,8 @@ class JobPostFetcher {
         let postIds = [];
         
         if (search != "") {
-            for (let i=0; i<this.data.length; i++) {
-                let post = this.data[i];
+            for (let i=0; i<this.ogPosts.length; i++) {
+                let post = this.ogPosts[i];
 
                 if (post.companyName.toLowerCase().includes(search)) {
                     postIds.push(i);
@@ -62,7 +50,7 @@ class JobPostFetcher {
             }
         }
         if (search == "" || postIds.length == 0) {
-            postIds = this.data.map((_, i) => i);
+            postIds = this.ogPosts.map((_, i) => i);
         }
 
         return postIds;
@@ -73,7 +61,7 @@ class JobPostFetcher {
         this.currentPostId = 0;
 
         for (const id in postIds) {
-            this.posts.push(this.data[id]);
+            this.posts.push(this.ogPosts[id]);
         }
 
         this.displayPostAtI(this.currentPostId);
@@ -202,12 +190,16 @@ class JobPostFetcher {
             filters.push(item.value);
         });
 
-        for (let i=0; i<this.data.length; i++) {
-            let post = this.data[i];
+        for (let i=0; i<this.ogPosts.length; i++) {
+            let post = this.ogPosts[i];
             if (filters.includes(post.employmentType.toLowerCase()) && filters.includes(post.workType.toLowerCase())) {
                 postIds.push(i);
             }
         };
+
+        if (postIds.length == 0) {
+            postIds = this.ogPosts.map((_, i) => i);
+        }
 
         return postIds;
     }
@@ -215,9 +207,9 @@ class JobPostFetcher {
     preferenceSearch() {
         let postIds = [];
 
-        for (let i=0; i<this.data.length; i++) {
+        for (let i=0; i<this.ogPosts.length; i++) {
             let valid = true;
-            let post = this.data[i];
+            let post = this.ogPosts[i];
             
             if (post.salaryMin < this.user.minSalary) {
                 valid = false;
@@ -226,7 +218,7 @@ class JobPostFetcher {
             let fits = false;
             for (const studentInterval of this.user.student.timeIntervals) {
                 for (const postInterval of post.hours) {
-                    let comparison = this.compareTimestamps(postInterval, studentInterval);
+                    let comparison = insideTimestamp(postInterval, studentInterval);
                     if (comparison == true) {
                         fits = true;
                     }
@@ -246,96 +238,77 @@ class JobPostFetcher {
             }
         }
 
+        if (postIds.length == 0) {
+            postIds = this.ogPosts.map((_, i) => i);
+        }
+
         return postIds;
-    }
-
-    compareTimestamps(t1, t2) {
-        const start = this.toMin(t1[0]);
-        const end = this.toMin(t1[1]);
-        let valid = true;
-
-        if (start < this.toMin(t2.start) || start > this.toMin(t2.end)) {
-            valid = false;
-        }
-        if (end > this.toMin(t2.end)) {
-            valid = false;
-        }
-
-        return valid;
-    }
-
-    toMin(time) {
-        const [hr, min] = time.split(":").map(Number);
-        return hr*60 + min;
     }
 
     setEnabledWorkEmploymentType(workType, employmentType) {        
         // work type
         if (workType == "onsite") {
-            this.enableBtn(document.getElementById("onsite-btn"));
+            enableBtn(document.getElementById("onsite-btn"));
 
         }
         else if (workType == "hybrid") {
-            this.enableBtn(document.getElementById("hybrid-btn"));
+            enableBtn(document.getElementById("hybrid-btn"));
         }
         else if (workType == "remote") {
-            this.enableBtn(document.getElementById("remote-btn"));
+            enableBtn(document.getElementById("remote-btn"));
         }
 
         // employment type
         if (employmentType == "part-time") {
-            this.enableBtn(document.getElementById("part-time-btn"));
+            enableBtn(document.getElementById("part-time-btn"));
         }
         else if (employmentType == "casual") {
-            this.enableBtn(document.getElementById("casual-btn"));
+            enableBtn(document.getElementById("casual-btn"));
         }
         else if (employmentType == "full-time") {
-            this.enableBtn(document.getElementById("full-time-btn"));
+            enableBtn(document.getElementById("full-time-btn"));
         }
-    }
-
-    enableBtn(btn) {
-        btn.classList.add("active");
-        btn.setAttribute("aria-pressed", "true");
     }
 }
 
-// load class
-const jobFetcher = new JobPostFetcher();
+window.addEventListener("mainReady", () => {
+    const jf = new JobPostFetcher(window.main.getUser(), window.main.jobPosts);
 
-document.getElementById("scroll-up-btn").addEventListener("click", () => jobFetcher.scrollPost(false));
-document.getElementById("scroll-down-btn").addEventListener("click", () => jobFetcher.scrollPost());
+    document.getElementById("scroll-up-btn").addEventListener("click", () => jf.scrollPost(false));
+    document.getElementById("scroll-down-btn").addEventListener("click", () => jf.scrollPost());
 
-// quick buttons
-document.getElementById("apply-btn").addEventListener("click", () => jobFetcher.applyToPost());
-document.getElementById("save-btn").addEventListener("click", () => jobFetcher.savePost());
-document.getElementById("hide-btn").addEventListener("click", () => jobFetcher.hidePost());
+    // quick buttons
+    document.getElementById("apply-btn").addEventListener("click", () => jf.applyToPost());
+    document.getElementById("save-btn").addEventListener("click", () => jf.savePost());
+    document.getElementById("hide-btn").addEventListener("click", () => jf.hidePost());
 
-// combine search and dropdown stuff
-const searchBar = document.getElementById("search-bar");
-searchBar.addEventListener("search", (event) => {
-    let postIds = jobFetcher.filterSearch().filter(x => jobFetcher.searchPosts(event.target.value).includes(x))
-    jobFetcher.updatePosts(postIds);
-});
-
-document.querySelectorAll(".dropdown-item:not(.submenu):not(#clear-filters)").forEach(item => {
-    item.addEventListener("click", () => {
-        let idLists = [
-            jobFetcher.filterSearch(),
-            jobFetcher.searchPosts(searchBar.value),
-            jobFetcher.preferenceSearch()
-        ]
-        let postIds = idLists.reduce(
-            (acc, list) => acc.filter(id => list.includes(id))
-        );
-        jobFetcher.updatePosts(postIds);
+    // combine search and dropdown stuff
+    const searchBar = document.getElementById("search-bar");
+    searchBar.addEventListener("search", (event) => {
+        let postIds = jf.filterSearch().filter(x => jf.searchPosts(event.target.value).includes(x))
+        jf.updatePosts(postIds);
     });
-});
 
-document.getElementById("clear-filters").addEventListener("click", () => {
-    document.querySelectorAll(".dropdown-item").forEach(item => {
-        item.classList.remove("active");
-        item.setAttribute("aria-pressed", "false");
-        jobFetcher.updatePosts([]);
+    document.querySelectorAll(".dropdown-item:not(.submenu):not(#clear-filters)").forEach(item => {
+        item.addEventListener("click", () => {
+            let idLists = [
+                jf.filterSearch(),
+                jf.searchPosts(searchBar.value),
+                jf.preferenceSearch()
+            ]
+            let postIds = idLists.reduce(
+                (acc, list) => acc.filter(id => list.includes(id))
+            );
+            jf.updatePosts(postIds);
+        });
+    });
+
+    document.getElementById("clear-filters").addEventListener("click", () => {
+        document.querySelectorAll(".dropdown-item").forEach(item => {
+            item.classList.remove("active");
+            item.setAttribute("aria-pressed", "false");
+            
+            jf.updatePosts(jf.ogPosts);
+        });
     });
 });
