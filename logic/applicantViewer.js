@@ -14,12 +14,15 @@ class ApplicantViewer {
     }
 
     showAll() {
-        for (const application of this.applications) {
-            this.createPreview(application.UID, application);
+        this.createPreview(this.applications[0]);
+        this.showDetails(this.applications[0].UID);
+        for (let i=1; i<this.applications.length; i++) {
+            this.createPreview(this.applications[i]);
         }
     }
 
-    createPreview(uid, application) {
+    createPreview(application) {
+        const uid = application.UID
         const user = window.main.users[uid];
 
         const previews = document.getElementById("previews");
@@ -89,12 +92,27 @@ class ApplicantViewer {
         
         document.getElementById("name").textContent = user.student.name;
         document.getElementById("resume").textContent = user.student.resume.source;
-        document.getElementById("skills-list").innerHTML = "";
         document.getElementById("education-level").textContent = user.student.experienceLevel;
-        document.getElementById("certifications-list").innerHTML = "";
-        document.getElementById("availability-timestamp").innerHTML = "";
         document.getElementById("email").textContent = user.email;
         document.getElementById("phone-contact").textContent = user.student.phoneNumber;
+
+        const skillsList = document.getElementById("skills-list");
+        skillsList.innerHTML = "";
+        for (const skill of user.student.skills) {
+            appendLI(skillsList, skill);
+        }
+
+        const certsList = document.getElementById("certifications-list");
+        certsList.innerHTML = "";
+        for (const cert of user.student.certifications) {
+            appendLI(certsList, cert);
+        }
+
+        const availability = document.getElementById("availability-timestamp");
+        availability.innerHTML = "";
+        for (const timestamp of user.student.timeIntervals) {
+            appendLI(availability, `${timestamp.start} - ${timestamp.end}`);
+        }
     }
 }
 
