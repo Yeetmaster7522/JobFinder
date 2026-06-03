@@ -38,7 +38,12 @@
 
     <script src="/bootstrap-5.3.8-dist/js/bootstrap.bundle.js"></script>
     <script src="/logic/main.js"></script>
-    <script src="/logic/articleViewer.js"></script>
+    <script src="/logic/articleManager.js">
+        window.addEventListener("mainReady", () => {
+            const articleManager = new ArticleManager(window.main.articles);
+            articleManager.showArticle();
+        });
+    </script>
     <script src="/logic/navbar.js"></script>
 </body>
 </html>

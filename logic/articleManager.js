@@ -1,4 +1,4 @@
-class ArticleFetcher {
+class ArticleManager {
     #articles
 
     constructor(articles) {
@@ -69,13 +69,15 @@ class ArticleFetcher {
 
         this.displayArticles(articleIds);
     }
+
+    showArticle() {
+        const id = parseInt(getParam("id"), 10);
+
+        const content = document.getElementById("content");
+
+        const article = this.#articles[id];
+        document.getElementById("title").innerText = article.title;
+        document.getElementById("thumbnail").src = article.img;
+        document.getElementById("content").innerText = article.content;
+    }
 }
-
-window.addEventListener("mainReady", () => {
-    const af = new ArticleFetcher(window.main.articles);
-    af.displayArticles();
-
-    document.getElementById("search-bar").addEventListener("search", (e) => {
-        af.searchArticle(e);
-    });
-});
