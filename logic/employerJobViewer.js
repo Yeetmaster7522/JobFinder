@@ -1,15 +1,18 @@
 class JobEditor {
+    #user
+    #jobPosts
+    #listHTML
     constructor(user, jobPosts, listHTML) {
-        this.user = user;
-        this.jobPosts = jobPosts;
-        this.listHTML = listHTML;
+        this.#user = user;
+        this.#jobPosts = jobPosts;
+        this.#listHTML = listHTML;
     }
 
     fetchPosts() {
-        const userPosts = this.user.employer.jobPosts;
+        const userPosts = this.#user.employer.jobPosts;
         let posts = [];
 
-        for (const post of this.jobPosts) {
+        for (const post of this.#jobPosts) {
             if (userPosts.includes(post.ID)) {
                 posts.push(post);
             }
@@ -138,7 +141,7 @@ class JobEditor {
         container.appendChild(back);
         li.appendChild(container);
 
-        this.listHTML.appendChild(li);
+        this.#listHTML.appendChild(li);
     }
 }
 

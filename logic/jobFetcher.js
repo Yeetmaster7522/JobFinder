@@ -1,8 +1,12 @@
 class JobPostFetcher {
+    #user
+    #ogPosts
+    #posts
+
     constructor(user, posts) {
-        this.user = user;
-        this.ogPosts = posts;
-        this.posts = posts;
+        this.#user = user;
+        this.#ogPosts = posts;
+        this.#posts = posts;
 
         const pastPostId = getCookie("postIndex");
         
@@ -13,7 +17,7 @@ class JobPostFetcher {
             this.currentPostId = parseInt(pastPostId, 10);
         }
 
-        this.setEnabledWorkEmploymentType(this.user.student.preferences.workType, this.user.student.preferences.employmentType);
+        this.setEnabledWorkEmploymentType(this.#user.student.preferences.workType, this.#user.student.preferences.employmentType);
 
         let idLists = [
             this.filterSearch(),
@@ -27,13 +31,17 @@ class JobPostFetcher {
         this.displayPostAtI(this.currentPostId);
     }
 
+    getOgPosts() {
+        return this.#ogPosts;
+    }
+
     searchPosts(searchTerm) {
         const search = searchTerm.toLowerCase();
         let postIds = [];
         
         if (search != "") {
-            for (let i=0; i<this.ogPosts.length; i++) {
-                let post = this.ogPosts[i];
+            for (let i=0; i<this.#ogPosts.length; i++) {
+                let post = this.#ogPosts[i];
 
                 if (post.companyName.toLowerCase().includes(search)) {
                     postIds.push(i);
@@ -50,18 +58,18 @@ class JobPostFetcher {
             }
         }
         if (search == "" || postIds.length == 0) {
-            postIds = this.ogPosts.map((_, i) => i);
+            postIds = this.#ogPosts.map((_, i) => i);
         }
 
         return postIds;
     }
 
     updatePosts(postIds) {
-        this.posts = [];
+        this.#posts = [];
         this.currentPostId = 0;
 
         for (const id in postIds) {
-            this.posts.push(this.ogPosts[id]);
+            this.#posts.push(this.#ogPosts[id]);
         }
 
         this.displayPostAtI(this.currentPostId);
@@ -69,7 +77,7 @@ class JobPostFetcher {
 
     displayPostAtI(ID) {
         const postCounter = document.getElementById("postCounter");
-        const post = this.posts[ID];
+        const post = this.#posts[ID];
         const jobTitle = document.getElementById("job-title");
         const companyName = document.getElementById("company-name");
         const address = document.getElementById("address");
@@ -84,7 +92,7 @@ class JobPostFetcher {
         const fullSummary = document.getElementById("full-summary");
         const shortSummary = document.getElementById("short-summary");
 
-        postCounter.innerText = `${ID+1}/${this.posts.length} Posts`;
+        postCounter.innerText = `${ID+1}/${this.#posts.length} Posts`;
 
         jobTitle.innerText = post.jobTitle;
         companyName.innerText = post.companyName;
@@ -119,9 +127,9 @@ class JobPostFetcher {
 
         let valid = true;
 
-        if (forward == true && this.currentPostId < this.posts.length) {
+        if (forward == true && this.currentPostId < this.#posts.length) {
             this.currentPostId += 1;
-            if (this.currentPostId == this.posts.length) {
+            if (this.currentPostId == this.#posts.length) {
                 valid = false;
                 postOverview.classList.toggle("d-none");
                 actionButtons.classList.toggle("d-none");
@@ -151,7 +159,7 @@ class JobPostFetcher {
         catch (error) {
             console.log(error);
         }
-        appliedJobs.push(this.posts[this.currentPostId]);
+        appliedJobs.push(this.#posts[this.currentPostId]);
         setCookie("appliedJobs", JSON.stringify(appliedJobs), 30);
         alert("Application sent");
     }
@@ -164,7 +172,7 @@ class JobPostFetcher {
         catch (error) {
             console.log(error);
         }
-        savedJobs.push(this.posts[this.currentPostId]);
+        savedJobs.push(this.#posts[this.currentPostId]);
         setCookie("savedJobs", JSON.stringify(savedJobs), 30);
         alert("Job saved");
     }
@@ -177,7 +185,7 @@ class JobPostFetcher {
         catch (error) {
             console.log(error);
         }
-        hiddenJobs.push(this.posts[this.currentPostId]);
+        hiddenJobs.push(this.#posts[this.currentPostId]);
         setCookie("hiddenJobs", JSON.stringify(hiddenJobs), 30);
         alert("Job hidden");
     }
@@ -190,15 +198,15 @@ class JobPostFetcher {
             filters.push(item.value);
         });
 
-        for (let i=0; i<this.ogPosts.length; i++) {
-            let post = this.ogPosts[i];
+        for (let i=0; i<this.#ogPosts.length; i++) {
+            let post = this.#ogPosts[i];
             if (filters.includes(post.employmentType.toLowerCase()) && filters.includes(post.workType.toLowerCase())) {
                 postIds.push(i);
             }
         };
 
         if (postIds.length == 0) {
-            postIds = this.ogPosts.map((_, i) => i);
+            postIds = this.#ogPosts.map((_, i) => i);
         }
 
         return postIds;
@@ -207,16 +215,16 @@ class JobPostFetcher {
     preferenceSearch() {
         let postIds = [];
 
-        for (let i=0; i<this.ogPosts.length; i++) {
+        for (let i=0; i<this.#ogPosts.length; i++) {
             let valid = true;
-            let post = this.ogPosts[i];
+            let post = this.#ogPosts[i];
             
-            if (post.salaryMin < this.user.minSalary) {
+            if (post.salaryMin < this.#user.minSalary) {
                 valid = false;
             }
 
             let fits = false;
-            for (const studentInterval of this.user.student.timeIntervals) {
+            for (const studentInterval of this.#user.student.timeIntervals) {
                 for (const postInterval of post.hours) {
                     let comparison = insideTimestamp(postInterval, studentInterval);
                     if (comparison == true) {
@@ -229,7 +237,7 @@ class JobPostFetcher {
                 valid = false;
             }
 
-            if (!this.user.student.skills.some(skill => post.skills.includes(skill))) {
+            if (!this.#user.student.skills.some(skill => post.skills.includes(skill))) {
                 valid = false;
             }
 
@@ -239,7 +247,7 @@ class JobPostFetcher {
         }
 
         if (postIds.length == 0) {
-            postIds = this.ogPosts.map((_, i) => i);
+            postIds = this.#ogPosts.map((_, i) => i);
         }
 
         return postIds;
@@ -308,7 +316,7 @@ window.addEventListener("mainReady", () => {
             item.classList.remove("active");
             item.setAttribute("aria-pressed", "false");
             
-            jf.updatePosts(jf.ogPosts);
+            jf.updatePosts(jf.getOgPosts());
         });
     });
 });

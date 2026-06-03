@@ -1,29 +1,31 @@
 class ApplicantViewer {
-    constructor(users, applications) {
-        this.users = users;
-        this.applications = [];
+    #users
+    #applications
 
-        const params = new URLSearchParams(window.location.search);
-        const id = params.get("id");
+    constructor(users, applications) {
+        this.#users = users;
+        this.#applications = [];
+
+        const id = getParam("id");
 
         for (const application of applications) {
             if (application.JPID == id) {
-                this.applications.push(application);
+                this.#applications.push(application);
             }
         }
     }
 
     showAll() {
-        this.createPreview(this.applications[0]);
-        this.showDetails(this.applications[0].UID);
-        for (let i=1; i<this.applications.length; i++) {
-            this.createPreview(this.applications[i]);
+        this.createPreview(this.#applications[0]);
+        this.showDetails(this.#applications[0].UID);
+        for (let i=1; i<this.#applications.length; i++) {
+            this.createPreview(this.#applications[i]);
         }
     }
 
     createPreview(application) {
         const uid = application.UID
-        const user = window.main.users[uid];
+        const user = this.#users[uid];
 
         const previews = document.getElementById("previews");
         const li = document.createElement("li");
@@ -88,7 +90,7 @@ class ApplicantViewer {
     }
 
     showDetails(uid) {
-        const user = window.main.users[uid];
+        const user = this.#users[uid];
         
         document.getElementById("name").textContent = user.student.name;
         document.getElementById("resume").textContent = user.student.resume.source;

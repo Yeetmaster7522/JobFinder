@@ -111,6 +111,11 @@ function enableBtn(btn) {
 	btn.setAttribute("aria-pressed", "true");
 }
 
+function getParam(param) {
+	const params = new URLSearchParams(window.location.search);
+	return params.get(param);
+}
+
 window.addEventListener("DOMContentLoaded", () => {
 	Promise.all([
 		fetch("/database/userAccounts.json").then(r => r.json()),

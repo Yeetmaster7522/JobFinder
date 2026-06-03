@@ -1,7 +1,8 @@
 class ArticleFetcher {
+    #articles
+
     constructor(articles) {
-        this.articles = articles;
-        this.displayArticles();
+        this.#articles = articles;
     }
 
     appendArticle(parentID, article, id) {
@@ -42,16 +43,16 @@ class ArticleFetcher {
         this.resetDisplay();
 
         for (let i=0; i<3; i++) {
-            this.appendArticle("latest-advice", this.articles[i], i);
+            this.appendArticle("latest-advice", this.#articles[i], i);
         }
         if (ids == null || ids.length == 0) {
-            for (let i=0; i<this.articles.length; i++) {
-                this.appendArticle("other-advice", this.articles[i], i);
+            for (let i=0; i<this.#articles.length; i++) {
+                this.appendArticle("other-advice", this.#articles[i], i);
             }
         }
         else {
             for (const id of ids) {
-                this.appendArticle("other-advice", this.articles[id], id);
+                this.appendArticle("other-advice", this.#articles[id], id);
             }
         }
     }
@@ -60,8 +61,8 @@ class ArticleFetcher {
         const searchValue = event.target.value.toLowerCase();
         let articleIds = [];
 
-        for (let i=0; i<this.articles.length; i++) {
-            if (this.articles[i].title.toLowerCase().includes(searchValue)) {
+        for (let i=0; i<this.#articles.length; i++) {
+            if (this.#articles[i].title.toLowerCase().includes(searchValue)) {
                 articleIds.push(i);
             }
         }
@@ -72,6 +73,7 @@ class ArticleFetcher {
 
 window.addEventListener("mainReady", () => {
     const af = new ArticleFetcher(window.main.articles);
+    af.displayArticles();
 
     document.getElementById("search-bar").addEventListener("search", (e) => {
         af.searchArticle(e);

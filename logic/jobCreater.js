@@ -1,8 +1,8 @@
 class JobCreater {
     constructor() {
-        this.submitBtn = document.getElementById("submit-btn");
+        const submitBtn = document.getElementById("submit-btn");
 
-        this.submitBtn.addEventListener("click", () => {
+        submitBtn.addEventListener("click", () => {
             const post = this.submit();
             console.log(post, this.validatePost(post));
         });

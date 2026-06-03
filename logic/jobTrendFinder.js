@@ -1,13 +1,15 @@
 class JobTrendFinder {
+    #data
+
     constructor(data) {
-        this.data = data;
+        this.#data = data;
         this.displayResults();
     }
 
     getNearEmployers() {
         let companies = new Set();
-        for (let i=0; i<this.data.length; i++) {
-            companies.add(this.data[i].companyName);
+        for (let i=0; i<this.#data.length; i++) {
+            companies.add(this.#data[i].companyName);
         }
 
         return Array.from(companies).slice(0,10);
@@ -15,8 +17,8 @@ class JobTrendFinder {
 
     getTrendingIndustries() {
         let industries = new Map()
-        for (let i=0; i<this.data.length; i++) {
-            let ind = this.data[i].industry;
+        for (let i=0; i<this.#data.length; i++) {
+            let ind = this.#data[i].industry;
             if (industries.has(ind)) {
                 industries.set(ind, industries.get(ind) + 1);
             }
@@ -33,8 +35,8 @@ class JobTrendFinder {
 
     getTrendRoles() {
         let roles = new Map();
-        for (let i=0; i<this.data.length; i++) {
-            let role = this.data[i].jobTitle;
+        for (let i=0; i<this.#data.length; i++) {
+            let role = this.#data[i].jobTitle;
             if (roles.has(role)) {
                 roles.set(role, roles.get(role) + 1);
             }
@@ -52,8 +54,8 @@ class JobTrendFinder {
     getSkillsShortage() {
         let skills = new Map();
 
-        for (let i=0; i<this.data.length; i++) {
-            for (const s of this.data[i].skills) {
+        for (let i=0; i<this.#data.length; i++) {
+            for (const s of this.#data[i].skills) {
                 if (skills.has(s)) {
                     skills.set(s, skills.get(s) + 1);
                 }

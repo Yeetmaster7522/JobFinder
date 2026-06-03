@@ -27,9 +27,6 @@ class Navbar {
         if (role == "employer") {
             this.insertHTML(this.#employerHTML);
         }
-        else if (role == "student") {
-            this.insertHTML(this.#studentHTML);
-        }
         else {
             this.insertHTML(this.#studentHTML);
         }
