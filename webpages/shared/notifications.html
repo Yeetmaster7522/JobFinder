@@ -10,22 +10,24 @@
 <body class="bg-dark text-light">
     <div class="container-fluid">
         <!-- Top navigation bar -->
-        <div class="row" id="navbar"></div>
+        <div class="row mb-2" id="navbar"></div>
         <!-- Header -->
-        <div class="row">
-            <div class="col text-center">
-                <h3>Notifications</h3>
+        <div class="row text-center mb-4">
+            <div class="col">
+                <h2>Notifications</h2>
             </div>
         </div>
         <!-- Notifications list -->
         <div class="row justify-content-center">
             <div class="col-6">
                 <ul class="list-group" id="notification-list">
-                    <!-- <li class="list-group-item d-flex gap-2 p-2 mb-2 justify-content-center align-items-center bg-dark text-light">
-                        <img src="placeholder.png" alt="Notification type icon" width="30vh" height="30vh">
-                        <h4>Logged in!</h4>
-                        <p class="text-center">10.03<br>...</p>
-                    </li> -->
+                    <li class="list-group-item d-flex gap-2 p-2 mb-2 justify-content-center align-items-start bg-transparent text-light">
+                        <div class="ms-2 me-auto">
+                            <h4>Logged in!</h4>
+                            <p>...</p>
+                        </div>
+                        <span class="badge text-bg-primary rounded-pill ms-1">10.03</span>
+                    </li>
                 </ul>
             </div>
         </div>
