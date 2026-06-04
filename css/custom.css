@@ -7806,47 +7806,48 @@ textarea.form-control-lg {
   margin: 3rem !important;
 }
 
-.m-6 {
-  margin: 4rem !important;
-}
-
-.m-7 {
-  margin: 5rem !important;
+.m-auto {
+  margin: auto !important;
 }
 
 .mx-0 {
-  margin-right: 0 !important;
   margin-left: 0 !important;
+  margin-right: 0 !important;
 }
 
 .mx-1 {
-  margin-right: 0.25rem !important;
   margin-left: 0.25rem !important;
+  margin-right: 0.25rem !important;
 }
 
 .mx-2 {
-  margin-right: 0.5rem !important;
   margin-left: 0.5rem !important;
+  margin-right: 0.5rem !important;
 }
 
 .mx-3 {
-  margin-right: 1rem !important;
   margin-left: 1rem !important;
+  margin-right: 1rem !important;
 }
 
 .mx-4 {
-  margin-right: 1.5rem !important;
   margin-left: 1.5rem !important;
+  margin-right: 1.5rem !important;
 }
 
 .mx-5 {
-  margin-right: 3rem !important;
   margin-left: 3rem !important;
+  margin-right: 3rem !important;
 }
 
-.mx-auto {
-  margin-right: auto !important;
-  margin-left: auto !important;
+.mx-6 {
+  margin-left: 4rem !important;
+  margin-right: 4rem !important;
+}
+
+.mx-7 {
+  margin-left: 5rem !important;
+  margin-right: 5rem !important;
 }
 
 .my-0 {
@@ -9251,33 +9252,26 @@ textarea.form-control-lg {
   .order-sm-last {
     order: 6 !important;
   }
-  .mx-sm-0 {
-    margin-right: 0 !important;
-    margin-left: 0 !important;
+  .m-sm-0 {
+    margin: 0 !important;
   }
-  .mx-sm-1 {
-    margin-right: 0.25rem !important;
-    margin-left: 0.25rem !important;
+  .m-sm-1 {
+    margin: 0.25rem !important;
   }
-  .mx-sm-2 {
-    margin-right: 0.5rem !important;
-    margin-left: 0.5rem !important;
+  .m-sm-2 {
+    margin: 0.5rem !important;
   }
-  .mx-sm-3 {
-    margin-right: 1rem !important;
-    margin-left: 1rem !important;
+  .m-sm-3 {
+    margin: 1rem !important;
   }
-  .mx-sm-4 {
-    margin-right: 1.5rem !important;
-    margin-left: 1.5rem !important;
+  .m-sm-4 {
+    margin: 1.5rem !important;
   }
-  .mx-sm-5 {
-    margin-right: 3rem !important;
-    margin-left: 3rem !important;
+  .m-sm-5 {
+    margin: 3rem !important;
   }
-  .mx-sm-auto {
-    margin-right: auto !important;
-    margin-left: auto !important;
+  .m-sm-auto {
+    margin: auto !important;
   }
   .my-sm-0 {
     margin-top: 0 !important;
@@ -9780,33 +9774,26 @@ textarea.form-control-lg {
   .order-md-last {
     order: 6 !important;
   }
-  .mx-md-0 {
-    margin-right: 0 !important;
-    margin-left: 0 !important;
+  .m-md-0 {
+    margin: 0 !important;
   }
-  .mx-md-1 {
-    margin-right: 0.25rem !important;
-    margin-left: 0.25rem !important;
+  .m-md-1 {
+    margin: 0.25rem !important;
   }
-  .mx-md-2 {
-    margin-right: 0.5rem !important;
-    margin-left: 0.5rem !important;
+  .m-md-2 {
+    margin: 0.5rem !important;
   }
-  .mx-md-3 {
-    margin-right: 1rem !important;
-    margin-left: 1rem !important;
+  .m-md-3 {
+    margin: 1rem !important;
   }
-  .mx-md-4 {
-    margin-right: 1.5rem !important;
-    margin-left: 1.5rem !important;
+  .m-md-4 {
+    margin: 1.5rem !important;
   }
-  .mx-md-5 {
-    margin-right: 3rem !important;
-    margin-left: 3rem !important;
+  .m-md-5 {
+    margin: 3rem !important;
   }
-  .mx-md-auto {
-    margin-right: auto !important;
-    margin-left: auto !important;
+  .m-md-auto {
+    margin: auto !important;
   }
   .my-md-0 {
     margin-top: 0 !important;
@@ -10309,33 +10296,26 @@ textarea.form-control-lg {
   .order-lg-last {
     order: 6 !important;
   }
-  .mx-lg-0 {
-    margin-right: 0 !important;
-    margin-left: 0 !important;
+  .m-lg-0 {
+    margin: 0 !important;
   }
-  .mx-lg-1 {
-    margin-right: 0.25rem !important;
-    margin-left: 0.25rem !important;
+  .m-lg-1 {
+    margin: 0.25rem !important;
   }
-  .mx-lg-2 {
-    margin-right: 0.5rem !important;
-    margin-left: 0.5rem !important;
+  .m-lg-2 {
+    margin: 0.5rem !important;
   }
-  .mx-lg-3 {
-    margin-right: 1rem !important;
-    margin-left: 1rem !important;
+  .m-lg-3 {
+    margin: 1rem !important;
   }
-  .mx-lg-4 {
-    margin-right: 1.5rem !important;
-    margin-left: 1.5rem !important;
+  .m-lg-4 {
+    margin: 1.5rem !important;
   }
-  .mx-lg-5 {
-    margin-right: 3rem !important;
-    margin-left: 3rem !important;
+  .m-lg-5 {
+    margin: 3rem !important;
   }
-  .mx-lg-auto {
-    margin-right: auto !important;
-    margin-left: auto !important;
+  .m-lg-auto {
+    margin: auto !important;
   }
   .my-lg-0 {
     margin-top: 0 !important;
@@ -10838,33 +10818,26 @@ textarea.form-control-lg {
   .order-xl-last {
     order: 6 !important;
   }
-  .mx-xl-0 {
-    margin-right: 0 !important;
-    margin-left: 0 !important;
+  .m-xl-0 {
+    margin: 0 !important;
   }
-  .mx-xl-1 {
-    margin-right: 0.25rem !important;
-    margin-left: 0.25rem !important;
+  .m-xl-1 {
+    margin: 0.25rem !important;
   }
-  .mx-xl-2 {
-    margin-right: 0.5rem !important;
-    margin-left: 0.5rem !important;
+  .m-xl-2 {
+    margin: 0.5rem !important;
   }
-  .mx-xl-3 {
-    margin-right: 1rem !important;
-    margin-left: 1rem !important;
+  .m-xl-3 {
+    margin: 1rem !important;
   }
-  .mx-xl-4 {
-    margin-right: 1.5rem !important;
-    margin-left: 1.5rem !important;
+  .m-xl-4 {
+    margin: 1.5rem !important;
   }
-  .mx-xl-5 {
-    margin-right: 3rem !important;
-    margin-left: 3rem !important;
+  .m-xl-5 {
+    margin: 3rem !important;
   }
-  .mx-xl-auto {
-    margin-right: auto !important;
-    margin-left: auto !important;
+  .m-xl-auto {
+    margin: auto !important;
   }
   .my-xl-0 {
     margin-top: 0 !important;
@@ -11367,33 +11340,26 @@ textarea.form-control-lg {
   .order-xxl-last {
     order: 6 !important;
   }
-  .mx-xxl-0 {
-    margin-right: 0 !important;
-    margin-left: 0 !important;
+  .m-xxl-0 {
+    margin: 0 !important;
   }
-  .mx-xxl-1 {
-    margin-right: 0.25rem !important;
-    margin-left: 0.25rem !important;
+  .m-xxl-1 {
+    margin: 0.25rem !important;
   }
-  .mx-xxl-2 {
-    margin-right: 0.5rem !important;
-    margin-left: 0.5rem !important;
+  .m-xxl-2 {
+    margin: 0.5rem !important;
   }
-  .mx-xxl-3 {
-    margin-right: 1rem !important;
-    margin-left: 1rem !important;
+  .m-xxl-3 {
+    margin: 1rem !important;
   }
-  .mx-xxl-4 {
-    margin-right: 1.5rem !important;
-    margin-left: 1.5rem !important;
+  .m-xxl-4 {
+    margin: 1.5rem !important;
   }
-  .mx-xxl-5 {
-    margin-right: 3rem !important;
-    margin-left: 3rem !important;
+  .m-xxl-5 {
+    margin: 3rem !important;
   }
-  .mx-xxl-auto {
-    margin-right: auto !important;
-    margin-left: auto !important;
+  .m-xxl-auto {
+    margin: auto !important;
   }
   .my-xxl-0 {
     margin-top: 0 !important;
