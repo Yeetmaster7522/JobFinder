@@ -15,30 +15,31 @@
         <div class="row justify-content-center">
             <div class="col bg-teal col-2 ms-3 me-3">
                 <h3 class="text-center">Employers Hiring Near You!</h3>
-                <ul id="near-employers">
-                </ul>
+                <ul id="near-employers"></ul>
             </div>
             <div class="col bg-teal col-2 ms-3 me-3">
                 <h3 class="text-center">Trending Industries</h3>
-                <ul id="trend-industries">
-                </ul>
+                <ul id="trend-industries"></ul>
             </div>
             <div class="col bg-teal col-2 ms-3 me-3">
                 <h3 class="text-center">Trending Roles</h3>
-                <ul id="trend-roles">
-                </ul>
+                <ul id="trend-roles"></ul>
             </div>
             <div class="col bg-teal col-2 ms-3 me-3">
-                <h3 class="text-center">Skills shortages</h3>
-                <ul id="skill-shortages">
-                </ul>
+                <h3 class="text-center">Skills Shortages</h3>
+                <ul id="skill-shortages"></ul>
             </div>
         </div>
     </div>
 
     <script src="/bootstrap.bundle.min.js"></script>
-    <script src="/logic/jobTrendFinder.js"></script>
+    <script src="/logic/jobFetcher.js"></script>
     <script src="/logic/main.js"></script>
     <script src="/logic/navbar.js"></script>
+    <script>
+        window.addEventListener("mainReady", () => {
+            const trendFinder = new TrendFinder(window.main.getUser(), window.main.jobPosts);
+        });
+    </script>
 </body>
 </html>

@@ -6,7 +6,7 @@ class JobFetcher {
 
     constructor(user, posts) {
         this.#user = user;
-        this.#posts, this.#editedPosts = posts;
+        this.#posts = posts;
         this.#editedPosts = posts;
         this.#currentPostId = this.getHistoricalId();
     }
@@ -40,7 +40,7 @@ class JobFetcher {
 
         if (search != "") {
             for (let i=0; i<this.#posts.length; i++) {
-                let post = this.#ogPosts[i];
+                let post = this.#posts[i];
 
                 if (post.companyName.toLowerCase().includes(search)) {
                     postIds.push(i);
@@ -344,45 +344,3 @@ class TrendFinder extends JobFetcher {
         }
     }
 }
-
-window.addEventListener("mainReady", () => {
-    const jf = new JobPostFetcher(window.main.getUser(), window.main.jobPosts);
-
-    document.getElementById("scroll-up-btn").addEventListener("click", () => jf.scrollPost(false));
-    document.getElementById("scroll-down-btn").addEventListener("click", () => jf.scrollPost());
-
-    // quick buttons
-    document.getElementById("apply-btn").addEventListener("click", () => jf.applyToPost());
-    document.getElementById("save-btn").addEventListener("click", () => jf.savePost());
-    document.getElementById("hide-btn").addEventListener("click", () => jf.hidePost());
-
-    // combine search and dropdown stuff
-    const searchBar = document.getElementById("search-bar");
-    searchBar.addEventListener("search", (event) => {
-        let postIds = jf.filterSearch().filter(x => jf.searchPosts(event.target.value).includes(x))
-        jf.updatePosts(postIds);
-    });
-
-    document.querySelectorAll(".dropdown-item:not(.submenu):not(#clear-filters)").forEach(item => {
-        item.addEventListener("click", () => {
-            let idLists = [
-                jf.filterSearch(),
-                jf.searchPosts(searchBar.value),
-                jf.preferenceSearch()
-            ]
-            let postIds = idLists.reduce(
-                (acc, list) => acc.filter(id => list.includes(id))
-            );
-            jf.updatePosts(postIds);
-        });
-    });
-
-    document.getElementById("clear-filters").addEventListener("click", () => {
-        document.querySelectorAll(".dropdown-item").forEach(item => {
-            item.classList.remove("active");
-            item.setAttribute("aria-pressed", "false");
-            
-            jf.updatePosts(jf.getOgPosts());
-        });
-    });
-});
