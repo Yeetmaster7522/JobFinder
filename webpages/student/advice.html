@@ -30,7 +30,9 @@
 
     <script src="/bootstrap.bundle.min.js"></script>
     <script src="/logic/main.js"></script>
-    <script src="/logic/articleManager.js">
+    <script src="/logic/articleManager.js"></script>
+    <script src="/logic/navbar.js"></script>
+    <script>
         window.addEventListener("mainReady", () => {
             const articleManager = new ArticleManager(window.main.articles);
             articleManager.displayArticles();
@@ -40,6 +42,5 @@
             });
         });
     </script>
-    <script src="/logic/navbar.js"></script>
 </body>
 </html>
