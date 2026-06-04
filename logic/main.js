@@ -81,8 +81,9 @@ function setCookie(cname, cvalue, exdays) {
 }
 
 function appendLI(parent, childText) {
-	let li = document.createElement("li");
+	const li = document.createElement("li");
 	li.textContent = childText;
+	li.classList.add("list-group-item", "bg-transparent", "text-light");
 	parent.appendChild(li);
 }
 

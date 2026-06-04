@@ -12,6 +12,13 @@ $utilities: (
       6: 4rem,
       7: 5rem
     )
+  ),
+  "shadow": (
+    property: box-shadow,
+    class: shadow,
+    values: (
+      strong: 0 1rem 3rem rgba(150, 150, 150, 0.175),
+    )
   )
 );
 
