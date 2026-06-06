@@ -77,7 +77,7 @@ class ArticleManager {
 
         const article = this.#articles[id];
         document.getElementById("title").innerText = article.title;
-        document.getElementById("thumbnail").src = article.img;
+        document.getElementById("thumbnail").src = article.image;
         document.getElementById("content").innerText = article.content;
     }
 }
