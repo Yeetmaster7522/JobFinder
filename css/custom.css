@@ -7257,7 +7257,7 @@ textarea.form-control-lg {
 }
 
 .shadow-strong {
-  box-shadow: 0 1rem 3rem rgba(150, 150, 150, 0.175) !important;
+  box-shadow: 0 1rem 3rem rgba(150, 150, 150, 0.2) !important;
 }
 
 .focus-ring-primary {
@@ -8235,6 +8235,14 @@ textarea.form-control-lg {
 
 .column-gap-5 {
   column-gap: 3rem !important;
+}
+
+.column-gap-6 {
+  column-gap: 4rem !important;
+}
+
+.column-gap-7 {
+  column-gap: 5rem !important;
 }
 
 .font-monospace {
@@ -9547,24 +9555,6 @@ textarea.form-control-lg {
   .row-gap-sm-5 {
     row-gap: 3rem !important;
   }
-  .column-gap-sm-0 {
-    column-gap: 0 !important;
-  }
-  .column-gap-sm-1 {
-    column-gap: 0.25rem !important;
-  }
-  .column-gap-sm-2 {
-    column-gap: 0.5rem !important;
-  }
-  .column-gap-sm-3 {
-    column-gap: 1rem !important;
-  }
-  .column-gap-sm-4 {
-    column-gap: 1.5rem !important;
-  }
-  .column-gap-sm-5 {
-    column-gap: 3rem !important;
-  }
   .text-sm-start {
     text-align: left !important;
   }
@@ -10068,24 +10058,6 @@ textarea.form-control-lg {
   }
   .row-gap-md-5 {
     row-gap: 3rem !important;
-  }
-  .column-gap-md-0 {
-    column-gap: 0 !important;
-  }
-  .column-gap-md-1 {
-    column-gap: 0.25rem !important;
-  }
-  .column-gap-md-2 {
-    column-gap: 0.5rem !important;
-  }
-  .column-gap-md-3 {
-    column-gap: 1rem !important;
-  }
-  .column-gap-md-4 {
-    column-gap: 1.5rem !important;
-  }
-  .column-gap-md-5 {
-    column-gap: 3rem !important;
   }
   .text-md-start {
     text-align: left !important;
@@ -10591,24 +10563,6 @@ textarea.form-control-lg {
   .row-gap-lg-5 {
     row-gap: 3rem !important;
   }
-  .column-gap-lg-0 {
-    column-gap: 0 !important;
-  }
-  .column-gap-lg-1 {
-    column-gap: 0.25rem !important;
-  }
-  .column-gap-lg-2 {
-    column-gap: 0.5rem !important;
-  }
-  .column-gap-lg-3 {
-    column-gap: 1rem !important;
-  }
-  .column-gap-lg-4 {
-    column-gap: 1.5rem !important;
-  }
-  .column-gap-lg-5 {
-    column-gap: 3rem !important;
-  }
   .text-lg-start {
     text-align: left !important;
   }
@@ -11112,24 +11066,6 @@ textarea.form-control-lg {
   }
   .row-gap-xl-5 {
     row-gap: 3rem !important;
-  }
-  .column-gap-xl-0 {
-    column-gap: 0 !important;
-  }
-  .column-gap-xl-1 {
-    column-gap: 0.25rem !important;
-  }
-  .column-gap-xl-2 {
-    column-gap: 0.5rem !important;
-  }
-  .column-gap-xl-3 {
-    column-gap: 1rem !important;
-  }
-  .column-gap-xl-4 {
-    column-gap: 1.5rem !important;
-  }
-  .column-gap-xl-5 {
-    column-gap: 3rem !important;
   }
   .text-xl-start {
     text-align: left !important;
@@ -11635,24 +11571,6 @@ textarea.form-control-lg {
   .row-gap-xxl-5 {
     row-gap: 3rem !important;
   }
-  .column-gap-xxl-0 {
-    column-gap: 0 !important;
-  }
-  .column-gap-xxl-1 {
-    column-gap: 0.25rem !important;
-  }
-  .column-gap-xxl-2 {
-    column-gap: 0.5rem !important;
-  }
-  .column-gap-xxl-3 {
-    column-gap: 1rem !important;
-  }
-  .column-gap-xxl-4 {
-    column-gap: 1.5rem !important;
-  }
-  .column-gap-xxl-5 {
-    column-gap: 3rem !important;
-  }
   .text-xxl-start {
     text-align: left !important;
   }
@@ -11711,6 +11629,64 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
+}
+input[type=search]::placeholder {
+  color: #6c757d;
+  opacity: 1;
+}
+
+.bg-secondary-transparent {
+  background-color: rgba(var(--bs-secondary-rgb), 0.8);
+  backdrop-filter: blur(6px);
+}
+
+.navLink {
+  text-decoration: none;
+}
+
+.bg-blue {
+  background-color: #464D77;
+}
+
+.bg-teal {
+  background-color: #36827F;
+}
+
+.bg-gold {
+  background-color: #F9DB6D;
+}
+
+.bg-snow {
+  background-color: #F4EDED;
+}
+
+.bg-brown {
+  background-color: #877666;
+}
+
+.form-control.bg-teal::placeholder {
+  color: #ffffff !important;
+}
+
+.form-control.bg-teal {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important; /* fixes typed text */
+}
+
+.form-control.bg-teal:focus {
+  background-color: #008080 !important; /* your teal */
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+}
+
+.form-control.bg-teal:-webkit-autofill,
+.form-control.bg-teal:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #008080 inset !important; /* force background */
+  -webkit-text-fill-color: #fff !important; /* force white text */
+}
+
+#skills li:nth-child(n+10) {
+  display: none;
 }
 
 /*# sourceMappingURL=custom.css.map */
