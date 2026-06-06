@@ -1,5 +1,9 @@
 class LogUser {
+    #modal
+
     constructor() {
+        this.#modal = document.getElementById("successModal");
+
         const logInBtn = document.getElementById("log-in-btn");
         const signUpBtn = document.getElementById("sign-up-btn");
         const forgotPswrd = document.getElementById("forgot-pswrd");
@@ -13,9 +17,16 @@ class LogUser {
         }
 
         if (forgotPswrd) {
-            forgotPswrd.addEventListener("click", () => {alert("email sent")});
+            forgotPswrd.addEventListener("click", () => {this.setModal("email sent")});
         }
+    }
 
+    setModal(title, body="") {
+        const modalTitle = this.#modal.querySelector(".modal-title");
+        const modalBody = this.#modal.querySelector(".modal-body");
+
+        modalTitle.textContent = title;
+        modalBody.textContent = body;
     }
 
     findUser(email, pswrd) {
@@ -43,18 +54,20 @@ class LogUser {
             const userUid = this.findUser(emailInp, pswrdInp);
 
             if (userUid == -1) {
-                alert("Email does not exist in userbase, please sign up.");
+                this.setModal("Email or password is wrong", "Please try again");
             }
             else {
                 const user = window.main.users[userUid];
 
                 setCookie("UID", userUid, 1);
-                window.location.href = `/webpages/${user.role}/profile.html`;
-                alert("Logged in");
+                this.setModal("Logged in", `Welcome back ${user.email}`);
+                setTimeout(() => {
+                    window.location.href = `/webpages/${user.role}/profile.html`;
+                }, 500);
             }
         }
         else {
-            alert("Please fill out fields");
+            this.setModal("Please fill out fields", "One or more fields have not been completed");
         }
     }
 
@@ -67,7 +80,7 @@ class LogUser {
             "password": userPassword,
             "role": ""
         }
-        alert("Signed up");
+        this.setModal("Signed up");
     }
 
     genUID() {

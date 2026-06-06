@@ -8,6 +8,20 @@
     <link rel="stylesheet" href="/main.css">
 </head>
 <body class="bg-dark text-light">
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark text-light">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="successModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container-fluid">
         <!-- Top navigation bar -->
         <div class="row mb-2" id="navbar"></div>
@@ -53,7 +67,7 @@
         <!-- Button -->
         <div class="row justify-content-center">
             <div class="col col-5">
-                <button type="button" class="btn bg-teal w-100 fs-5 text-light shadow-strong btn-light" id="log-in-btn">Log In</button>
+                <button type="button" class="btn bg-teal w-100 fs-5 text-light shadow-strong btn-light" id="log-in-btn" data-bs-toggle="modal" data-bs-target="#successModal">Log In</button>
             </div>
         </div>
         <!-- sign up redirect -->
