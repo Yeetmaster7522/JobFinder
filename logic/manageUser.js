@@ -19,6 +19,19 @@ class UserManager {
 
 class StudentManager extends UserManager {
     constructor(user) {
+        document.getElementById("qualifications-header").addEventListener("click", () => {
+            this.toggleArrow(document.getElementById("qualifications-arrow"));
+        });
+        document.getElementById("preference-header").addEventListener("click", () => {
+            this.toggleArrow(document.getElementById("preference-arrow"));
+        });
+        document.getElementById("saved-header").addEventListener("click", () => {
+            this.toggleArrow(document.getElementById("saved-arrow"));
+        });
+        document.getElementById("hidden-header").addEventListener("click", () => {
+            this.toggleArrow(document.getElementById("hidden-arrow"));
+        });
+
         super(user);
 
         document.getElementById("name").innerText = user.student.name;
@@ -30,37 +43,28 @@ class StudentManager extends UserManager {
         document.getElementById("education").innerText = user.student.experienceLevel;
 
         const skillsList = document.getElementById("skills-list");
-        for (const i in user.student.skills) {
-            let li = document.createElement("li");
-            li.innerText = user.student.skills[i];
-            skillsList.appendChild(li);
+        for (const s of user.student.skills) {
+            appendLI(skillsList, s);
         }
 
         const certList = document.getElementById("cert-list");
-        for (const i in user.student.certifications) {
-            let li = document.createElement("li");
-            li.innerText = user.student.certifications[i];
-            certList.appendChild(li);
+        for (const c of user.student.certifications) {
+            appendLI(certList, c)
         }
 
         document.getElementById("work-eligibility").innerText = user.student.workEligibility;
 
         // preferences
         const industryList = document.getElementById("industry-list");
-        for (const i in user.student.preferences.industries) {
-            let li = document.createElement("li");
-            li.innerText = user.student.preferences.industries[i];
-            industryList.appendChild(li);
+        for (const i of user.student.preferences.industries) {
+            appendLI(industryList, i)
         }
 
         document.getElementById("min-salary").innerText = user.student.preferences.minSalary;
 
         const hours = document.getElementById("hours");
-        for (const i in user.student.timeIntervals) {
-            let li = document.createElement("li");
-            let interval = user.student.timeIntervals[i];
-            li.innerText = `${interval.start} - ${interval.end}`;
-            hours.appendChild(li);
+        for (const interval of user.student.timeIntervals) {
+            appendLI(hours, `${interval.start} - ${interval.end}`);
 
         }
 
@@ -75,6 +79,7 @@ class StudentManager extends UserManager {
             for (let i=0; i<appliedJobs.length; i++) {
                 let li = document.createElement("li");
                 li.classList = "list-group-item bg-secondary text-light";
+                li.classList.add("list-group-item");
                 let p = document.createElement("p");
                 p.textContent = `MM.YY ${appliedJobs[i].jobTitle} / Not yet read`;
                 li.appendChild(p);
@@ -92,6 +97,7 @@ class StudentManager extends UserManager {
             for (let i=0; i<savedJobs.length; i++) {
                 let li = document.createElement("li");
                 li.classList = "list-group-item bg-secondary text-light";
+                li.classList.add("list-group-item");
                 let p = document.createElement("p");
                 p.textContent = `${savedJobs[i].jobTitle}`;
                 li.appendChild(p);
@@ -109,6 +115,7 @@ class StudentManager extends UserManager {
             for (let i=0; i<hiddenJobs.length; i++) {
                 let li = document.createElement("li");
                 li.classList = "list-group-item bg-secondary text-light";
+                li.classList.add("list-group-item");
                 let p = document.createElement("p");
                 p.textContent = hiddenJobs[i].jobTitle;
                 li.appendChild(p);
@@ -159,6 +166,15 @@ class StudentManager extends UserManager {
             "employmentType": document.getElementById("employment-type").textContent,
             "locationRadius": document.getElementById("loc-radius").textContent
         };
+    }
+
+    toggleArrow(element) {
+        if (element.innerText == ">") {
+            element.innerText = "^";
+        }
+        else {
+            element.innerText = ">";
+        }
     }
 }
 
