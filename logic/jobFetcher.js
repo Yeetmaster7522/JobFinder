@@ -103,13 +103,13 @@ class JobFetcher {
         deadline.innerText = post.deadline;
 
         skills.innerText = "";
-        for (const skill of post.skills) {
-            appendLI(skills, skill)
+        for (const skill of post.skills.slice(0,5)) {
+            appendLI(skills, skill);
         }
         
         hours.innerText = "";
-        for (let i=0; i<post.hours.length; i++) {
-            hours.innerText += `${post.hours[i][0]} - ${post.hours[i][1]}\n`;
+        for (const hour of post.hours) {
+            appendLI(hours, `${hour[0]} - ${hour[1]}`);
         }
 
         fullSummary.innerText = post.summary;
