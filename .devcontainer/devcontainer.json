@@ -1,0 +1,5 @@
+{
+    "name": "glowing trout",
+    "image": "://microsoft.com",
+    "postStartCommand": "sass --watch scss/custom.scss css/custom.css"
+}

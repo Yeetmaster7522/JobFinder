@@ -11520,7 +11520,7 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-input[type=search]::placeholder {
+input::placeholder {
   color: #6c757d;
   opacity: 1;
 }
@@ -11585,6 +11585,10 @@ input[type=search]::placeholder {
 
 html {
   overflow-y: scroll;
+}
+
+.w-8 {
+  width: 8%;
 }
 
 /*# sourceMappingURL=custom.css.map */

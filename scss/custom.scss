@@ -54,7 +54,7 @@ $utilities: (
 
 @import "../node_modules/bootstrap/scss/bootstrap";
 
-input[type="search"] {
+input {
   &::placeholder {
     color: #6c757d;
     opacity: 1;
@@ -121,4 +121,8 @@ input[type="search"] {
 
 html {
   overflow-y: scroll;
+}
+
+.w-8 {
+  width: 8%;
 }
