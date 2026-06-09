@@ -182,20 +182,20 @@ class EmployerManager extends UserManager {
     constructor(user) {
         super(user);
 
-        document.getElementById("company-name").innerText = user.employer.companyName;
-        document.getElementById("address").innerText = user.employer.address;
-        document.getElementById("contact-number").innerText = user.employer.contactNumber;
-        document.getElementById("contact-email").innerText = user.employer.contactEmail;
-        document.getElementById("website").innerText = user.employer.website;
+        document.getElementById("company-name").value = user.employer.companyName;
+        document.getElementById("address").value = user.employer.address;
+        document.getElementById("contact-number").value = user.employer.contactNumber;
+        document.getElementById("contact-email").value = user.employer.contactEmail;
+        document.getElementById("website").value = user.employer.website;
     }
 
     getUserDetailInp() {
         return {
-            "company-name": document.getElementById("company-name").textContent,
-            "address": document.getElementById("address").textContent,
-            "contact-number": document.getElementById("contact-number").textContent,
-            "contact-email": document.getElementById("contact-email").textContent,
-            "website": document.getElementById("website").textContent,
+            "company-name": document.getElementById("company-name").value,
+            "address": document.getElementById("address").value,
+            "contact-number": document.getElementById("contact-number").value,
+            "contact-email": document.getElementById("contact-email").value,
+            "website": document.getElementById("website").value,
         };
     }
 }
