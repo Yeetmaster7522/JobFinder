@@ -1,5 +1,7 @@
 {
-    "name": "glowing trout",
-    "image": "://microsoft.com",
-    "postStartCommand": "sass --watch scss/custom.scss css/custom.css"
+    "name": "Node.js env",
+    "postStartCommand": "sass --watch scss/custom.scss css/custom.css",
+    "features": {
+        "ghcr.io/devcontainers/features/node:2": {}
+    }
 }
