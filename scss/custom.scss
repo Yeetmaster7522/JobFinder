@@ -59,11 +59,6 @@ $utilities: (
   color: rgba(#6c757d, 1.0);
 }
 
-.bg-secondary-transparent {
-  background-color: rgba(var(--bs-secondary-rgb), 0.8);
-  backdrop-filter: blur(6px);
-}
-
 .navLink {
     text-decoration: none;
 }
@@ -75,39 +70,6 @@ $utilities: (
 .bg-teal {
     background-color: #36827F;
 }
-
-.bg-gold {
-    background-color: #F9DB6D;
-}
-
-.bg-snow {
-    background-color: #F4EDED;
-}
-
-.bg-brown {
-    background-color: #877666;
-}
-
-// .form-control.bg-teal::placeholder {
-//   color: #ffffff !important;
-// }
-
-// .form-control.bg-teal {
-//   color: #fff !important;
-//   -webkit-text-fill-color: #fff !important; /* fixes typed text */
-// }
-
-// .form-control.bg-teal:focus {
-//   background-color: #008080 !important; /* your teal */
-//   color: #fff !important;
-//   -webkit-text-fill-color: #fff !important;
-// }
-
-// .form-control.bg-teal:-webkit-autofill,
-// .form-control.bg-teal:-webkit-autofill:focus {
-//   -webkit-box-shadow: 0 0 0px 1000px #008080 inset !important; /* force background */
-//   -webkit-text-fill-color: #fff !important; /* force white text */
-// }
 
 #skills li:nth-child(n+10) {
   display: none;

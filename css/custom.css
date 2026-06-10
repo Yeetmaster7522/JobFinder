@@ -11525,11 +11525,6 @@ textarea.form-control-lg {
   color: #6c757d;
 }
 
-.bg-secondary-transparent {
-  background-color: rgba(var(--bs-secondary-rgb), 0.8);
-  backdrop-filter: blur(6px);
-}
-
 .navLink {
   text-decoration: none;
 }
@@ -11540,18 +11535,6 @@ textarea.form-control-lg {
 
 .bg-teal {
   background-color: #36827F;
-}
-
-.bg-gold {
-  background-color: #F9DB6D;
-}
-
-.bg-snow {
-  background-color: #F4EDED;
-}
-
-.bg-brown {
-  background-color: #877666;
 }
 
 #skills li:nth-child(n+10) {
