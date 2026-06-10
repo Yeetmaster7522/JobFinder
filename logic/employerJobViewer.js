@@ -31,10 +31,10 @@ class JobEditor {
         const postId = `post-${post.ID}`;
 
         const li = document.createElement("li");
-        li.classList.add("list-group-item");
+        li.classList.add("list-group-item", "bg-transparent", "text-light");
         
         const container = document.createElement("div");
-        container.classList.add("container-fluid");
+        container.classList.add("container-fluid", "text-center");
 
         // front
         const front = document.createElement("div");
@@ -49,6 +49,7 @@ class JobEditor {
         f_r1_col1.classList.add("col");
 
         const title = document.createElement("p");
+        title.classList.add("fw-bold");
         title.textContent = post.jobTitle;
 
         // row 2
@@ -59,22 +60,24 @@ class JobEditor {
         f_r2_col1.classList.add("col");
 
         const applicants = document.createElement("p");
-        applicants.textContent = "applicants";
+        applicants.textContent = "Applicants";
 
         // row 3
         const f_row3 = document.createElement("div");
         f_row3.classList.add("row")
 
         const f_r3_col1 = document.createElement("div");
-        f_r3_col1.classList.add("col");
+        f_r3_col1.classList.add("col", "d-flex", "justify-content-start", "align-items-end");
 
-        const deadline = document.createElement("p");
-        deadline.textContent = `Deadline: ${post.deadline}`
+        const deadline = document.createElement("span");
+        deadline.classList.add("small", "fw-lighter", "badge", "text-bg-secondary");
+        deadline.textContent = `Deadline: ${post.deadline}`;
 
         const f_r3_col2 = document.createElement("div");
-        f_r3_col2.classList.add("col");
+        f_r3_col2.classList.add("col", "d-flex", "justify-content-end", "align-items-end");
 
-        const status = document.createElement("p");
+        const status = document.createElement("span");
+        status.classList.add("small", "fw-lighter", "badge", "text-bg-secondary");
         const date = new Date();
         const postDate = new Date(post.deadline);
 
@@ -98,6 +101,7 @@ class JobEditor {
         b_r1_col1.classList.add("col");
 
         const edit = document.createElement("a");
+        edit.classList.add("text-decoration-none", "text-primary");
         edit.textContent = "Edit Post";
         edit.href = `/webpages/employer/editPost.html?id=${post.ID}`;
 
@@ -109,6 +113,7 @@ class JobEditor {
         b_r2_col1.classList.add("col");
         
         const view = document.createElement("a");
+        view.classList.add("text-decoration-none", "text-primary");
         view.textContent = "View applicants";
         view.href = `/webpages/employer/applicantView.html?id=${post.ID}`;
 
