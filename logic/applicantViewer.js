@@ -29,63 +29,23 @@ class ApplicantViewer {
 
         const previews = document.getElementById("previews");
         const li = document.createElement("li");
-        li.classList.add("list-group-item");
-
-        li.addEventListener("click", () => {
-            this.showDetails(uid);
-        })
+        li.classList.add("list-group-item", "bg-secondary", "text-light")
         
-        const row1 = document.createElement("div");
-        row1.classList.add("row");
-        const col1 = document.createElement("div");
-        col1.classList.add("col");
-        const name = document.createElement("p");
-        name.textContent = user.student.name;
+        li.innerHTML = `
+            <div class="row g-1">
+                <div class="col-12">
+                    <p class="fs-5 mb-1">${user.student.name} <span class="badge text-bg-info float-end" style="font-size: 0.7rem">Applied: ${application.dateApplied}</span></p>
+                    <hr class="border border-white border-1 opacity-50 rounded-1 mt-0">
+                </div>
+                <div class="col-12">
+                    <p>${user.email}</p>
+                </div>
+                <div class="col-12">
+                    <p>${user.student.phoneNumber}</p>
+                </div>
+            </div>
+        `;
 
-        const row2 = document.createElement("div");
-        row2.classList.add("row");
-        const col2 = document.createElement("div");
-        col2.classList.add("col");
-        const email = document.createElement("p");
-        email.textContent = user.email;
-
-        const row3 = document.createElement("div");
-        row3.classList.add("row");
-        const col3 = document.createElement("div");
-        col3.classList.add("col");
-        const number = document.createElement("p");
-        number.textContent = user.student.phoneNumber;
-
-        const row4 = document.createElement("div");
-        row4.classList.add("row");
-        const col4_1 = document.createElement("div");
-        col4_1.classList.add("col");
-        const applied = document.createElement("p");
-        applied.textContent = "Applied:";
-        const col4_2 = document.createElement("div");
-        col4_2.classList.add("col");
-        const date = document.createElement("p");
-        date.textContent = application.dateApplied;
-
-        col1.appendChild(name);
-        row1.appendChild(col1);
-
-        col2.appendChild(email);
-        row2.appendChild(col2);
-
-        col3.appendChild(number);
-        row3.appendChild(col3);
-
-        col4_1.appendChild(applied);
-        col4_2.appendChild(date);
-        row4.appendChild(col4_1);
-        row4.appendChild(col4_2);
-
-        li.appendChild(row1);
-        li.appendChild(row2);
-        li.appendChild(row3);
-        li.appendChild(row4);
-        
         previews.append(li);
     }
 
@@ -93,27 +53,17 @@ class ApplicantViewer {
         const user = this.#users[uid];
         
         document.getElementById("name").textContent = user.student.name;
-        document.getElementById("resume").textContent = user.student.resume.source;
-        document.getElementById("education-level").textContent = user.student.experienceLevel;
-        document.getElementById("email").textContent = user.email;
-        document.getElementById("phone-contact").textContent = user.student.phoneNumber;
+        document.getElementById("resume").href = user.student.resume.source;
+        document.getElementById("education-level").value = user.student.experienceLevel;
+        document.getElementById("email").value = user.email;
+        document.getElementById("phone-contact").value = user.student.phoneNumber;
 
-        const skillsList = document.getElementById("skills-list");
-        skillsList.innerHTML = "";
-        for (const skill of user.student.skills) {
-            appendLI(skillsList, skill);
-        }
-
-        const certsList = document.getElementById("certifications-list");
-        certsList.innerHTML = "";
-        for (const cert of user.student.certifications) {
-            appendLI(certsList, cert);
-        }
+        document.getElementById("skills-list").value = user.student.skills.join("\n");  
+        document.getElementById("certifications-list").value = user.student.certifications.join("\n");
 
         const availability = document.getElementById("availability-timestamp");
-        availability.innerHTML = "";
         for (const timestamp of user.student.timeIntervals) {
-            appendLI(availability, `${timestamp.start} - ${timestamp.end}`);
+            availability.value += `${timestamp.start} - ${timestamp.end}\n`;
         }
     }
 }
