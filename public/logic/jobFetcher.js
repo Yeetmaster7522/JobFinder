@@ -11,6 +11,29 @@ class JobFetcher {
         this.#currentPostId = this.getHistoricalId();
     }
 
+    init() {
+        this.enableSubmenuFilters(
+            this.#user.student.preferences.workType, 
+            this.#user.student.preferences.employmentType
+        );
+
+        let idLists = [
+            this.filterSearch(),
+            this.preferenceSearch()
+        ];
+
+        let postIds = idLists.reduce(
+            (acc, list) => acc.filter(id => list.includes(id))
+        );
+
+        if (postIds.length == 0) {
+            postIds = this.#posts.map((_, i) => i);
+        }
+
+        this.updatePosts(postIds);
+        this.displayPostAtI(this.#currentPostId);
+    }
+
     getHistoricalId() {
         let pastPostId = getCookie("postIndex") || "0";
         
@@ -57,7 +80,7 @@ class JobFetcher {
             }
         }
 
-        if (search == "" || postIds.length == 0) {
+        if (search == "") {
             postIds = this.#posts.map((_, i) => i);
         }
 
@@ -74,8 +97,9 @@ class JobFetcher {
     }
 
     displayPostAtI(id) {
-        const postCounter = document.getElementById("postCounter");
         const post = this.#editedPosts[id];
+
+        const postCounter = document.getElementById("postCounter");
         const jobTitle = document.getElementById("job-title");
         const companyName = document.getElementById("company-name");
         const address = document.getElementById("address");
@@ -90,7 +114,7 @@ class JobFetcher {
         const fullSummary = document.getElementById("full-summary");
         const shortSummary = document.getElementById("short-summary");
 
-        postCounter.innerText = `${id+1}/${this.#posts.length} Posts`;
+        postCounter.innerText = `${id+1}/${this.#editedPosts.length} Posts`;
 
         jobTitle.innerText = post.jobTitle;
         companyName.innerText = post.companyName;
@@ -125,7 +149,10 @@ class JobFetcher {
 
         let valid = true;
 
-        if (forward == true && this.#currentPostId < this.#editedPosts.length) {
+        if (this.#editedPosts.length == 0) {
+            console.log("none found")
+        }
+        else if (forward == true && this.#currentPostId < this.#editedPosts.length-1) {
             this.#currentPostId += 1;
             if (this.#currentPostId == this.#editedPosts.length) {
                 valid = false;
@@ -161,7 +188,7 @@ class JobFetcher {
         let postIds = [];
         let filters = [];
 
-        document.querySelector(".active").forEach(selected => {
+        document.querySelectorAll(".active").forEach(selected => {
             filters.push(selected.value);
         });
 
@@ -169,7 +196,7 @@ class JobFetcher {
             let post = this.#posts[i];
 
             if (
-                filters.includes(post.employmentType.toLowerCase()) && 
+                filters.includes(post.employmentType.toLowerCase()) || 
                 filters.includes(post.workType.toLowerCase())
             ) {
                 postIds.push(i);
