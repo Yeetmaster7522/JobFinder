@@ -30,8 +30,9 @@
     <script src="/logic/articleManager.js"></script>
     <script src="/logic/navbar.js"></script>
     <script>
-        window.addEventListener("mainReady", () => {
-            const articleManager = new ArticleManager(window.main.articles);
+        window.addEventListener("mainReady", async () => {
+            const articles = await wsRequest("articles");
+            const articleManager = new ArticleManager(JSON.parse(articles));
             articleManager.displayArticles();
 
             document.getElementById("search-bar").addEventListener("search", (e) => {

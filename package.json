@@ -9,7 +9,7 @@
   "description": "Website needs to be run on a live server",
   "main": "index.js",
   "scripts": {
-    "start": "node ."
+    "start": "npx concurrently \"node server.js\" \"node .\""
   },
   "repository": {
     "type": "git",

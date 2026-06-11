@@ -68,7 +68,12 @@ class ApplicantViewer {
     }
 }
 
-window.addEventListener("mainReady", () => {
-    const applicantViewer = new ApplicantViewer(window.main.users, window.main.applications);
+window.addEventListener("mainReady", async () => {
+    const users = await wsRequest("userAccounts");
+    const applications = await wsRequest("applications");
+    const applicantViewer = new ApplicantViewer(
+        JSON.parse(users), 
+        JSON.parse(applications)
+    );
     applicantViewer.showAll();
 });

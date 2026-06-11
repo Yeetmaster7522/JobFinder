@@ -1,7 +1,9 @@
 class LogUser {
+    #users
     #modal
 
-    constructor() {
+    constructor(users) {
+        this.#users = users;
         this.#modal = document.getElementById("successModal");
 
         const logInBtn = document.getElementById("log-in-btn");
@@ -30,11 +32,10 @@ class LogUser {
     }
 
     findUser(email, pswrd) {
-        const users = window.main.users;
         let UID = -1;
 
-        for (const uid in users) {
-            const user = users[uid];
+        for (const uid in this.#users) {
+            const user = this.#users[uid];
             if (
                 email.toLowerCase() == user.email.toLowerCase()
                 && pswrd == user.password
@@ -57,7 +58,7 @@ class LogUser {
                 this.setModal("Email or password is wrong", "Please try again");
             }
             else {
-                const user = window.main.users[userUid];
+                const user = this.#users[userUid];
 
                 setCookie("UID", userUid, 1);
                 this.setModal("Logged in", `Welcome back ${user.email}`);
@@ -75,7 +76,7 @@ class LogUser {
         const userEmail = document.getElementById("email-input").value;
         const userPassword = document.getElementById("password-input").value;
         const newUID = this.genUID();
-        window.main.users[newUID] = {
+        this.#users[newUID] = {
             "email": userEmail,
             "password": userPassword,
             "role": ""
@@ -93,6 +94,7 @@ class LogUser {
     }
 }
 
-window.addEventListener("mainReady", () => {
-    const logUser = new LogUser(window.main.users);
+window.addEventListener("mainReady", async () => {
+    const users = await wsRequest("userAccounts");
+    const logUser = new LogUser(JSON.parse(users));
 });

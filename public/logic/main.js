@@ -1,18 +1,16 @@
 class Main {
 	#uid
 
-	constructor(users, jobPosts, articles, applications) {
-		this.users = users;
-		this.jobPosts = jobPosts;
-		this.articles = articles;
-		this.applications = applications;
+	constructor() {
 		this.#uid = getCookie("UID");
+  	}
 
+	async init() {
 		if (this.#uid === "") {
 			window.navbarManager.applyNavbar();
 		}
 		else {
-			const user = this.getUser()
+			const user = await this.getUser()
 			const role = user.role;
 
 			window.navbarManager.applyNavbar(role);
@@ -29,10 +27,12 @@ class Main {
 				);
 			}
 		}
-  	}
+	}
 
-	getUser() {
-		return this.users[this.#uid];
+	async getUser() {
+		let users = await wsRequest("userAccounts");
+		users = JSON.parse(users);
+		return users[this.#uid];
 	}
 
 	editUserData(edits) {
@@ -117,25 +117,55 @@ function getParam(param) {
 	return params.get(param);
 }
 
+
+
+const ws = new WebSocket("ws://localhost:8080");
+const pending = {}
+let nextId = 1;
+
+function wsRequest(req) {
+	return new Promise(resolve => {
+		const id = nextId++;
+		pending[id] = resolve;
+
+		ws.send(JSON.stringify( {"id": id, "request": req} ));
+	});
+}
+
+ws.onopen = () => {
+	console.log("Connected");
+
+	window.main = new Main();
+	window.main.init().then(() => {
+		window.dispatchEvent(new Event("mainReady"));
+	})
+};
+
+ws.onmessage = (msg) => {
+	msg = JSON.parse(msg.data);
+
+	if (msg.id && pending[msg.id]) {
+		pending[msg.id](msg.data);
+		delete pending[msg.id];
+	}
+}
+
+ws.onerror = (err) => {
+	console.log(err.message);
+}
+
+ws.onclose = () => {
+	console.log("Disconnected from server");
+}
+
 window.addEventListener("DOMContentLoaded", () => {
 	Promise.all([
-		fetch("/database/userAccounts.json").then(r => r.json()),
-		fetch("/database/jobPosts.json").then(r => r.json()),
-		fetch("/database/articles.json").then(r => r.json()),
-		fetch("/database/applications.json").then(r => r.json()),
-		fetch("/webpages/student/navbar.html"),
-		fetch("/webpages/employer/navbar.html")
+		fetch("/webpages/student/navbar.html").then(r => r.text()),
+		fetch("/webpages/employer/navbar.html").then(r => r.text())
 	])
-	.then(async ([userData, postData, articles, applications, studentNav, employerNav]) => {
-		const studentHTML = await studentNav.text();
-		const employerHTML = await employerNav.text();
-
+	.then(async ([studentHTML, employerHTML]) => {
 		window.navbarManager = new Navbar();
 		window.navbarManager.setHTML(studentHTML, employerHTML);
-		// document.getElementById("navbar").innerHTML = navbarHTML;
-
-		window.main = new Main(userData, postData, articles, applications);
-		window.dispatchEvent(new Event("mainReady"));
 	})
 	.catch(e => console.error("Error loading JSON:", e));
 });

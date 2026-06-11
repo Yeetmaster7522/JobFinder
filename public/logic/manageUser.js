@@ -2,7 +2,7 @@ class UserManager {
     constructor(user) {
         const profilePic = document.getElementById("profile-pic");
         
-        profilePic.src = "/placeholder.png";
+        profilePic.src = "/public/assets/placeholder.png";
         profilePic.addEventListener("click", () => {
             console.log("change profile pic");
         });
@@ -200,8 +200,8 @@ class EmployerManager extends UserManager {
     }
 }
 
-window.addEventListener("mainReady", () => {
-    const user = window.main.getUser();
+window.addEventListener("mainReady", async () => {
+    const user = await window.main.getUser();
     let userManager;
     let timeout;
 

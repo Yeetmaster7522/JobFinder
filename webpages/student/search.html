@@ -134,8 +134,9 @@
     <script src="/logic/jobFetcher.js"></script>
     <script src="/logic/navbar.js"></script>
     <script>
-        window.addEventListener("mainReady", () => {
-            const jf = new JobFetcher(window.main.getUser(), window.main.jobPosts);
+        window.addEventListener("mainReady", async () => {
+            const jobPosts = await wsRequest("jobPosts");
+            const jf = new JobFetcher(window.main.getUser(), JSON.parse(jobPosts));
             jf.displayPostAtI(0);
 
             document.getElementById("scroll-up-btn").addEventListener("click", () => jf.scrollPost(false));

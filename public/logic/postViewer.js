@@ -39,7 +39,8 @@ class PostViwer {
     }
 }
 
-window.addEventListener("mainReady", () => {
-    const viewer = new PostViwer(window.main.jobPosts);
+window.addEventListener("mainReady", async () => {
+    const jobPosts = await wsRequest("jobPosts");
+    const viewer = new PostViwer(JSON.parse(jobPosts));
     viewer.showPostDetails();
 })

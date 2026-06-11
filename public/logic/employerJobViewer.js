@@ -150,10 +150,12 @@ class JobEditor {
     }
 }
 
-window.addEventListener("mainReady", () => {
+window.addEventListener("mainReady", async () => {
+    const user = await window.main.getUser();
+    const jobPosts = await wsRequest("jobPosts");
     jobEditor = new JobEditor(
-        window.main.getUser(), 
-        window.main.jobPosts,
+        user, 
+        JSON.parse(jobPosts),
         document.getElementById("post-list")
     );
     jobEditor.showPosts(jobEditor.fetchPosts());
