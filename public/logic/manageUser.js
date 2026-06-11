@@ -2,7 +2,7 @@ class UserManager {
     constructor(user) {
         const profilePic = document.getElementById("profile-pic");
         
-        profilePic.src = "/public/assets/placeholder.png";
+        profilePic.src = "/assets/placeholder.png";
         profilePic.addEventListener("click", () => {
             console.log("change profile pic");
         });
