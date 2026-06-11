@@ -1,7 +1,8 @@
 {
   "dependencies": {
     "bootstrap": "^5.3.8",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "ws": "^8.21.0"
   },
   "name": "jobfinder",
   "version": "1.0.0",
