@@ -75,7 +75,7 @@ class StudentManager extends UserManager {
         // applied jobs
         try {
             const appliedJobsEl = document.getElementById("applied-jobs");
-            let appliedJobs = JSON.parse(getCookie("appliedJobs")) || [];
+            let appliedJobs = user.student.applications;
             for (let i=0; i<appliedJobs.length; i++) {
                 let li = document.createElement("li");
                 li.classList = "list-group-item bg-secondary text-light";

@@ -267,9 +267,12 @@ class JobFetcher {
         }
     }
 
-    applyToPost() {
+    async applyToPost() {
         const post = this.#editedPosts[this.#currentPostId];
         const date = new Date();
+        const user = await window.main.getUser();
+        const newApplications = [...user.student.applications, post.ID];
+        const newUser = setNestedValue(user, "student.applications", newApplications);
 
         ws.send(JSON.stringify( {
             "request": "applytopost",
@@ -280,6 +283,7 @@ class JobFetcher {
                 "dateApplied": `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
             }
         } ));
+        ws.send(JSON.stringify( {"request": "edituser", "uid": getCookie("UID"), "details": newUser} ));
     }
 
     savePost() {
