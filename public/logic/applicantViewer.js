@@ -1,10 +1,12 @@
 class ApplicantViewer {
     #users
     #applications
+    #currentAppUid
 
     constructor(users, applications) {
         this.#users = users;
         this.#applications = [];
+        this.#currentAppUid = -1;
 
         const id = getParam("id");
 
@@ -15,11 +17,14 @@ class ApplicantViewer {
         }
     }
 
+    getCurrentAppUid() {
+        return this.#currentAppUid
+    }
+
     showAll() {
-        this.createPreview(this.#applications[0]);
         this.showDetails(this.#applications[0].UID);
-        for (let i=1; i<this.#applications.length; i++) {
-            this.createPreview(this.#applications[i]);
+        for (const application of this.#applications) {
+            this.createPreview(application);
         }
     }
 
@@ -29,7 +34,10 @@ class ApplicantViewer {
 
         const previews = document.getElementById("previews");
         const li = document.createElement("li");
-        li.classList.add("list-group-item", "bg-secondary", "text-light")
+        li.classList.add("list-group-item", "bg-secondary", "text-light");
+        li.addEventListener("click", () => {
+            this.showDetails(uid);
+        })
         
         li.innerHTML = `
             <div class="row g-1">
@@ -51,6 +59,8 @@ class ApplicantViewer {
 
     showDetails(uid) {
         const user = this.#users[uid];
+        this.#currentAppUid = uid;
+        this.updateApplication("in review");
         
         document.getElementById("name").textContent = user.student.name;
         document.getElementById("resume").href = user.student.resume.source;
@@ -62,18 +72,35 @@ class ApplicantViewer {
         document.getElementById("certifications-list").value = user.student.certifications.join("\n");
 
         const availability = document.getElementById("availability-timestamp");
+        availability.value = "";
         for (const timestamp of user.student.timeIntervals) {
             availability.value += `${timestamp.start} - ${timestamp.end}\n`;
         }
+    }
+
+    updateApplication(status) {
+        ws.send(JSON.stringify({
+            "request": "updateapplication",
+            "uid": this.#currentAppUid,
+            "status": status
+        }));
     }
 }
 
 window.addEventListener("mainReady", async () => {
     const users = await wsRequest("userAccounts");
     const applications = await wsRequest("applications");
-    const applicantViewer = new ApplicantViewer(
+    const av = new ApplicantViewer(
         JSON.parse(users), 
         JSON.parse(applications)
     );
-    applicantViewer.showAll();
+    av.showAll();
+
+    document.getElementById("interested-btn").addEventListener("click", () => {
+        av.updateApplication("offered");
+    });
+
+    document.getElementById("reject-btn").addEventListener("click", () => {
+        av.updateApplication("rejected");
+    });
 });

@@ -4,6 +4,7 @@ class LogUser {
 
     constructor(users) {
         this.#users = users;
+        console.log(users)
         this.#modal = document.getElementById("successModal");
 
         const logInBtn = document.getElementById("log-in-btn");
@@ -76,16 +77,13 @@ class LogUser {
         const userEmail = document.getElementById("email-input").value;
         const userPassword = document.getElementById("password-input").value;
         const newUID = this.genUID();
-        this.#users[newUID] = {
-            "email": userEmail,
-            "password": userPassword,
-            "role": ""
-        }
+
+        ws.send(JSON.stringify( {"request": "createuser", "uid": newUID, "email": userEmail, "password": userPassword, "role": "student"} ))
         this.setModal("Signed up");
     }
 
     genUID() {
-        let UID = "";
+        let UID = "UID";
         for (let i=0; i<8; i++) {
             UID += randomChar();
         }

@@ -2,9 +2,15 @@ class JobCreater {
     constructor() {
         const submitBtn = document.getElementById("submit-btn");
 
-        submitBtn.addEventListener("click", () => {
-            const post = this.submit();
-            console.log(post, this.validatePost(post));
+        submitBtn.addEventListener("click", async () => {
+            const post = await this.submit();
+            if (this.validatePost(post)) {
+                const user = await window.main.getUser();
+                const newUserPosts = [...user.employer.jobPosts, post.ID];
+                const newUser = setNestedValue(user, "employer.jobPosts", newUserPosts);
+                ws.send(JSON.stringify( {"request": "createpost", "post": post} ));
+                ws.send(JSON.stringify( {"request": "edituser", "uid": getCookie("UID"), "details": newUser} ));
+            }
         });
     }
 
@@ -32,8 +38,8 @@ class JobCreater {
         return valid
     }
 
-    submit() {
-        const user = window.main.getUser();
+    async submit() {
+        const user = await window.main.getUser();
         
         const date = new Date();
         const msAfterEpoch = date.getTime() + (document.getElementById("recruitment-period-entry").value*24*60*60*1000);
@@ -61,7 +67,8 @@ class JobCreater {
             "externalLink": user.employer.website, 
             "skills": skills.split("\n"),
             "industry": document.getElementById("industry-entry").value, 
-            "hours": hours
+            "hours": hours,
+            "ID": getRndInteger(100000, 999999)
         };
     }
 }

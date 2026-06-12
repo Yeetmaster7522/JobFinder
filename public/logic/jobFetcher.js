@@ -266,6 +266,47 @@ class JobFetcher {
             enableBtn(document.getElementById("full-time-btn"));
         }
     }
+
+    applyToPost() {
+        const post = this.#editedPosts[this.#currentPostId];
+        const date = new Date();
+
+        ws.send(JSON.stringify( {
+            "request": "applytopost",
+            "application": {
+                "UID": getCookie("UID"),
+                "JPID": post.ID,
+                "status": "submitted",
+                "dateApplied": `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
+            }
+        } ));
+    }
+
+    savePost() {
+        let savedJobs = [];
+        try {
+            savedJobs = JSON.parse(getCookie("savedJobs"));
+        }
+        catch (error) {
+            console.log(error);
+        }
+        savedJobs.push(this.#editedPosts[this.#currentPostId]);
+        setCookie("savedJobs", JSON.stringify(savedJobs), 30);
+        alert("Job saved");
+    }
+
+    hidePost() {
+        let hiddenJobs = [];
+        try {
+            hiddenJobs = JSON.parse(getCookie("hiddenJobs"));
+        }
+        catch (error) {
+            console.log(error);
+        }
+        hiddenJobs.push(this.#editedPosts[this.#currentPostId]);
+        setCookie("hiddenJobs", JSON.stringify(hiddenJobs), 30);
+        alert("Job hidden");
+    }
 }
 
 class TrendFinder extends JobFetcher {

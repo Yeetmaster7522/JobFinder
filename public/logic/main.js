@@ -34,11 +34,6 @@ class Main {
 		users = JSON.parse(users);
 		return users[this.#uid];
 	}
-
-	editUserData(edits) {
-		console.log(edits);
-		console.log(`UID ${this.#uid} has been updated`);
-	}
 }
 
 function getRndInteger(min, max) {
@@ -115,6 +110,25 @@ function enableBtn(btn) {
 function getParam(param) {
 	const params = new URLSearchParams(window.location.search);
 	return params.get(param);
+}
+
+function setNestedValue(obj, path, value) {
+    const keys = path.split(".");
+    const newObj = structuredClone(obj);   // deep copy
+    let current = newObj;
+
+    for (let i = 0; i < keys.length - 1; i++) {
+        const key = keys[i];
+
+        if (!current[key] || typeof current[key] !== "object") {
+            current[key] = {};
+        }
+
+        current = current[key];
+    }
+
+    current[keys[keys.length - 1]] = value;
+    return newObj;
 }
 
 

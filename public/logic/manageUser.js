@@ -202,20 +202,25 @@ class EmployerManager extends UserManager {
 
 window.addEventListener("mainReady", async () => {
     const user = await window.main.getUser();
-    let userManager;
+    let um;
     let timeout;
 
     if (user.role == "employer") {
-        userManager = new EmployerManager(user);
+        um = new EmployerManager(user);
     }
     else {
-        userManager = new StudentManager(user);
+        um = new StudentManager(user);
     }
 
     document.getElementById("form-container").addEventListener("input", () => {
         clearTimeout(timeout);
-        timeout = setTimeout(() => {
-            main.editUserData(userManager.getUserDetailInp());
+        timeout = setTimeout(async () => {
+            const uid = await window.main.getUser();
+            ws.send(JSON.stringify({
+                "request": "edituser",
+                "uid": uid,
+                "details": um.getUserDetailInp()
+            }))
         }, 3000);
     });
 
