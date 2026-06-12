@@ -73,22 +73,7 @@ class StudentManager extends UserManager {
         document.getElementById("loc-radius").innerText = `${user.student.preferences.locationRadius}km`;
 
         // applied jobs
-        try {
-            const appliedJobsEl = document.getElementById("applied-jobs");
-            let appliedJobs = user.student.applications;
-            for (let i=0; i<appliedJobs.length; i++) {
-                let li = document.createElement("li");
-                li.classList = "list-group-item bg-secondary text-light";
-                li.classList.add("list-group-item");
-                let p = document.createElement("p");
-                p.textContent = `MM.YY ${appliedJobs[i].jobTitle} / Not yet read`;
-                li.appendChild(p);
-                appliedJobsEl.appendChild(li);
-            };
-        }
-        catch (err) {
-            console.log(err);
-        };
+        this.showApplications(user);
 
         // saved jobs
         try {
@@ -121,6 +106,36 @@ class StudentManager extends UserManager {
                 li.appendChild(p);
                 hiddenBox.appendChild(li);
             };
+        }
+        catch (err) {
+            console.log(err);
+        };
+    }
+
+    async showApplications(user) {
+        try {
+            const appliedJobsEl = document.getElementById("applied-jobs");
+            
+            const appliedJobs = user.student.applications;
+            const applications = JSON.parse(await wsRequest("applications"));
+            const jobs = JSON.parse(await wsRequest("jobPosts"));
+
+            for (const jpid of appliedJobs) {
+                const aIndex = applications.findIndex(application => application.JPID == jpid);
+                const jIndex = jobs.findIndex(job => job.ID == jpid);
+                if (aIndex != -1 && jIndex != -1) {
+                    const application = applications[aIndex];
+                    const job = jobs[jIndex];
+
+                    let li = document.createElement("li");
+                    li.classList = "list-group-item bg-secondary text-light";
+                    li.classList.add("list-group-item");
+                    let p = document.createElement("p");
+                    p.textContent = `MM.YY ${job.jobTitle} / ${application.status}`;
+                    li.appendChild(p);
+                    appliedJobsEl.appendChild(li);
+                }
+            }
         }
         catch (err) {
             console.log(err);
