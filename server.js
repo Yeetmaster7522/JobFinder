@@ -76,32 +76,32 @@ wss.on("connection", (ws) => {
                     "role": msg.role,
                     "profilePic": "",
                     "student": {
-                    "name": "NAME",
-                    "age": "AGE",
-                    "phoneNumber": "PHONE NUMBER",
-                    "suburb": "SUBURB",
-                    "workEligibility": "WORK ELIGIBILITY",
-                    "experienceLevel": "EXPERIENCE LEVEL",
-                    "resume": {},
-                    "preferences": {
-                        "workType": "WORK TYPE",
-                        "employmentType": "EMPLOYMENT TYPE",
-                        "minSalary": "10",
-                        "locationRadius": "10",
-                        "industries": []
-                    },
-                    "skills": [],
-                    "certifications": [],
-                    "timeIntervals": [],
-                    "applications": []
+                        "name": "NAME",
+                        "age": "AGE",
+                        "phoneNumber": "PHONE NUMBER",
+                        "suburb": "SUBURB",
+                        "workEligibility": "WORK ELIGIBILITY",
+                        "experienceLevel": "EXPERIENCE LEVEL",
+                        "resume": {},
+                        "preferences": {
+                            "workType": "WORK TYPE",
+                            "employmentType": "EMPLOYMENT TYPE",
+                            "minSalary": "10",
+                            "locationRadius": "10",
+                            "industries": []
+                        },
+                        "skills": [],
+                        "certifications": [],
+                        "timeIntervals": [],
+                        "applications": []
                     },
                     "employer": {
-                    "companyName": "",
-                    "address": "",
-                    "contactNumber": "",
-                    "contactEmail": "",
-                    "website": "",
-                    "jobPosts": []
+                        "companyName": "COMPANY NAME",
+                        "address": "ADDRESS",
+                        "contactNumber": "CONTACT NUMBER",
+                        "contactEmail": "CONTACT EMAIL",
+                        "website": "WEBSITE",
+                        "jobPosts": []
                     }
                 }
                 df.writeToFile("userAccounts.json", newUsers);

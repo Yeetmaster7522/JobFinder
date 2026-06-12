@@ -127,7 +127,7 @@ class StudentManager extends UserManager {
         };
     }
 
-    getUserDetailInp() {
+    getUserDetailInp(user) {
         // const profilePic = document.getElementById("profile-pic");
         let skills = document.getElementById("skills-list").querySelectorAll("li");
         skills = Array.from(skills).map(li => li.textContent.trim());
@@ -150,21 +150,30 @@ class StudentManager extends UserManager {
         });
 
         return {
-            "name": document.getElementById("name").textContent,
             "email": document.getElementById("email").textContent,
-            "number": document.getElementById("number").textContent,
-            "suburb": document.getElementById("suburb").textContent,
-            "resume": document.querySelector("#resume-file").files[0],
-            "education": document.getElementById("education").textContent,
-            "skills": skills,
-            "certifications": certs,
-            "eligibility": eligibility,
-            "industries": industries,
-            "salary": document.getElementById("min-salary").textContent,
-            "hours": hours,
-            "workType": document.getElementById("work-type").textContent,
-            "employmentType": document.getElementById("employment-type").textContent,
-            "locationRadius": document.getElementById("loc-radius").textContent
+            "password": user.password,
+            "role": user.role,
+            "profilePic": user.profilePic,
+            "student": {
+                "name": document.getElementById("name").textContent,
+                "age": user.student.age,
+                "phoneNumber": document.getElementById("number").textContent,
+                "suburb": document.getElementById("suburb").textContent,
+                "workEligibility": eligibility,
+                "experienceLevel": user.student.experienceLevel,
+                "resume": document.querySelector("#resume-file").files[0],
+                "preferences": {
+                    "workType": document.getElementById("work-type").textContent,
+                    "employmentType": document.getElementById("employment-type").textContent,
+                    "minSalary": document.getElementById("min-salary").textContent,
+                    "locationRadius": document.getElementById("loc-radius").textContent,
+                    "industries": industries
+                },
+                "skills": skills,
+                "certifications": certs,
+                "timeIntervals": hours,
+                "applications": user.student.applications
+            }
         };
     }
 
@@ -189,14 +198,21 @@ class EmployerManager extends UserManager {
         document.getElementById("website").value = user.employer.website;
     }
 
-    getUserDetailInp() {
+    getUserDetailInp(user) {
         return {
-            "company-name": document.getElementById("company-name").value,
-            "address": document.getElementById("address").value,
-            "contact-number": document.getElementById("contact-number").value,
-            "contact-email": document.getElementById("contact-email").value,
-            "website": document.getElementById("website").value,
-        };
+            "email": document.getElementById("contact-email").value,
+            "password": user.password,
+            "role": user.role,
+            "profilePic": user.profilePic,
+            "employer": {
+                "companyName": document.getElementById("company-name").value,
+                "address": document.getElementById("address").value,
+                "contactNumber": document.getElementById("contact-number").value,
+                "contactEmail": document.getElementById("contact-email").value,
+                "website": document.getElementById("website").value,
+                "jobPosts": user.employer.jobPosts
+            }
+        }
     }
 }
 
@@ -215,11 +231,11 @@ window.addEventListener("mainReady", async () => {
     document.getElementById("form-container").addEventListener("input", () => {
         clearTimeout(timeout);
         timeout = setTimeout(async () => {
-            const uid = await window.main.getUser();
+            const user = await window.main.getUser();
             ws.send(JSON.stringify({
                 "request": "edituser",
-                "uid": uid,
-                "details": um.getUserDetailInp()
+                "uid": getCookie("UID"),
+                "details": um.getUserDetailInp(user)
             }))
         }, 3000);
     });

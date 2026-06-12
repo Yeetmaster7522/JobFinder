@@ -6,7 +6,7 @@ class Main {
   	}
 
 	async init() {
-		if (this.#uid === "") {
+		if (this.#uid == "") {
 			window.navbarManager.applyNavbar();
 		}
 		else {
