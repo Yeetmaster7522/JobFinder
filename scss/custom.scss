@@ -1,0 +1,88 @@
+//sass --watch scss/custom.scss css/custom.css
+
+$utilities: (
+  "margin-x": (
+    property: margin-left margin-right,
+    class: mx,
+    values: (
+      0: 0,
+      1: .25rem,
+      2: .5rem,
+      3: 1rem,
+      4: 1.5rem,
+      5: 3rem,
+      6: 4rem,
+      7: 5rem
+    )
+  ),
+  "padding-x": (
+    property: padding-left padding-right,
+    class: px,
+    values: (
+      0: 0,
+      1: .25rem,
+      2: .5rem,
+      3: 1rem,
+      4: 1.5rem,
+      5: 3rem,
+      6: 4rem,
+      7: 5rem
+    )
+  ),
+  "column-gap": (
+    property: column-gap,
+    class: column-gap,
+    values: (
+      0: 0,
+      1: .25rem,
+      2: .5rem,
+      3: 1rem,
+      4: 1.5rem,
+      5: 3rem,
+      6: 4rem,
+      7: 5rem
+    )
+  ),
+  "shadow": (
+    property: box-shadow,
+    class: shadow,
+    values: (
+      strong: 0 1rem 3rem rgba(150, 150, 150, 0.15),
+    )
+  )
+);
+
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+.form-control::placeholder,
+.form-floating label {
+  color: rgba(#6c757d, 1.0);
+}
+
+.navLink {
+    text-decoration: none;
+}
+
+.bg-blue {
+    background-color: #464D77;
+}
+
+.bg-teal {
+    background-color: #36827F;
+}
+
+#skills li:nth-child(n+10) {
+  display: none;
+}
+
+.btn-close {
+  filter: invert(1);
+}
+
+html {
+  overflow-y: scroll;
+}
+
+.w-8 {
+  width: 8%;
+}

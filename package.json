@@ -1,0 +1,26 @@
+{
+  "dependencies": {
+    "bootstrap": "^5.3.8",
+    "express": "^5.2.1",
+    "ws": "^8.21.0"
+  },
+  "name": "jobfinder",
+  "version": "1.0.0",
+  "description": "Website needs to be run on a live server",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx concurrently \"node server.js\" \"node .\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yeetmaster7522/JobFinder.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Yeetmaster7522/JobFinder/issues"
+  },
+  "homepage": "https://github.com/Yeetmaster7522/JobFinder#readme"
+}

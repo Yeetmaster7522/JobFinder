@@ -4,66 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finder</title>
-    <link rel="stylesheet" href="/bootstrap-5.3.8-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/css/custom.css">
 </head>
-<body class="bg-dark text-light">
-    <a href="/webpages/shared/logIn.html" class="z-1 position-absolute bottom-0 end-0" id="log-out-btn" style="margin-right: 1em;">Log Out</a>
+<body class="bg-dark text-light position-relative min-vh-100">
+    <a href="/webpages/shared/logIn.html" class="z-1 position-absolute bottom-0 end-0 me-2 mb-2 text-decoration-none text-primary" id="log-out-btn">Log Out</a>
     <div class="container-fluid">
         <!-- Top navigation bar -->
         <div class="row mb-3" id="navbar"></div>
-        <div class="row">
-            <div class="col">
-                <img alt="profile picture" width="50vw" height="50vh" id="profile-pic">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col ms-5 me-3 container bg-secondary" id="form-container">
-                <div class="row">
-                    <div class="col">
-                        <p>Company name</p>
+        <div class="row justify-content-center">
+            <div class="col-6 bg-secondary rounded-2 py-2 px-2 shadow-strong">
+                <div class="row gy-3 gx-2" id="form-container">
+                    <div class="col-12">
+                        <img alt="profile picture" width="50" height="50" class="rounded-1" id="profile-pic">
                     </div>
-                    <div class="col">
-                        <p id="company-name" contenteditable="true"></p>
+                    <div class="col-12 align-self-end">
+                        <div class="input-group">
+                            <span class="input-group-text bg-transparent text-light" style="width: 9em;">Company Name</span>
+                            <input type="text" id="company-name" class="form-control bg-transparent text-light">
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <p>Address</p>
+                    <div class="col-12">
+                        <div class="input-group">
+                            <span class="input-group-text bg-transparent text-light" style="width: 9em;">Address</span>
+                            <input type="text" id="address" class="form-control bg-transparent text-light">
+                        </div>
                     </div>
-                    <div class="col">
-                        <p id="address" contenteditable="true"></p>
+                    <div class="col-12">
+                        <div class="input-group">
+                            <span class="input-group-text bg-transparent text-light" style="width: 9em;">Contact Number</span>
+                            <input type="text" id="contact-number" class="form-control bg-transparent text-light">
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <p>Contact number</p>
+                    <div class="col-12">
+                        <div class="input-group">
+                            <span class="input-group-text bg-transparent text-light" style="width: 9em;">Contact Email</span>
+                            <input type="text" id="contact-email" class="form-control bg-transparent text-light">
+                        </div>
                     </div>
-                    <div class="col">
-                        <p id="contact-number" contenteditable="true"></p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <p>Contact email</p>
-                    </div>
-                    <div class="col">
-                        <p id="contact-email" contenteditable="true"></p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <p>Website</p>
-                    </div>
-                    <div class="col">
-                        <p id="website" contenteditable="true"></p>
+                    <div class="col-12">
+                        <div class="input-group">
+                            <span class="input-group-text bg-transparent text-light" style="width: 9em;">Website</span>
+                            <input type="text" id="website" class="form-control bg-transparent text-light">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="/bootstrap-5.3.8-dist/js/bootstrap.bundle.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/logic/main.js"></script>
     <script src="/logic/manageUser.js"></script>
     <script src="/logic/navbar.js"></script>

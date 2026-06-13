@@ -4,41 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finder</title>
-    <link rel="stylesheet" href="/bootstrap-5.3.8-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/css/custom.css">
 </head>
 <body class="bg-dark text-light">
     <div class="container-fluid">
         <!-- Top navigation bar -->
         <div class="row mb-2" id="navbar"></div>
         <!-- top row of news -->
-        <div class="row justify-content-center">
-            <div class="col bg-teal col-2 ms-3 me-3">
-                <h3 class="text-center">Employers Hiring Near You!</h3>
-                <ul id="near-employers">
-                </ul>
+        <div class="row text-center mb-4">
+            <div class="col">
+                <h2>Job Market News</h2>
             </div>
-            <div class="col bg-teal col-2 ms-3 me-3">
-                <h3 class="text-center">Trending Industries</h3>
-                <ul id="trend-industries">
-                </ul>
+        </div>
+        <div class="row justify-content-center column-gap-3 g-1 text-center">
+            <div class="col bg-teal rounded-3 shadow-strong p-1 border border-5 border-secondary border-opacity-75">
+                <h4 class="mb-2">Employers Near You!</h4>
+                <ul id="near-employers" class="list-group list-group-flush small lh-sm"></ul>
             </div>
-            <div class="col bg-teal col-2 ms-3 me-3">
-                <h3 class="text-center">Trending Roles</h3>
-                <ul id="trend-roles">
-                </ul>
+            <div class="col bg-teal rounded-3 shadow-strong p-1 border border-5 border-secondary border-opacity-75">
+                <h4 class="mb-2">Trending Industries</h4>
+                <ul id="trend-industries" class="list-group list-group-flush small lh-sm"></ul>
             </div>
-            <div class="col bg-teal col-2 ms-3 me-3">
-                <h3 class="text-center">Skills shortages</h3>
-                <ul id="skill-shortages">
-                </ul>
+            <div class="col bg-teal rounded-3 shadow-strong p-1 border border-5 border-secondary border-opacity-75">
+                <h4 class="mb-2">Trending Roles</h4>
+                <ul id="trend-roles" class="list-group list-group-flush small lh-sm"></ul>
+            </div>
+            <div class="col bg-teal rounded-3 shadow-strong p-1 border border-5 border-secondary border-opacity-75">
+                <h4 class="mb-2">Skills Shortages</h4>
+                <ul id="skill-shortages" class="list-group list-group-flush small lh-sm"></ul>
             </div>
         </div>
     </div>
 
-    <script src="/bootstrap-5.3.8-dist/js/bootstrap.bundle.js"></script>
-    <script src="/logic/jobTrendFinder.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/logic/jobFetcher.js"></script>
     <script src="/logic/main.js"></script>
     <script src="/logic/navbar.js"></script>
+    <script>
+        window.addEventListener("mainReady", async () => {
+            const jobPosts = await wsRequest("jobPosts");
+            const tf = new TrendFinder(window.main.getUser(), JSON.parse(jobPosts));
+        });
+    </script>
 </body>
 </html>

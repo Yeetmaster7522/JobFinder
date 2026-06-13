@@ -4,33 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finder</title>
-    <link rel="stylesheet" href="/bootstrap-5.3.8-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/css/custom.css">
 </head>
 <body class="bg-dark">
     <div class="container-fluid">
         <!-- Top navigation bar -->
         <div class="row" id="navbar"></div>
         <!-- Search bar -->
-        <div class="row justify-content-center bg-teal">
+        <div class="row justify-content-center mb-3 mt-1">
             <div class="col col-6 m-2">
-                <input type="search" class="form-control fs-3" placeholder="Search" id="search-bar">
+                <input type="search" class="form-control fs-6 border-3 border-secondary shadow-strong bg-transparent text-light" placeholder="Search from articles..." id="search-bar">
             </div>
         </div>
         <!-- Latest career advice -->
-        <div class="row bg-secondary">
-            <div class="col text-center">
-                <h3 class="text-light">Latest Career Advice</h3>
-            </div>
+        <div class="bg-secondary-transparent mb-5 pt-2 pb-3 mx-3 rounded-2">
+            <h2 class="text-light text-center">Latest Career Advice</h2>
+            <div class="row justify-content-center column-gap-7" id="latest-advice"></div>
         </div>
-        <div class="row justify-content-center bg-secondary" id="latest-advice"></div>
         <!-- other -->
-        <div class="row justify-content-center" style="margin-top: 5vw;" id="other-advice"></div>
+        <div class="row justify-content-center mt-3 justify-content-evenly column-gap-5 row-gap-5 px-3" id="other-advice"></div>
     </div>
 
-    <script src="/bootstrap-5.3.8-dist/js/bootstrap.bundle.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/logic/main.js"></script>
-    <script src="/logic/articleFetcher.js"></script>
+    <script src="/logic/articleManager.js"></script>
     <script src="/logic/navbar.js"></script>
+    <script>
+        window.addEventListener("mainReady", async () => {
+            const articles = await wsRequest("articles");
+            const articleManager = new ArticleManager(JSON.parse(articles));
+            articleManager.displayArticles();
+
+            document.getElementById("search-bar").addEventListener("search", (e) => {
+                articleManager.searchArticle(e);
+            });
+        });
+    </script>
 </body>
 </html>

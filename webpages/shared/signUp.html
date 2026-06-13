@@ -4,62 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finder</title>
-    <link rel="stylesheet" href="/bootstrap-5.3.8-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/css/custom.css">
 </head>
 <body class="bg-dark text-light">
     <div class="container-fluid">
+        <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content bg-dark text-light">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="successModalLabel">Modal title</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Top navigation bar -->
         <div class="row mb-2" id="navbar"></div>
         <!-- Header -->
-        <div class="row mb-5">
-            <div class="col text-center">
+        <div class="row mb-4 text-center">
+            <div class="col">
                 <h2>Sign Up</h2>
             </div>
         </div>
         <!-- Email -->
-        <div class="row mb-5">
-            <div class="col container col-5">
-                <div class="row">
-                    <div class="col">
-                        <h5>Email</h5>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <input type="text" class="form-control" id="email-input">
-                    </div>
+        <div class="row mb-5 justify-content-center">
+            <div class="col-5">
+                <h5>Email</h5>
+                <div class="input-group">
+                    <span class="input-group-text bg-transparent text-light w-8 justify-content-center">@</span>
+                    <input type="text" class="form-control bg-transparent text-light" id="email-input" autocomplete="off" placeholder="e.g. name@domain.com">
                 </div>
             </div>
         </div>
         <!-- Password -->
-        <div class="row mb-5">
-            <div class="col container col-5">
-                <div class="row">
-                    <div class="col">
-                        <h5>Password</h5>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <input type="text" class="form-control" id="password-input">
-                    </div>
+        <div class="row mb-5 justify-content-center">
+            <div class="col col-5">
+                <h5>Password</h5>
+                <div class="input-group">
+                    <span class="input-group-text bg-transparent text-light w-8 justify-content-center">#</span>
+                    <input type="text" class="form-control bg-transparent text-light" id="password-input" autocomplete="off" placeholder="Make sure password is complex">
                 </div>
             </div>
         </div>
         <!-- Button -->
         <div class="row justify-content-center">
             <div class="col col-5">
-                <button type="button" class="btn bg-secondary w-100 fs-5 text-light" id="sign-up-btn">Sign Up</button>
+                <button type="button" class="btn bg-teal w-100 fs-5 text-light shadow-strong btn-light" id="sign-up-btn" data-bs-toggle="modal" data-bs-target="#successModal">Sign Up</button>
             </div>
         </div>
         <!-- sign up redirect -->
         <div class="row justify-content-center">
             <div class="col col-2 text-center">
-                <p>Have an account? <a href="logIn.html">Log In</a></p>
+                <p class="small">Have an account? <a href="logIn.html">Log In</a></p>
             </div>
         </div>
     </div>
+    <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/logic/main.js"></script>
     <script src="/logic/logUser.js"></script>
     <script src="/logic/navbar.js"></script>

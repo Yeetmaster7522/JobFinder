@@ -4,124 +4,106 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finder</title>
-    <link rel="stylesheet" href="/bootstrap-5.3.8-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/css/custom.css">
 </head>
 <body class="bg-dark text-light">
     <div class="container-fluid">
         <div class="row mb-3" id="navbar"></div>
-        <div class="row">
-            <div class="col">
-                <h2>create job post</h2>
+        <div class="row mb-3">
+            <div class="col-12 text-center">
+                <h2>Create Job Post</h2>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <p>job title</p>
+        <div class="row gy-3 gx-4 mb-3">
+            <div class="col-6">
+                <div class="form-floating">
+                    <input type="text" class="form-control bg-transparent text-light" id="job-title-entry" placeholder="Marketing Manager">
+                    <label for="job-title-entry">Job Title</label>
+                </div>
             </div>
-            <div class="col">
-                <p>recruitment period</p>
+            <div class="col-6">
+                <div class="form-floating">
+                    <input type="number" class="form-control bg-transparent text-light" id="recruitment-period-entry" placeholder="Recruitment Period" value="30">
+                    <label for="recruitment-period-entry">Recruitment Period</label>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <input type="text" class="form-control" id="job-title-entry">
+            <div class="col-6">
+                <select id="work-type-entry" class="form-select bg-dark text-light">
+                    <option selected>Work Type</option>
+                    <option value="onsite">Onsite</option>
+                    <option value="remote">Remote</option>
+                    <option value="hybrid">Hybrid</option>
+                </select>
             </div>
-            <div class="col">
-                <input type="text" class="form-control" id="recruitment-period-entry">
+            <div class="col-6">
+                <select id="employment-type-entry" class="form-select bg-dark text-light">
+                    <option selected>Employment Type</option>
+                    <option value="part-time">Part-time</option>
+                    <option value="casual">Casual</option>
+                    <option value="full-time">Full-time</option>
+                </select>
             </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <p>work type</p>
+            <div class="col-6">
+                <div class="form-floating">
+                    <input type="text" class="form-control bg-transparent text-light" id="industry-entry" placeholder="Industry">
+                    <label for="industry-entry">Industry</label>
+                </div>
             </div>
-            <div class="col">
-                <p>employment type</p>
+            <div class="col-6">
+                <div class="form-floating">
+                    <input type="number" class="form-control bg-transparent text-light" id="age-entry" value="15" placeholder="Age Requirement">
+                    <label for="age-entry">Age Requirement</label>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <input type="text" class="form-control" id="work-type-entry">
+            <div class="col-6">
+                <div class="form-floating">
+                    <textarea type="text" class="form-control bg-transparent text-light" id="hours-entry" placeholder="Hours" style="height: 10em;"></textarea>
+                    <label for="hours-entry">Hours</label>
+                </div>
             </div>
-            <div class="col">
-                <input type="text" class="form-control" id="employment-type-entry">
+            <div class="col-6">
+                <div class="form-floating">
+                    <textarea type="text" class="form-control bg-transparent text-light" id="skills-entry" placeholder="Skill Tags" style="height: 10em;"></textarea>
+                    <label for="skills-entry">Skill Tags</label>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <p>industry</p>
+            <div class="col-12">
+                <div class="form-floating">
+                    <textarea type="text" class="form-control bg-transparent text-light" id="description-entry" placeholder="Description" style="height: 15em;"></textarea>
+                    <label for="description-entry">Description</label>
+                </div>
             </div>
-            <div class="col">
-                <p>age requirement</p>
+            <div class="col-1">
+                <div class="form-floating">
+                    <input type="number" class="form-control bg-transparent text-light" id="salary-min-entry" value="9" placeholder="Min">
+                    <label for="salary-min-entry">Min</label>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <input type="text" class="form-control" id="industry-entry">
+            <div class="col-1 text-center small d-flex align-items-center justify-content-center">
+                <p>- Salary -</p>
             </div>
-            <div class="col">
-                <input type="text" class="form-control" id="age-entry">
+            <div class="col-1">
+                <div class="form-floating">
+                    <input type="number" class="form-control bg-transparent text-light" id="salary-max-entry" value="50" placeholder="Max">
+                    <label for="salary-max-entry">Max</label>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <p>hours</p>
-            </div>
-            <div class="col">
-                <p>skill tags</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <textarea type="text" class="form-control" id="hours-entry"></textarea>
-            </div>
-            <div class="col">
-                <textarea type="text" class="form-control" id="skills-entry"></textarea>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <p>description</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <textarea type="text" class="form-control" id="description-entry"></textarea>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <p>salary</p>
-            </div>
-            <div class="col">
-                <p>address</p>
-            </div>
-            <div class="col">
-                <a href="#" id="use-address">use profile address</a>
+            <div class="col-md-5 d-flex flex-column me-md-auto">
+                <div class="form-floating">
+                    <input type="text" class="form-control bg-transparent text-light" id="address-entry" placeholder="Address">
+                    <label for="address-entry">Address</label>
+                </div>
+                <a href="#" id="use-address" class="ms-auto small">Use Profile Address</a>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <input type="text" class="form-control" id="salary-min-entry">
-            </div>
-            <div class="col">
-                <p>to</p>
-            </div>
-            <div class="col">
-                <input type="text" class="form-control" id="salary-max-entry">
-            </div>
-            <div class="col">
-                <input type="text" class="form-control" id="address-entry">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <button type="button" class="btn bg-secondary" id="submit-btn">Create post</button>
+        <div class="row justify-content-center mb-1">
+            <div class="col-auto">
+                <button type="button" class="btn bg-teal text-light btn-light" id="submit-btn">Create post</button>
             </div>
         </div>
     </div>
     
-    <script src="/bootstrap-5.3.8-dist/js/bootstrap.bundle.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/logic/main.js"></script>
     <script src="/logic/navbar.js"></script>
     <script src="/logic/jobCreater.js"></script>

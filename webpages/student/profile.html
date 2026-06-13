@@ -4,25 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finder</title>
-    <link rel="stylesheet" href="/bootstrap-5.3.8-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/css/custom.css">
 </head>
-<body class="bg-dark text-light">
-    <a href="/webpages/shared/logIn.html" class="z-1 position-absolute bottom-0 end-0" id="log-out-btn" style="margin-right: 1em;">Log Out</a>
+<body class="bg-dark text-light position-relative min-vh-100">
+    <a href="/webpages/shared/logIn.html" class="z-1 position-absolute bottom-0 end-0 me-2 mb-2 text-decoration-none text-primary" id="log-out-btn">Log Out</a>
     <div class="container-fluid">
         <!-- Top navigation bar -->
         <div class="row mb-3" id="navbar"></div>
         <div class="row">
-            <div class="col ms-5 me-3" id="form-container">
+            <div class="col ms-5 me-3 d-grid row-gap-3" id="form-container">
                 <!-- Personal details -->
-                <div class="row mb-2">
-                    <div class="col container">
+                <div class="row">
+                    <div class="col">
                         <div class="row">
                             <div class="col">
                                 <h3 id="name" contenteditable="true"></h3>
                             </div>
                             <div class="col">
-                                <img alt="profile picture" width="50vw" height="50vh" id="profile-pic">
+                                <img alt="profile picture" width="50" height="50" id="profile-pic" class="rounded-1">
                             </div>
                         </div>
                         <div class="row">
@@ -43,30 +42,22 @@
                     </div>
                 </div>
                 <!-- resume -->
-                <div class="row bg-secondary mb-2">
-                    <div class="col container">
-                        <div class="row">
+                <div class="row bg-secondary rounded-2 shadow-strong py-1 mb-3">
+                    <div class="col">
+                        <div class="row mb-1">
                             <div class="col">
                                 <h4>Resume</h4>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col container">
+                        <div class="row mb-2">
+                            <div class="col">
                                 <div class="row">
                                     <div class="col">
-                                        <img src="/placeholder.png" alt="pdf icon" width="30vh" height="30vh">
-                                    </div>
-                                    <div class="col">
-                                        <label for="resume-file" class="form-label">Insert File</label>
-                                        <input class="form-control" type="file" id="resume-file">
-                                    </div>
-                                    <div class="col">
-                                        <div class="dropdown">
-                                            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                ...
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="#">Edit</a></li>
+                                        <div class="input-group">
+                                            <input type="file" class="form-control border-dark bg-secondary text-light" id="resume-file" aria-label="User resume file input">
+                                            <button class="btn btn-outline-dark dropdown-toggle text-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">More</button>
+                                            <ul class="dropdown-menu bg-white ps-2">
+                                                <li><a href="#" class="dropdown-item">Edit</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -76,160 +67,187 @@
                     </div>
                 </div>
                 <!-- qualifications -->
-                <div class="row bg-secondary text-center mb-2">
-                    <div class="col">
-                        <h4>Qualifications</h4>
-                    </div>
-                    <div class="col">
-                        <h4 class="clickable" data-bs-toggle="collapse" data-bs-target="#qualifications-box">></h4>
-                    </div>
-                </div>
-                <div class="row bg-secondary collapse text-center" id="qualifications-box">
-                    <div class="col container">
-                        <div class="row">
+                <div class="row bg-secondary text-center rounded-2 shadow-strong py-1">
+                    <div class="col d-grid">
+                        <div class="row clickable" data-bs-toggle="collapse" data-bs-target="#qualifications-hr, #qualifications-box" id="qualifications-header">
                             <div class="col">
-                                <h4>Education:</h4>
+                                <h4>Qualifications</h4>
                             </div>
                             <div class="col">
-                                <h4 id="education" contenteditable="true"></h4>
+                                <h4 id="qualifications-arrow">></h4>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row collapse" id="qualifications-hr">
                             <div class="col">
-                                <h4>Skills</h4>
+                                <hr class="border border-dark border-2 opacity-75">
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row collapse px-6" id="qualifications-box">
                             <div class="col">
-                                <ul id="skills-list" contenteditable="true">
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <h4>Certifications</h4>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <ul id="cert-list" contenteditable="true">
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <h4>Work eligibility</h4>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <p id="work-eligibility" contenteditable="true"></p>
+                                <div class="row justify-content-center align-items-end">
+                                    <div class="col col-auto">
+                                        <h4>Education:</h4>
+                                    </div>
+                                    <div class="col col-auto">
+                                        <h5 id="education" contenteditable="true"></h5>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col">
+                                        <h4>Skills</h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <ul id="skills-list" contenteditable="true" class="list-group list-group-flush small lh-sm"></ul>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col">
+                                        <h4>Certifications</h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <ul id="cert-list" contenteditable="true" class="list-group list-group-flush small lh-sm"></ul>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center align-items-end mt-3">
+                                    <div class="col col-auto">
+                                        <h4>Work Eligibility:</h4>
+                                    </div>
+                                    <div class="col col-auto">
+                                        <h5 id="work-eligibility" contenteditable="true"></h5>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- preferences -->
-                <div class="row bg-secondary text-center mb-2">
+                <div class="row bg-secondary text-center rounded-2 shadow-strong py-1">
                     <div class="col">
-                        <h4>Preferences</h4>
-                    </div>
-                    <div class="col">
-                        <h4 class="clickable" data-bs-toggle="collapse" data-bs-target="#preference-box">></h4>
-                    </div>
-                </div>
-                <div class="row bg-secondary collapse text-center" id="preference-box">
-                    <div class="col container">
-                        <div class="row">
+                        <div class="row clickable" data-bs-toggle="collapse" data-bs-target="#preference-hr, #preference-box" id="preference-header">
                             <div class="col">
-                                <h4>Industries</h4>
+                                <h4>Preferences</h4>
+                            </div>
+                            <div class="col">
+                                <h4 id="preference-arrow">></h4>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row collapse" id="preference-hr">
                             <div class="col">
-                                <ul id="industry-list" contenteditable="true">
-                                </ul>
+                                <hr class="border border-dark border-2 opacity-75">
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row collapse px-6" id="preference-box">
                             <div class="col">
-                                <h4>Min salary:</h4>
-                            </div>
-                            <div class="col">
-                                <h4 id="min-salary" contenteditable="true"></h4>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <h4>Hours</h4>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <ul id="hours" contenteditable="true">
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <h4>Work type:</h4>
-                            </div>
-                            <div class="col">
-                                <h4 id="work-type" contenteditable="true"></h4>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <h4>Employment type:</h4>
-                            </div>
-                            <div class="col">
-                                <h4 id="employment-type" contenteditable="true"></h4>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <h4>Location radius:</h4>
-                            </div>
-                            <div class="col">
-                                <h4 id="loc-radius" contenteditable="true"></h4>
+                                <div class="row">
+                                    <div class="col">
+                                        <h4>Industries</h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <ul id="industry-list" contenteditable="true" class="list-group list-group-flush small lh-sm"></ul>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center align-items-end mt-3">
+                                    <div class="col col-auto">
+                                        <h4>Min Salary:</h4>
+                                    </div>
+                                    <div class="col col-auto">
+                                        <h5 id="min-salary" contenteditable="true"></h5>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col">
+                                        <h4>Hours</h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <ul id="hours" contenteditable="true" class="list-group list-group-flush small lh-sm">
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center align-items-end mt-3">
+                                    <div class="col col-auto">
+                                        <h4>Work Type:</h4>
+                                    </div>
+                                    <div class="col col-auto">
+                                        <h5 id="work-type" contenteditable="true"></h5>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center align-items-end mt-3">
+                                    <div class="col col-auto">
+                                        <h4>Employment Type:</h4>
+                                    </div>
+                                    <div class="col col-auto">
+                                        <h5 id="employment-type" contenteditable="true"></h5>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center align-items-end mt-3">
+                                    <div class="col col-auto">
+                                        <h4>Location Radius:</h4>
+                                    </div>
+                                    <div class="col col-auto">
+                                        <h5 id="loc-radius" contenteditable="true"></h5>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- saved jobs -->
-                <div class="row bg-secondary text-center mb-2">
+                <div class="row bg-secondary text-center rounded-2 shadow-strong py-1">
                     <div class="col">
-                        <h4>Saved Jobs</h4>
-                    </div>
-                    <div class="col">
-                        <h4 class="clickable" data-bs-toggle="collapse" data-bs-target="#saved-box">></h4>
-                    </div>
-                </div>
-                <div class="row bg-secondary collapse" id="saved-box">
-                    <div class="col">
-                        <ul class="list-group text-center bg-dark text-light" id="saved-jobs">
-                            <!-- <li class="list-group-item"><p>MM.YY XXXXXXXXXXXX / Status</p></li> -->
-                        </ul>
+                        <div class="row clickable" data-bs-toggle="collapse" data-bs-target="#saved-hr, #saved-box" id="saved-header">
+                            <div class="col">
+                                <h4>Saved Jobs</h4>
+                            </div>
+                            <div class="col">
+                                <h4 id="saved-arrow">></h4>
+                            </div>
+                        </div>
+                        <div class="row collapse" id="saved-hr">
+                            <div class="col">
+                                <hr class="border border-dark border-2 opacity-75">
+                            </div>
+                        </div>
+                        <div class="row collapse px-6" id="saved-box">
+                            <div class="col">
+                                <ul class="list-group text-center bg-dark text-light list-group-flush small lh-sm" id="saved-jobs"></ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- hidden jobs -->
-                <div class="row bg-secondary text-center mb-2">
+                <div class="row bg-secondary text-center rounded-2 shadow-strong py-1">
                     <div class="col">
-                        <h4>Hidden Jobs</h4>
-                    </div>
-                    <div class="col">
-                        <h4 class="clickable" data-bs-toggle="collapse" data-bs-target="#hidden-box">></h4>
-                    </div>
-                </div>
-                <div class="row bg-secondary collapse" id="hidden-box">
-                    <div class="col">
-                        <ul class="list-group text-center bg-dark text-light" id="hidden-jobs">
-                            <!-- <li class="list-group-item"><p>MM.YY XXXXXXXXXXXX / Status</p></li> -->
-                        </ul>
+                        <div class="row clickable" data-bs-toggle="collapse" data-bs-target="#hidden-hr, #hidden-box" id="hidden-header">
+                            <div class="col">
+                                <h4>Hidden Jobs</h4>
+                            </div>
+                            <div class="col">
+                                <h4 id="hidden-arrow">></h4>
+                            </div>
+                        </div>
+                        <div class="row collapse" id="hidden-hr">
+                            <div class="col">
+                                <hr class="border border-dark border-2 opacity-75">
+                            </div>
+                        </div>
+                        <div class="row collapse px-6" id="hidden-box">
+                            <div class="col">
+                                <ul class="list-group text-center bg-dark text-light list-group-flush small lh-sm" id="hidden-jobs"></ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <!-- applied jobs -->
-            <div class="col container me-5 ms-3">
+            <div class="col me-5 ms-3">
                 <div class="row">
                     <div class="col text-center">
                         <h4>Applied Jobs</h4>
@@ -247,7 +265,7 @@
         
     </div>
 
-    <script src="/bootstrap-5.3.8-dist/js/bootstrap.bundle.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/logic/main.js"></script>
     <script src="/logic/manageUser.js"></script>
     <script src="/logic/navbar.js"></script>

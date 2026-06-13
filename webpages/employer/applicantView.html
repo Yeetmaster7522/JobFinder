@@ -4,125 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finder</title>
-    <link rel="stylesheet" href="/bootstrap-5.3.8-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/css/custom.css">
 </head>
 <body class="bg-dark text-light">
     <div class="container-fluid">
-        <a href="/webpages/employer/managePosts.html" class="z-1 position-absolute top-0 start-0" id="back-btn" style="margin-left: 1em;">Back</a>
         <!-- Top navigation bar -->
         <div class="row mb-3" id="navbar"></div>
-        <div class="row">
+        <div class="row align-items-start">
             <div class="col">
-                <ul class="list-group" id="previews">
-                    <!-- <li class="list-group-item">
-                        <div class="row">
-                            <div class="col">
-                                <p>Applicant name</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <p>EMAIL@gmail.com</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <p>0000 000 000</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <p>Applied:</p>
-                            </div>
-                            <div class="col">
-                                <p>DD.MM</p>
-                            </div>
-                        </div>
-                    </li> -->
-                </ul>
+                <ul class="list-group bg-dark" id="previews"></ul>
             </div>
-            <div class="col container">
-                <div class="row">
-                    <div class="col">
-                        <p id="name">Name</p>
+            <div class="col bg-teal rounded-2 shadow-strong" id="preview">
+                <div class="row gy-3 p-2">
+                    <div class="col-12 text-center">
+                        <p id="name" class="fs-4"></p>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <p id="resume">resume</p>
+                    <div class="col-12 text-center">
+                        <button type="button" class="btn btn-secondary" id="resume">Click for resume</button>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <p>skills</p>
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input type="email" class="form-control bg-dark text-light" id="email" placeholder="name@example.com" disabled>
+                            <label for="email">Email Address</label>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <ul id="skills-list">
-                        </ul>
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control bg-dark text-light" id="phone-contact" placeholder="0000 000 000" disabled>
+                            <label for="phone-contact">Phone Contact</label>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <p>Education level:</p>
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <input type="text" class="form-control bg-dark text-light" id="education-level" placeholder=" " disabled>
+                            <label for="education-level">Education Level</label>
+                        </div>
                     </div>
-                    <div class="col">
-                        <p id="education-level"></p>
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <textarea class="form-control bg-dark text-light" id="certifications-list" placeholder=" " disabled style="height: 7em;"></textarea>
+                            <label for="certifications-list">Certifications</label>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <p>Certifications</p>
+                    <div class="col-6 text-center">
+                        <div class="form-floating">
+                            <textarea class="form-control bg-dark text-light" id="skills-list" placeholder=" " disabled style="height: 12em;"></textarea>
+                            <label for="skills-list">Skills</label>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <ul id="certifications-list">
-                        </ul>
+                    <div class="col-6 text-center">
+                        <div class="form-floating">
+                            <textarea class="form-control bg-dark text-light" id="availability-timestamp" placeholder=" " disabled style="height: 12em;"></textarea>
+                            <label for="availability-timestamp">Availability</label>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <p>Availability</p>
+                    <div class="col-6 text-start">
+                        <button class="btn btn-secondary" type="button" id="interested-btn">Interested</button>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <ul id="availability-timestamp">
-                        </ul>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <p>Email:</p>
-                    </div>
-                    <div class="col">
-                        <p id="email"></p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <p>Phone Contact</p>
-                    </div>
-                    <div class="col">
-                        <p id="phone-contact"></p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <a href="#">interested</a>
-                    </div>
-                    <div class="col">
-                        <a href="#">reject</a>
+                    <div class="col-6 text-end">
+                        <button class="btn btn-secondary" type="button" id="reject-btn">Reject</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="/bootstrap-5.3.8-dist/js/bootstrap.bundle.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/logic/main.js"></script>
     <script src="/logic/navbar.js"></script>
     <script src="/logic/applicantViewer.js"></script>
