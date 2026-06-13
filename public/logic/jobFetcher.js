@@ -143,7 +143,6 @@ class JobFetcher {
     }
 
     scrollPost(forward=true) {
-        const postOverview = document.getElementById("post-overview");
         const actionButtons = document.getElementById("action-buttons");
         const noneLeft = document.getElementById("none-left-header");
 
