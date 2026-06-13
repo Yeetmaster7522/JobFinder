@@ -8,14 +8,13 @@
 </head>
 <body class="bg-dark text-light">
     <div class="container-fluid">
-        <a href="/webpages/employer/managePosts.html" class="z-1 position-absolute top-0 start-0" id="back-btn" style="margin-left: 1em;">Back</a>
         <!-- Top navigation bar -->
         <div class="row mb-3" id="navbar"></div>
         <div class="row align-items-start">
             <div class="col">
                 <ul class="list-group bg-dark" id="previews"></ul>
             </div>
-            <div class="col bg-teal rounded-2 shadow-strong">
+            <div class="col bg-teal rounded-2 shadow-strong" id="preview">
                 <div class="row gy-3 p-2">
                     <div class="col-12 text-center">
                         <p id="name" class="fs-4"></p>
@@ -60,17 +59,17 @@
                         </div>
                     </div>
                     <div class="col-6 text-start">
-                        <button class="btn btn-secondary" type="button">Interested</button>
+                        <button class="btn btn-secondary" type="button" id="interested-btn">Interested</button>
                     </div>
                     <div class="col-6 text-end">
-                        <button class="btn btn-secondary" type="button">Reject</button>
+                        <button class="btn btn-secondary" type="button" id="reject-btn">Reject</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="/bootstrap.bundle.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/logic/main.js"></script>
     <script src="/logic/navbar.js"></script>
     <script src="/logic/applicantViewer.js"></script>

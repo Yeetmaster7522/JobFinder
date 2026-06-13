@@ -25,13 +25,14 @@
         <div class="row justify-content-center mt-3 justify-content-evenly column-gap-5 row-gap-5 px-3" id="other-advice"></div>
     </div>
 
-    <script src="/bootstrap.bundle.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/logic/main.js"></script>
     <script src="/logic/articleManager.js"></script>
     <script src="/logic/navbar.js"></script>
     <script>
-        window.addEventListener("mainReady", () => {
-            const articleManager = new ArticleManager(window.main.articles);
+        window.addEventListener("mainReady", async () => {
+            const articles = await wsRequest("articles");
+            const articleManager = new ArticleManager(JSON.parse(articles));
             articleManager.displayArticles();
 
             document.getElementById("search-bar").addEventListener("search", (e) => {
