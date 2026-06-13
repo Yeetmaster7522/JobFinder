@@ -1,11 +1,9 @@
 class LogUser {
     #users
-    #modal
 
     constructor(users) {
         this.#users = users;
         console.log(users)
-        this.#modal = document.getElementById("successModal");
 
         const logInBtn = document.getElementById("log-in-btn");
         const signUpBtn = document.getElementById("sign-up-btn");
@@ -20,16 +18,8 @@ class LogUser {
         }
 
         if (forgotPswrd) {
-            forgotPswrd.addEventListener("click", () => {this.setModal("email sent")});
+            forgotPswrd.addEventListener("click", () => {setModal("email sent")});
         }
-    }
-
-    setModal(title, body="") {
-        const modalTitle = this.#modal.querySelector(".modal-title");
-        const modalBody = this.#modal.querySelector(".modal-body");
-
-        modalTitle.textContent = title;
-        modalBody.textContent = body;
     }
 
     findUser(email, pswrd) {
@@ -56,20 +46,20 @@ class LogUser {
             const userUid = this.findUser(emailInp, pswrdInp);
 
             if (userUid == -1) {
-                this.setModal("Email or password is wrong", "Please try again");
+                setModal("Email or password is wrong", "Please try again");
             }
             else {
                 const user = this.#users[userUid];
 
                 setCookie("UID", userUid, 1);
-                this.setModal("Logged in", `Welcome back ${user.email}`);
+                setModal("Logged in", `Welcome back ${user.email}`);
                 setTimeout(() => {
                     window.location.href = `/webpages/${user.role}/profile.html`;
                 }, 500);
             }
         }
         else {
-            this.setModal("Please fill out fields", "One or more fields have not been completed");
+            setModal("Please fill out fields", "One or more fields have not been completed");
         }
     }
 
@@ -79,7 +69,7 @@ class LogUser {
         const newUID = this.genUID();
 
         ws.send(JSON.stringify( {"request": "createuser", "uid": newUID, "email": userEmail, "password": userPassword, "role": "student"} ))
-        this.setModal("Signed up");
+        setModal("Signed up");
     }
 
     genUID() {

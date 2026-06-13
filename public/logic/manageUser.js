@@ -70,7 +70,7 @@ class StudentManager extends UserManager {
 
         document.getElementById("work-type").innerText = user.student.preferences.workType;
         document.getElementById("employment-type").innerText = user.student.preferences.employmentType;
-        document.getElementById("loc-radius").innerText = `${user.student.preferences.locationRadius}km`;
+        document.getElementById("loc-radius").innerText = user.student.preferences.locationRadius;
 
         // applied jobs
         this.showApplications(user);
@@ -78,16 +78,17 @@ class StudentManager extends UserManager {
         // saved jobs
         try {
             const savedBox = document.getElementById("saved-jobs");
-            const savedJobs = JSON.parse(getCookie("savedJobs")) || [];
-            for (let i=0; i<savedJobs.length; i++) {
+            const savedJobs = JSON.parse(getCookie("savedJobs"));
+            console.log(savedJobs)
+            for (const job of savedJobs) {
                 let li = document.createElement("li");
-                li.classList = "list-group-item bg-secondary text-light";
-                li.classList.add("list-group-item");
+                li.classList.add("list-group-item", "bg-secondary", "text-light");
+
                 let p = document.createElement("p");
-                p.textContent = `${savedJobs[i].jobTitle}`;
-                li.appendChild(p);
+                p.textContent = job.jobTitle;
+                li.append(p);
                 savedBox.appendChild(li);
-            };
+            }
         }
         catch (err) {
             console.log(err);
@@ -96,13 +97,13 @@ class StudentManager extends UserManager {
         // hidden jobs
         try {
             const hiddenBox = document.getElementById("hidden-jobs");
-            const hiddenJobs = JSON.parse(getCookie("hiddenJobs")) || [];
-            for (let i=0; i<hiddenJobs.length; i++) {
+            const hiddenJobs = JSON.parse(getCookie("hiddenJobs"));
+            for (const job of hiddenJobs) {
                 let li = document.createElement("li");
                 li.classList = "list-group-item bg-secondary text-light";
                 li.classList.add("list-group-item");
                 let p = document.createElement("p");
-                p.textContent = hiddenJobs[i].jobTitle;
+                p.textContent = job.jobTitle;
                 li.appendChild(p);
                 hiddenBox.appendChild(li);
             };
@@ -251,7 +252,8 @@ window.addEventListener("mainReady", async () => {
                 "request": "edituser",
                 "uid": getCookie("UID"),
                 "details": um.getUserDetailInp(user)
-            }))
+            }));
+            setModal("User details updated");
         }, 3000);
     });
 

@@ -109,7 +109,6 @@ class JobFetcher {
         const ageRequire = document.getElementById("age-require");
         const hours = document.getElementById("hours");
         const skills = document.getElementById("skills");
-        const datePosted = document.getElementById("date-posted");
         const deadline = document.getElementById("date-deadline");
         const fullSummary = document.getElementById("full-summary");
         const shortSummary = document.getElementById("short-summary");
@@ -121,10 +120,9 @@ class JobFetcher {
         address.innerText = post.address;
         workType.innerText = post.workType;
         employType.innerText = post.employmentType;
-        salaryRange.innerText = `$${post.salaryMin} - $${post.salaryMax}`;
-        ageRequire.innerText = post.ageRequirement;
-        datePosted.innerText = post.datePosted;
-        deadline.innerText = post.deadline;
+        salaryRange.innerText = `$${post.salaryMin} - $${post.salaryMax} / hr`;
+        ageRequire.innerText = `${post.ageRequirement} years old min`;
+        deadline.innerText = `Deadline: ${post.deadline}`;
 
         skills.innerText = "";
         for (const skill of post.skills.slice(0,5)) {
@@ -273,6 +271,8 @@ class JobFetcher {
         const newApplications = [...user.student.applications, post.ID];
         const newUser = setNestedValue(user, "student.applications", newApplications);
 
+        setModal("Applied to job");
+
         ws.send(JSON.stringify( {
             "request": "applytopost",
             "application": {
@@ -287,28 +287,48 @@ class JobFetcher {
 
     savePost() {
         let savedJobs = [];
+        
         try {
             savedJobs = JSON.parse(getCookie("savedJobs"));
         }
         catch (error) {
             console.log(error);
         }
-        savedJobs.push(this.#editedPosts[this.#currentPostId]);
-        setCookie("savedJobs", JSON.stringify(savedJobs), 30);
-        alert("Job saved");
+
+        const job = this.#editedPosts[this.#currentPostId];
+        const exists = savedJobs.some(j => j.ID === job.ID);
+
+        if (!exists) {
+            savedJobs.push(job);
+            setCookie("savedJobs", JSON.stringify(savedJobs), 30);
+            setModal("Job saved");
+        }
+        else {
+            setModal("Job already saved");
+        }
     }
 
     hidePost() {
         let hiddenJobs = [];
+        
         try {
             hiddenJobs = JSON.parse(getCookie("hiddenJobs"));
         }
         catch (error) {
             console.log(error);
         }
-        hiddenJobs.push(this.#editedPosts[this.#currentPostId]);
-        setCookie("hiddenJobs", JSON.stringify(hiddenJobs), 30);
-        alert("Job hidden");
+        
+        const job = this.#editedPosts[this.#currentPostId];
+        const exists = hiddenJobs.some(j => j.ID === job.ID);
+
+        if (!exists) {
+            hiddenJobs.push(job);
+            setCookie("hiddenJobs", JSON.stringify(hiddenJobs), 30);
+            setModal("Job hidden");
+        }
+        else {
+            setModal("Job already hidden");
+        }
     }
 }
 

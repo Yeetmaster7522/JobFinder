@@ -12,6 +12,7 @@ class PostViwer {
             console.log("clicked")
             const post = await this.submit();
             if (this.validatePost(post)) {
+                setModal("Job post edited");
                 ws.send(JSON.stringify( {"request": "editpost", "post": post} ));
                 
                 await new Promise(resolve => {
@@ -47,6 +48,7 @@ class PostViwer {
         document.getElementById("work-type-entry").value = this.post.workType;
         document.getElementById("employment-type-entry").value = this.post.employmentType;
         document.getElementById("industry-entry").value = this.post.industry;
+        document.getElementById("age-entry").value = this.post.ageRequirement;
         document.getElementById("description-entry").value = this.post.summary;
         document.getElementById("salary-min-entry").value = this.post.salaryMin;
         document.getElementById("salary-max-entry").value = this.post.salaryMax;

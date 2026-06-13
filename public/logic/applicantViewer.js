@@ -22,10 +22,11 @@ class ApplicantViewer {
     }
 
     showAll() {
-        this.showDetails(this.#applications[0].UID);
         for (const application of this.#applications) {
             this.createPreview(application);
         }
+
+        this.showDetails(this.#applications[0].UID);
     }
 
     createPreview(application) {
@@ -42,9 +43,13 @@ class ApplicantViewer {
         
         li.innerHTML = `
             <div class="row g-1">
-                <div class="col-12">
-                    <p class="fs-5 mb-1">${user.student.name} <span class="badge text-bg-info float-end" style="font-size: 0.7rem">Applied: ${application.dateApplied}</span></p>
-                    <hr class="border border-white border-1 opacity-50 rounded-1 mt-0">
+                <div class="col-10">
+                    <p class="fs-5 mb-1">${user.student.name}</p>
+                </div>
+                <div class="col-2">
+                    <span class="badge float-end" style="font-size: 0.7rem" id="${uid}-badge">
+                        Applied: ${application.dateApplied}, ${application.status}
+                    </span>
                 </div>
                 <div class="col-12">
                     <p>${user.email}</p>
@@ -56,16 +61,26 @@ class ApplicantViewer {
         `;
 
         previews.append(li);
-    }
 
-    removePreview() {
-        document.getElementById(this.#currentAppUid).remove();
+        if (application.status == "offered") {
+            document.getElementById(`${uid}-badge`).classList.add("text-bg-success");
+        }
+        else if (application.status == "rejected") {
+            document.getElementById(`${uid}-badge`).classList.add("text-bg-danger");
+        }
+        else {
+            document.getElementById(`${uid}-badge`).classList.add("text-bg-info");
+        }
     }
 
     showDetails(uid) {
         const user = this.#users[uid];
         this.#currentAppUid = uid;
         this.updateApplication("in review");
+        
+        const previews = document.getElementById("previews");
+        const li = document.getElementById(uid);
+        previews.prepend(li);
 
         document.getElementById("preview").style.display = "block";
         
@@ -105,13 +120,11 @@ window.addEventListener("mainReady", async () => {
 
     document.getElementById("interested-btn").addEventListener("click", () => {
         av.updateApplication("offered");
-        av.removePreview();
-        document.getElementById("preview").style.display = "none";
+        setModal("Shortlisted successfully");
     });
 
     document.getElementById("reject-btn").addEventListener("click", () => {
         av.updateApplication("rejected");
-        av.removePreview();
-        document.getElementById("preview").style.display = "none";
+        setModal("Rejected successfully");
     });
 });

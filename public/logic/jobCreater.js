@@ -10,6 +10,7 @@ class JobCreater {
                 const newUser = setNestedValue(user, "employer.jobPosts", newUserPosts);
                 ws.send(JSON.stringify( {"request": "createpost", "post": post} ));
                 ws.send(JSON.stringify( {"request": "edituser", "uid": getCookie("UID"), "details": newUser} ));
+                setModal("Job posted");
             }
         });
     }
@@ -73,9 +74,9 @@ class JobCreater {
     }
 }
 
-window.addEventListener("mainReady", () => {
+window.addEventListener("mainReady", async () => {
     const jobCreater = new JobCreater();
-    const user = window.main.getUser();
+    const user = await window.main.getUser();
 
     document.getElementById("use-address").addEventListener("click", () => {
         const addressEntry = document.getElementById("address-entry");
