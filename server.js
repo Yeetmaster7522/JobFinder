@@ -123,6 +123,7 @@ wss.on("connection", (ws) => {
                     newJobPosts[index] = msg.post;
                 }
                 df.writeToFile("jobPosts.json", newJobPosts);
+                ws.send(JSON.stringify( {"type": "editpost_ack"} ));
                 break;
             case "applytopost":
                 newApplications = JSON.parse(df.readData("applications.json"));

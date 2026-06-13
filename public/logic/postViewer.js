@@ -13,6 +13,19 @@ class PostViwer {
             const post = await this.submit();
             if (this.validatePost(post)) {
                 ws.send(JSON.stringify( {"request": "editpost", "post": post} ));
+                
+                await new Promise(resolve => {
+                    const handler = event => {
+                        const data = JSON.parse(event.data);
+                        if (data.type === "editpost_ack") {
+                            ws.removeEventListener("message", handler);
+                            resolve();
+                        }
+                    };
+                    ws.addEventListener("message", handler);
+                });
+
+                window.location.href = "/webpages/employer/managePosts.html";
             }
         });
     }
