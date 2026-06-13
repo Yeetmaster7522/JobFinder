@@ -34,6 +34,7 @@ class ApplicantViewer {
 
         const previews = document.getElementById("previews");
         const li = document.createElement("li");
+        li.id = uid;
         li.classList.add("list-group-item", "bg-secondary", "text-light");
         li.addEventListener("click", () => {
             this.showDetails(uid);
@@ -57,10 +58,16 @@ class ApplicantViewer {
         previews.append(li);
     }
 
+    removePreview() {
+        document.getElementById(this.#currentAppUid).remove();
+    }
+
     showDetails(uid) {
         const user = this.#users[uid];
         this.#currentAppUid = uid;
         this.updateApplication("in review");
+
+        document.getElementById("preview").style.display = "block";
         
         document.getElementById("name").textContent = user.student.name;
         document.getElementById("resume").href = user.student.resume.source;
@@ -98,9 +105,13 @@ window.addEventListener("mainReady", async () => {
 
     document.getElementById("interested-btn").addEventListener("click", () => {
         av.updateApplication("offered");
+        av.removePreview();
+        document.getElementById("preview").style.display = "none";
     });
 
     document.getElementById("reject-btn").addEventListener("click", () => {
         av.updateApplication("rejected");
+        av.removePreview();
+        document.getElementById("preview").style.display = "none";
     });
 });
