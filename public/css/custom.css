@@ -11529,14 +11529,6 @@ textarea.form-control-lg {
   text-decoration: none;
 }
 
-.bg-blue {
-  background-color: #464D77;
-}
-
-.bg-teal {
-  background-color: #36827F;
-}
-
 #skills li:nth-child(n+10) {
   display: none;
 }
@@ -11551,6 +11543,26 @@ html {
 
 .w-8 {
   width: 8%;
+}
+
+.bg-charcoalnavy {
+  background-color: #1B262C;
+}
+
+.bg-deepblue {
+  background-color: #0F4C75;
+}
+
+.bg-mediumblue {
+  background-color: #3282B8;
+}
+
+.bg-paleblue {
+  background-color: #BBE1FA;
+}
+
+.border-paleblue {
+  border-color: #BBE1FA;
 }
 
 /*# sourceMappingURL=custom.css.map */

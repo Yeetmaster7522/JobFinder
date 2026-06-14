@@ -57,22 +57,22 @@ class JobEditor {
                     </div>
                     <div class="row">
                         <div class="col d-flex justify-content-start align-items-end">
-                            <span class="small fw-lighter badge text-bg-primary">
+                            <span class="small fw-lighter badge bg-mediumblue">
                                 Deadline: ${post.deadline}
                             </span>
                         </div>
                         <div class="col d-flex justify-content-end align-items-end">
-                            <span class="small fw-lighter badge text-bg-primary">
+                            <span class="small fw-lighter badge bg-mediumblue">
                                 ${status}
                             </span>
                         </div>
                     </div>
                 </div>
                 <!-- back -->
-                <div class="collapse bg-dark rounded-2 py-1 mt-2" id="${postId}">
+                <div class="collapse bg-mediumblue rounded-2 py-1 mt-2" id="${postId}">
                     <div class="row">
                         <div class="col">
-                            <a class="text-decoration-none text-primary"
+                            <a class="text-light"
                             href="/webpages/employer/editPost.html?id=${post.ID}">
                             Edit Post
                             </a>
@@ -80,7 +80,7 @@ class JobEditor {
                     </div>
                     <div class="row">
                         <div class="col">
-                            <a class="text-decoration-none text-primary"
+                            <a class="text-light"
                             href="/webpages/employer/applicantView.html?id=${post.ID}">
                             View applicants
                             </a>

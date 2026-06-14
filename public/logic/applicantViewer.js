@@ -36,7 +36,7 @@ class ApplicantViewer {
         const previews = document.getElementById("previews");
         const li = document.createElement("li");
         li.id = uid;
-        li.classList.add("list-group-item", "bg-secondary", "text-light");
+        li.classList.add("list-group-item", "bg-deepblue", "text-light");
         li.addEventListener("click", () => {
             this.showDetails(uid);
         })

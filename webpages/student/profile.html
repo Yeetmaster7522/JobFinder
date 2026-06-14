@@ -6,10 +6,10 @@
     <title>Finder</title>
     <link rel="stylesheet" href="/css/custom.css">
 </head>
-<body class="bg-dark text-light position-relative min-vh-100">
+<body class="bg-charcoalnavy text-light position-relative min-vh-100">
     <div class="modal fade" id="modal-popup" tabindex="-1" aria-labelledby="modal-label" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content bg-dark text-light">
+            <div class="modal-content bg-charcoalnavy text-light">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="modal-label">Modal title</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -56,7 +56,7 @@
                     </div>
                 </div>
                 <!-- resume -->
-                <div class="row bg-secondary rounded-2 shadow-strong py-1 mb-3">
+                <div class="row bg-mediumblue rounded-2 shadow-strong py-1 mb-3">
                     <div class="col">
                         <div class="row mb-1">
                             <div class="col">
@@ -67,9 +67,9 @@
                             <div class="col">
                                 <div class="row">
                                     <div class="col">
-                                        <div class="input-group">
-                                            <input type="file" class="form-control border-dark bg-secondary text-light" id="resume-file" aria-label="User resume file input">
-                                            <button class="btn btn-outline-dark dropdown-toggle text-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">More</button>
+                                        <div class="input-group text-light">
+                                            <input type="file" class="form-control border-light" id="resume-file" aria-label="User resume file input">
+                                            <button class="btn btn-outline-light dropdown-toggle bg-charcoalnavy" type="button" data-bs-toggle="dropdown" aria-expanded="false">More</button>
                                             <ul class="dropdown-menu bg-white ps-2">
                                                 <li><a href="#" class="dropdown-item">Edit</a></li>
                                             </ul>
@@ -81,7 +81,7 @@
                     </div>
                 </div>
                 <!-- qualifications -->
-                <div class="row bg-secondary text-center rounded-2 shadow-strong py-1">
+                <div class="row bg-mediumblue text-center rounded-2 shadow-strong py-1">
                     <div class="col d-grid">
                         <div class="row clickable" data-bs-toggle="collapse" data-bs-target="#qualifications-hr, #qualifications-box" id="qualifications-header">
                             <div class="col">
@@ -93,7 +93,7 @@
                         </div>
                         <div class="row collapse" id="qualifications-hr">
                             <div class="col">
-                                <hr class="border border-dark border-2 opacity-75">
+                                <hr class="border border-paleblue border-2 opacity-75">
                             </div>
                         </div>
                         <div class="row collapse px-6" id="qualifications-box">
@@ -139,7 +139,7 @@
                     </div>
                 </div>
                 <!-- preferences -->
-                <div class="row bg-secondary text-center rounded-2 shadow-strong py-1">
+                <div class="row bg-mediumblue text-center rounded-2 shadow-strong py-1">
                     <div class="col">
                         <div class="row clickable" data-bs-toggle="collapse" data-bs-target="#preference-hr, #preference-box" id="preference-header">
                             <div class="col">
@@ -151,7 +151,7 @@
                         </div>
                         <div class="row collapse" id="preference-hr">
                             <div class="col">
-                                <hr class="border border-dark border-2 opacity-75">
+                                <hr class="border border-paleblue border-2 opacity-75">
                             </div>
                         </div>
                         <div class="row collapse px-6" id="preference-box">
@@ -214,7 +214,7 @@
                     </div>
                 </div>
                 <!-- saved jobs -->
-                <div class="row bg-secondary text-center rounded-2 shadow-strong py-1">
+                <div class="row bg-mediumblue text-center rounded-2 shadow-strong py-1">
                     <div class="col">
                         <div class="row clickable" data-bs-toggle="collapse" data-bs-target="#saved-hr, #saved-box" id="saved-header">
                             <div class="col">
@@ -226,18 +226,18 @@
                         </div>
                         <div class="row collapse" id="saved-hr">
                             <div class="col">
-                                <hr class="border border-dark border-2 opacity-75">
+                                <hr class="border border-paleblue border-2 opacity-75">
                             </div>
                         </div>
                         <div class="row collapse px-6" id="saved-box">
                             <div class="col">
-                                <ul class="list-group text-center bg-dark text-light list-group-flush small lh-sm" id="saved-jobs"></ul>
+                                <ul class="list-group list-group-flush small lh-sm" id="saved-jobs"></ul>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- hidden jobs -->
-                <div class="row bg-secondary text-center rounded-2 shadow-strong py-1">
+                <div class="row bg-mediumblue text-center rounded-2 shadow-strong py-1">
                     <div class="col">
                         <div class="row clickable" data-bs-toggle="collapse" data-bs-target="#hidden-hr, #hidden-box" id="hidden-header">
                             <div class="col">
@@ -249,12 +249,12 @@
                         </div>
                         <div class="row collapse" id="hidden-hr">
                             <div class="col">
-                                <hr class="border border-dark border-2 opacity-75">
+                                <hr class="border border-paleblue border-2 opacity-75">
                             </div>
                         </div>
                         <div class="row collapse px-6" id="hidden-box">
                             <div class="col">
-                                <ul class="list-group text-center bg-dark text-light list-group-flush small lh-sm" id="hidden-jobs"></ul>
+                                <ul class="list-group list-group-flush small lh-sm" id="hidden-jobs"></ul>
                             </div>
                         </div>
                     </div>
@@ -269,9 +269,7 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <ul class="list-group text-center" id="applied-jobs">
-                            <!-- <li class="list-group-item bg-dark text-light"><p>MM.YY XXXXXXXXXXXX / Status</p></li> -->
-                        </ul>
+                        <ul class="list-group text-center" id="applied-jobs"></ul>
                     </div>
                 </div>
             </div>

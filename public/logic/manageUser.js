@@ -82,7 +82,7 @@ class StudentManager extends UserManager {
             console.log(savedJobs)
             for (const job of savedJobs) {
                 let li = document.createElement("li");
-                li.classList.add("list-group-item", "bg-secondary", "text-light");
+                li.classList.add("list-group-item", "bg-transparent", "text-light");
 
                 let p = document.createElement("p");
                 p.textContent = job.jobTitle;
@@ -100,8 +100,7 @@ class StudentManager extends UserManager {
             const hiddenJobs = JSON.parse(getCookie("hiddenJobs"));
             for (const job of hiddenJobs) {
                 let li = document.createElement("li");
-                li.classList = "list-group-item bg-secondary text-light";
-                li.classList.add("list-group-item");
+                li.classList.add("list-group-item", "bg-transparent", "text-light");
                 let p = document.createElement("p");
                 p.textContent = job.jobTitle;
                 li.appendChild(p);
@@ -129,8 +128,7 @@ class StudentManager extends UserManager {
                     const job = jobs[jIndex];
 
                     let li = document.createElement("li");
-                    li.classList = "list-group-item bg-secondary text-light";
-                    li.classList.add("list-group-item");
+                    li.classList.add("list-group-item", "bg-mediumblue", "text-light");
                     let p = document.createElement("p");
                     p.textContent = `MM.YY ${job.jobTitle} / ${application.status}`;
                     li.appendChild(p);
