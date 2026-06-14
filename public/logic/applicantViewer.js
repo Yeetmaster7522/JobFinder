@@ -1,32 +1,35 @@
 class ApplicantViewer {
     #users
-    #applications
     #currentAppUid
 
-    constructor(users, applications) {
+    constructor(users) {
         this.#users = users;
-        this.#applications = [];
         this.#currentAppUid = -1;
+    }
 
+    async getApplications() {
         const id = getParam("id");
+        const applications = JSON.parse(await wsRequest("applications"));
 
-        for (const application of applications) {
-            if (application.JPID == id) {
-                this.#applications.push(application);
-            }
-        }
+        return applications.filter(app => app.JPID == id);
     }
 
     getCurrentAppUid() {
         return this.#currentAppUid
     }
 
-    showAll() {
-        for (const application of this.#applications) {
-            this.createPreview(application);
-        }
+    async showAll() {
+        const applications = await this.getApplications();
+        
+        this.removePreviews();
 
-        this.showDetails(this.#applications[0].UID);
+        for (const app of applications) {
+            this.createPreview(app);
+        }
+    }
+
+    removePreviews() {
+        document.getElementById("previews").innerHTML = "";
     }
 
     createPreview(application) {
@@ -76,7 +79,7 @@ class ApplicantViewer {
     showDetails(uid) {
         const user = this.#users[uid];
         this.#currentAppUid = uid;
-        this.updateApplication("in review");
+        // this.updateApplication("in review");
         
         const previews = document.getElementById("previews");
         const li = document.getElementById(uid);
@@ -111,20 +114,22 @@ class ApplicantViewer {
 
 window.addEventListener("mainReady", async () => {
     const users = await wsRequest("userAccounts");
-    const applications = await wsRequest("applications");
-    const av = new ApplicantViewer(
-        JSON.parse(users), 
-        JSON.parse(applications)
-    );
+    const av = new ApplicantViewer(JSON.parse(users));
+    
     av.showAll();
+
+    const applications = await av.getApplications();
+    av.showDetails(applications[0].UID);
 
     document.getElementById("interested-btn").addEventListener("click", () => {
         av.updateApplication("offered");
         setModal("Shortlisted successfully");
+        av.showAll();
     });
 
     document.getElementById("reject-btn").addEventListener("click", () => {
         av.updateApplication("rejected");
         setModal("Rejected successfully");
+        av.showAll();
     });
 });
