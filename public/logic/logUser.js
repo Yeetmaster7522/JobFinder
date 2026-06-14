@@ -11,10 +11,20 @@ class LogUser {
 
         if (logInBtn) {
             logInBtn.addEventListener("click", () => this.logIn());
+            document.getElementById("password-input").addEventListener("keydown", (e) => {
+                if (e.key == "Enter") {
+                    this.logIn();
+                }
+            });
         }
 
         if (signUpBtn) {
             signUpBtn.addEventListener("click", () => this.signUp());
+            document.getElementById("password-input").addEventListener("keydown", (e) => {
+                if (e.key == "Enter") {
+                    this.signUp();
+                }
+            });
         }
 
         if (forgotPswrd) {
