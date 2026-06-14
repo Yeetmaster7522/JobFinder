@@ -59,16 +59,8 @@ $utilities: (
   color: rgba(#6c757d, 1.0);
 }
 
-.navLink {
-    text-decoration: none;
-}
-
 #skills li:nth-child(n+10) {
   display: none;
-}
-
-.btn-close {
-  filter: invert(1);
 }
 
 html {
@@ -78,6 +70,8 @@ html {
 .w-8 {
   width: 8%;
 }
+
+// https://colorhunt.co/palette/1b262c0f4c753282b8bbe1fa
 
 .bg-charcoalnavy {
   background-color: #1B262C;

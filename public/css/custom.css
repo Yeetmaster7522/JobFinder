@@ -11525,16 +11525,8 @@ textarea.form-control-lg {
   color: #6c757d;
 }
 
-.navLink {
-  text-decoration: none;
-}
-
 #skills li:nth-child(n+10) {
   display: none;
-}
-
-.btn-close {
-  filter: invert(1);
 }
 
 html {
