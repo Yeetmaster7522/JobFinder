@@ -2,13 +2,13 @@ class JobFetcher {
     #user
     #posts
     #editedPosts
-    #currentPostId
+    #currentPostIdx
 
     constructor(user, posts) {
         this.#user = user;
         this.#posts = posts;
         this.#editedPosts = posts;
-        this.#currentPostId = this.getHistoricalId();
+        this.#currentPostIdx = this.getHistoricalIdx();
     }
 
     init() {
@@ -31,10 +31,10 @@ class JobFetcher {
         }
 
         this.updatePosts(postIds);
-        this.displayPostAtI(this.#currentPostId);
+        this.displayPostAtI(this.#currentPostIdx);
     }
 
-    getHistoricalId() {
+    getHistoricalIdx() {
         let pastPostId = getCookie("postIndex") || "0";
         
         return parseInt(pastPostId, 10);
@@ -50,7 +50,7 @@ class JobFetcher {
         );
 
         this.updatePosts(postIds);
-        this.displayPostAtI(this.#currentPostId);
+        this.displayPostAtI(this.#currentPostIdx);
     }
 
     getAllPosts() {
@@ -89,17 +89,22 @@ class JobFetcher {
 
     updatePosts(postIds) {
         this.#editedPosts = [];
-        this.#currentPostId = 0;
+        this.#currentPostIdx = 0;
 
         for (const id of postIds) {
             this.#editedPosts.push(this.#posts[id]);
         }
     }
 
-    displayPostAtI(id) {
-        const post = this.#editedPosts[id];
-
+    displayPostAtI(idx) {
+        const post = this.#editedPosts[idx];
         const postCounter = document.getElementById("postCounter");
+
+        postCounter.innerText = `${idx+1}/${this.#editedPosts.length} Posts`;
+        this.displayPost(post);
+    }
+
+    displayPost(post) {
         const jobTitle = document.getElementById("job-title");
         const companyName = document.getElementById("company-name");
         const address = document.getElementById("address");
@@ -112,8 +117,6 @@ class JobFetcher {
         const deadline = document.getElementById("date-deadline");
         const fullSummary = document.getElementById("full-summary");
         const shortSummary = document.getElementById("short-summary");
-
-        postCounter.innerText = `${id+1}/${this.#editedPosts.length} Posts`;
 
         jobTitle.innerText = post.jobTitle;
         companyName.innerText = post.companyName;
@@ -149,9 +152,9 @@ class JobFetcher {
         if (this.#editedPosts.length == 0) {
             console.log("none found")
         }
-        else if (forward == true && this.#currentPostId < this.#editedPosts.length-1) {
-            this.#currentPostId += 1;
-            if (this.#currentPostId == this.#editedPosts.length) {
+        else if (forward == true && this.#currentPostIdx < this.#editedPosts.length-1) {
+            this.#currentPostIdx += 1;
+            if (this.#currentPostIdx == this.#editedPosts.length) {
                 valid = false;
 
                 postOverview.classList.toggle("d-none");
@@ -159,10 +162,10 @@ class JobFetcher {
                 noneLeft.classList.toggle("d-none");
             }
         }
-        else if (forward == false && this.#currentPostId > 0) {
-            this.#currentPostId -= 1;
+        else if (forward == false && this.#currentPostIdx > 0) {
+            this.#currentPostIdx -= 1;
             
-            if (this.#currentPostId == this.#editedPosts.length-1) {
+            if (this.#currentPostIdx == this.#editedPosts.length-1) {
                 postOverview.classList.toggle("d-none");
                 actionButtons.classList.toggle("d-none");
                 noneLeft.classList.toggle("d-none");
@@ -170,14 +173,14 @@ class JobFetcher {
         }
 
         if (valid == true) {
-            setCookie("postIndex", this.#currentPostId, 1);
-            this.displayPostAtI(this.#currentPostId);
+            setCookie("postIndex", this.#currentPostIdx, 1);
+            this.displayPostAtI(this.#currentPostIdx);
         }
     }
 
     storePostToCookie(cookie) {
         let jobs = JSON.parse(getCookie(cookie));
-        jobs.push(this.#editedPosts[this.#currentPostId]);
+        jobs.push(this.#editedPosts[this.#currentPostIdx]);
         setCookie(cookie, JSON.stringify(jobs), 30);
     }
 
@@ -265,7 +268,7 @@ class JobFetcher {
     }
 
     async applyToPost() {
-        const post = this.#editedPosts[this.#currentPostId];
+        const post = this.#editedPosts[this.#currentPostIdx];
         const date = new Date();
         const user = await window.main.getUser();
         const newApplications = [...user.student.applications, post.ID];
@@ -295,7 +298,7 @@ class JobFetcher {
             console.log(error);
         }
 
-        const job = this.#editedPosts[this.#currentPostId];
+        const job = this.#editedPosts[this.#currentPostIdx];
         const exists = savedJobs.some(j => j.ID === job.ID);
 
         if (!exists) {
@@ -318,7 +321,7 @@ class JobFetcher {
             console.log(error);
         }
         
-        const job = this.#editedPosts[this.#currentPostId];
+        const job = this.#editedPosts[this.#currentPostIdx];
         const exists = hiddenJobs.some(j => j.ID === job.ID);
 
         if (!exists) {

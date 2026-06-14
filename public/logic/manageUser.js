@@ -83,10 +83,21 @@ class StudentManager extends UserManager {
             for (const job of savedJobs) {
                 let li = document.createElement("li");
                 li.classList.add("list-group-item", "bg-transparent", "text-light");
+                li.addEventListener("click", () => {
+                    window.location.href = `search.html?id=${job.ID}`;
+                })
+                
+                li.innerHTML = `
+                    <div class="container-fluid text-center">
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="mb-0">${job.jobTitle}</p>
+                            <p class="small">${job.companyName}</p>
+                        </div>
+                    </div>
+                </div>
+                `
 
-                let p = document.createElement("p");
-                p.textContent = job.jobTitle;
-                li.append(p);
                 savedBox.appendChild(li);
             }
         }
@@ -101,9 +112,18 @@ class StudentManager extends UserManager {
             for (const job of hiddenJobs) {
                 let li = document.createElement("li");
                 li.classList.add("list-group-item", "bg-transparent", "text-light");
-                let p = document.createElement("p");
-                p.textContent = job.jobTitle;
-                li.appendChild(p);
+                
+                li.innerHTML = `
+                    <div class="container-fluid text-center">
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="mb-0">${job.jobTitle}</p>
+                            <p class="small">${job.companyName}</p>
+                        </div>
+                    </div>
+                </div>
+                `
+
                 hiddenBox.appendChild(li);
             };
         }
