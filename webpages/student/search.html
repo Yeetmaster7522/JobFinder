@@ -142,8 +142,21 @@
             const jf = new JobFetcher(user, JSON.parse(jobPosts));
             jf.init();
 
-            document.getElementById("scroll-up-btn").addEventListener("click", () => jf.scrollPost(false));
-            document.getElementById("scroll-down-btn").addEventListener("click", () => jf.scrollPost());
+            const scrollUpBtn = document.getElementById("scroll-up-btn");
+            const scrollDownBtn = document.getElementById("scroll-down-btn");
+            
+            scrollUpBtn.addEventListener("click", () => jf.scrollPost(false));
+            window.addEventListener("keyup", (e) => {
+                if (e.key == "," || e.key == "w") {
+                    jf.scrollPost(false)
+                }
+            });
+            scrollDownBtn.addEventListener("click", () => jf.scrollPost());
+            window.addEventListener("keyup", (e) => {
+                if (e.key == "." || e.key == "s") {
+                    jf.scrollPost()
+                }
+            });
 
             // quick buttons
             document.getElementById("apply-btn").addEventListener("click", () => jf.applyToPost());
