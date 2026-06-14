@@ -1,1 +1,11 @@
-Website needs to be run on a live server
+
+# JobFinder
+
+*by David Santillan*
+
+For Enterprise Computing AT3
+
+## How to run
+
+> - Open a GitHub codespace and execute `npm run start` in bash terminal
+> - Download repository locally, install dependencies such as node.js, websockets, and then execute `npm run start` in bash terminal
