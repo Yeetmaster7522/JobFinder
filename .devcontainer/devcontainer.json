@@ -1,7 +1,0 @@
-{
-    "name": "Node.js env",
-    "postStartCommand": "sass --watch scss/custom.scss public/css/custom.css",
-    "features": {
-        "ghcr.io/devcontainers/features/node:2": {}
-    }
-}
