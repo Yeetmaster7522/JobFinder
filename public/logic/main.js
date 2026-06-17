@@ -161,10 +161,12 @@ function wsRequest(req) {
 ws.onopen = () => {
 	console.log("Connected");
 
-	window.main = new Main();
-	window.main.init().then(() => {
-		window.dispatchEvent(new Event("mainReady"));
-	})
+	window.addEventListener("navbarReady", () => {
+		window.main = new Main();
+		window.main.init().then(() => {
+			window.dispatchEvent(new Event("mainReady"));
+		});
+	});
 };
 
 ws.onmessage = (msg) => {
@@ -192,6 +194,7 @@ window.addEventListener("DOMContentLoaded", () => {
 	.then(async ([studentHTML, employerHTML]) => {
 		window.navbarManager = new Navbar();
 		window.navbarManager.setHTML(studentHTML, employerHTML);
+		window.dispatchEvent(new Event("navbarReady"));
 	})
 	.catch(e => console.error("Error loading JSON:", e));
 });
