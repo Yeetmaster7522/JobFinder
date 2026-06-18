@@ -40,7 +40,7 @@ class StudentManager extends UserManager {
         document.getElementById("suburb").innerText = user.student.suburb;
         
         // qualifications
-        document.getElementById("education").innerText = user.student.experienceLevel;
+        document.getElementById("education").value = user.student.experienceLevel;
 
         const skillsList = document.getElementById("skills-list");
         for (const s of user.student.skills) {
@@ -52,7 +52,7 @@ class StudentManager extends UserManager {
             appendLI(certList, c)
         }
 
-        document.getElementById("work-eligibility").innerText = user.student.workEligibility;
+        document.getElementById("work-eligibility").value = user.student.workEligibility;
 
         // preferences
         const industryList = document.getElementById("industry-list");
@@ -60,7 +60,7 @@ class StudentManager extends UserManager {
             appendLI(industryList, i)
         }
 
-        document.getElementById("min-salary").innerText = user.student.preferences.minSalary;
+        document.getElementById("min-salary").value = parseInt(user.student.preferences.minSalary,10);
 
         const hours = document.getElementById("hours");
         for (const interval of user.student.timeIntervals) {
@@ -68,9 +68,9 @@ class StudentManager extends UserManager {
 
         }
 
-        document.getElementById("work-type").innerText = user.student.preferences.workType;
-        document.getElementById("employment-type").innerText = user.student.preferences.employmentType;
-        document.getElementById("loc-radius").innerText = user.student.preferences.locationRadius;
+        document.getElementById("work-type").value = user.student.preferences.workType;
+        document.getElementById("employment-type").value = user.student.preferences.employmentType;
+        document.getElementById("loc-radius").value = user.student.preferences.locationRadius;
 
         // applied jobs
         this.showApplications(user);
@@ -167,7 +167,6 @@ class StudentManager extends UserManager {
         skills = Array.from(skills).map(li => li.textContent.trim());
         let certs = document.getElementById("cert-list").querySelectorAll("li");
         certs = Array.from(certs).map(li => li.textContent.trim());
-        const eligibility = document.getElementById("work-eligibility").textContent;
 
         let industries = document.getElementById("industry-list").querySelectorAll("li");
         industries = Array.from(industries).map(li => li.textContent.trim());
@@ -193,14 +192,14 @@ class StudentManager extends UserManager {
                 "age": user.student.age,
                 "phoneNumber": document.getElementById("number").textContent,
                 "suburb": document.getElementById("suburb").textContent,
-                "workEligibility": eligibility,
-                "experienceLevel": user.student.experienceLevel,
+                "workEligibility": document.getElementById("work-eligibility").value,
+                "experienceLevel": document.getElementById("education").value,
                 "resume": document.querySelector("#resume-file").files[0],
                 "preferences": {
-                    "workType": document.getElementById("work-type").textContent,
-                    "employmentType": document.getElementById("employment-type").textContent,
-                    "minSalary": document.getElementById("min-salary").textContent,
-                    "locationRadius": document.getElementById("loc-radius").textContent,
+                    "workType": document.getElementById("work-type").value,
+                    "employmentType": document.getElementById("employment-type").value,
+                    "minSalary": document.getElementById("min-salary").value,
+                    "locationRadius": document.getElementById("loc-radius").value,
                     "industries": industries
                 },
                 "skills": skills,
