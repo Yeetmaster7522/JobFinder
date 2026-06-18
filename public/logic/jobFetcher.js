@@ -58,6 +58,25 @@ class JobFetcher {
             });
         });
 
+        [
+            document.getElementById("min-filter"),
+            document.getElementById("max-filter"),
+            document.getElementById("loc-rad-filter")
+        ].forEach(input => {
+            input.addEventListener("input", () => {
+                let idLists = [
+                    this.filterSearch(),
+                    this.searchPosts(searchBar.value),
+                    this.preferenceSearch()
+                ]
+                let postIds = idLists.reduce(
+                    (acc, list) => acc.filter(id => list.includes(id))
+                );
+                this.updatePosts(postIds);
+                this.displayPostAtI(0);
+            });
+        });
+
         document.getElementById("clear-filters").addEventListener("click", () => {
             document.querySelectorAll(".dropdown-item").forEach(item => {
                 item.classList.remove("active");
@@ -291,9 +310,9 @@ class JobFetcher {
                     }
                 }
             }
-
             if (
-                post.salaryMin >= this.#user.minSalary &&
+                post.salaryMin >= document.getElementById("min-filter").value &&
+                post.salaryMax <= document.getElementById("max-filter").value &&
                 fits == true &&
                 this.#user.student.skills.some(skill => post.skills.includes(skill))
             ) {
