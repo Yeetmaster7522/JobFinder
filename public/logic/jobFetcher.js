@@ -12,6 +12,72 @@ class JobFetcher {
     }
 
     init() {
+        document.getElementById("min-filter").value = this.#user.student.preferences.minSalary;
+
+        document.getElementById("scroll-up-btn").addEventListener("click", () => this.scrollPost(false));
+        window.addEventListener("keyup", (e) => {
+            if (e.key == "," || e.key == "w") {
+                this.scrollPost(false)
+            }
+        });
+        document.getElementById("scroll-down-btn").addEventListener("click", () => this.scrollPost());
+        window.addEventListener("keyup", (e) => {
+            if (e.key == "." || e.key == "s") {
+                this.scrollPost()
+            }
+        });
+
+        // quick buttons
+        document.getElementById("apply-btn").addEventListener("click", () => this.applyToPost());
+        document.getElementById("save-btn").addEventListener("click", () => this.savePost());
+        document.getElementById("hide-btn").addEventListener("click", () => this.hidePost());
+
+        // combine search and dropdown stuff
+        const searchBar = document.getElementById("search-bar");
+        searchBar.addEventListener("search", (event) => {
+            let postIds = this.filterSearch().filter(x => this.searchPosts(event.target.value).includes(x))
+            this.updatePosts(postIds);
+            this.displayPostAtI(0);
+        });
+
+        document.querySelectorAll(".dropdown-item:not(.submenu):not(#clear-filters)").forEach(item => {
+            item.addEventListener("click", () => {
+                item.classList.toggle("active");
+                item.setAttribute("aria-pressed", item.classList.contains("active"));
+
+                let idLists = [
+                    this.filterSearch(),
+                    this.searchPosts(searchBar.value),
+                    this.preferenceSearch()
+                ]
+                let postIds = idLists.reduce(
+                    (acc, list) => acc.filter(id => list.includes(id))
+                );
+                this.updatePosts(postIds);
+                this.displayPostAtI(0);
+            });
+        });
+
+        document.getElementById("clear-filters").addEventListener("click", () => {
+            document.querySelectorAll(".dropdown-item").forEach(item => {
+                item.classList.remove("active");
+                item.setAttribute("aria-pressed", "false");
+                
+                this.updatePosts(this.getAllPosts());
+                this.displayPostAtI(0);
+            });
+        });
+
+        document.getElementById("more-btn").addEventListener("click", (e) => {
+            const innerText = e.target.innerText;
+            if (innerText == "More Info") {
+                e.target.innerText = "Less Info";
+            }
+            else {
+                e.target.innerText = "More Info";
+            }
+        });
+
         this.enableSubmenuFilters(
             this.#user.student.preferences.workType, 
             this.#user.student.preferences.employmentType

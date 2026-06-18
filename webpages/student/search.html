@@ -59,12 +59,12 @@
                                     <div class="col-6">
                                         <div class="input-group">
                                             <span class="input-group-text" id="min-filter-label">Min</span>
-                                            <input type="number" id="min-filter" value="0" aria-describedby="min-filter-label" class="form-control">
+                                            <input type="number" id="min-filter" value="1" min="1" max="99" aria-describedby="min-filter-label" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="input-group">
-                                            <input type="number" id="max-filter" value="99" aria-describedby="max-filter-label" class="form-control">
+                                            <input type="number" id="max-filter" value="99" min="1" max="99" aria-describedby="max-filter-label" class="form-control">
                                             <span class="input-group-text" id="max-filter-label">Max</span>
                                         </div>
                                     </div>
@@ -171,73 +171,6 @@
             }
             else {
                 jf.init();
-
-                const scrollUpBtn = document.getElementById("scroll-up-btn");
-                const scrollDownBtn = document.getElementById("scroll-down-btn");
-                
-                scrollUpBtn.addEventListener("click", () => jf.scrollPost(false));
-                window.addEventListener("keyup", (e) => {
-                    if (e.key == "," || e.key == "w") {
-                        jf.scrollPost(false)
-                    }
-                });
-                scrollDownBtn.addEventListener("click", () => jf.scrollPost());
-                window.addEventListener("keyup", (e) => {
-                    if (e.key == "." || e.key == "s") {
-                        jf.scrollPost()
-                    }
-                });
-
-                // quick buttons
-                document.getElementById("apply-btn").addEventListener("click", () => jf.applyToPost());
-                document.getElementById("save-btn").addEventListener("click", () => jf.savePost());
-                document.getElementById("hide-btn").addEventListener("click", () => jf.hidePost());
-
-                // combine search and dropdown stuff
-                const searchBar = document.getElementById("search-bar");
-                searchBar.addEventListener("search", (event) => {
-                    let postIds = jf.filterSearch().filter(x => jf.searchPosts(event.target.value).includes(x))
-                    jf.updatePosts(postIds);
-                    jf.displayPostAtI(0);
-                });
-
-                document.querySelectorAll(".dropdown-item:not(.submenu):not(#clear-filters)").forEach(item => {
-                    item.addEventListener("click", () => {
-                        item.classList.toggle("active");
-                        item.setAttribute("aria-pressed", item.classList.contains("active"));
-
-                        let idLists = [
-                            jf.filterSearch(),
-                            jf.searchPosts(searchBar.value),
-                            jf.preferenceSearch()
-                        ]
-                        let postIds = idLists.reduce(
-                            (acc, list) => acc.filter(id => list.includes(id))
-                        );
-                        jf.updatePosts(postIds);
-                        jf.displayPostAtI(0);
-                    });
-                });
-
-                document.getElementById("clear-filters").addEventListener("click", () => {
-                    document.querySelectorAll(".dropdown-item").forEach(item => {
-                        item.classList.remove("active");
-                        item.setAttribute("aria-pressed", "false");
-                        
-                        jf.updatePosts(jf.getAllPosts());
-                        jf.displayPostAtI(0);
-                    });
-                });
-
-                document.getElementById("more-btn").addEventListener("click", (e) => {
-                    const innerText = e.target.innerText;
-                    if (innerText == "More Info") {
-                        e.target.innerText = "Less Info";
-                    }
-                    else {
-                        e.target.innerText = "More Info";
-                    }
-                });
             }
         });
     </script>
