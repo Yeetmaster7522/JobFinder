@@ -30,7 +30,6 @@ class JobEditor {
     }
 
     attachPost(post, postApplicants) {
-        const postId = `post-${post.ID}`;
         let status;
         if (new Date() <= new Date(post.deadline)) {
             status = "OPEN";
@@ -41,11 +40,12 @@ class JobEditor {
 
         const li = document.createElement("li");
         li.classList.add("list-group-item", "bg-transparent", "text-light");
+        li.id = `li-${post.ID}`
         
         li.innerHTML = `
             <div class="container-fluid text-center">
                 <!-- front -->
-                <div data-bs-toggle="collapse" data-bs-target="#${postId}">
+                <div data-bs-toggle="collapse" data-bs-target="#collapse-${post.ID}">
                     <div class="row">
                         <div class="col">
                             <p class="fw-bold">${post.jobTitle}</p>
@@ -70,20 +70,25 @@ class JobEditor {
                     </div>
                 </div>
                 <!-- back -->
-                <div class="collapse bg-mediumblue rounded-2 py-1 mt-2" id="${postId}">
+                <div class="collapse bg-mediumblue rounded-2 py-1 mt-2" id="collapse-${post.ID}">
                     <div class="row">
                         <div class="col">
-                            <a class="text-light"
-                            href="/webpages/employer/editPost.html?id=${post.ID}">
-                            Edit Post
+                            <a class="text-light" href="/webpages/employer/editPost.html?id=${post.ID}">
+                                Edit Post
                             </a>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <a class="text-light"
-                            href="/webpages/employer/applicantView.html?id=${post.ID}">
-                            View applicants
+                            <a class="text-light" href="/webpages/employer/applicantView.html?id=${post.ID}">
+                                View Applicants
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <a class="text-light" href="#" id=delete-${post.ID}>
+                                Delete Post
                             </a>
                         </div>
                     </div>
@@ -92,6 +97,15 @@ class JobEditor {
         `;
 
         this.#listHTML.appendChild(li);
+
+        document.getElementById(`delete-${post.ID}`).addEventListener("click", () => {
+            document.getElementById(`li-${post.ID}`).remove();
+            ws.send(JSON.stringify( {"request": "deletepost", "uid":getCookie("UID"), "id": post.ID} ));
+        });
+    }
+
+    delete() {
+
     }
 }
 

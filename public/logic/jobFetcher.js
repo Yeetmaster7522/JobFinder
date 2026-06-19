@@ -281,7 +281,7 @@ class JobFetcher {
             let post = this.#posts[i];
 
             if (
-                filters.includes(post.employmentType.toLowerCase()) || 
+                filters.includes(post.employmentType.toLowerCase()) &&
                 filters.includes(post.workType.toLowerCase())
             ) {
                 postIds.push(i);
@@ -310,9 +310,13 @@ class JobFetcher {
                     }
                 }
             }
+
+            const selectedSalaryMin = document.getElementById("min-filter").value;
+            const selectedSalaryMax = document.getElementById("max-filter").value;
+
             if (
-                post.salaryMin >= document.getElementById("min-filter").value &&
-                post.salaryMax <= document.getElementById("max-filter").value &&
+                post.salaryMin >= parseInt(selectedSalaryMin, 10) &&
+                post.salaryMax <= parseInt(selectedSalaryMax, 10) &&
                 fits == true &&
                 this.#user.student.skills.some(skill => post.skills.includes(skill))
             ) {
