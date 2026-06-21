@@ -5,6 +5,10 @@
 
 For Enterprise Computing AT3
 
+## How to install
+> 1. Install node.js with all packages
+> 2. Run `npm install`
+
 ## How to run
 
 > - Open a GitHub codespace and execute `npm run start` in bash terminal
