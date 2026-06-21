@@ -19,8 +19,6 @@ class JobCreater {
         let valid = true;
         if (
             post.companyName.trim() == "" ||
-            post.datePosted.trim() == "" ||
-            post.deadline.trim() == "" ||
             post.address.trim() == "" ||
             post.summary.trim() == "" ||
             post.jobTitle.trim() == "" ||
@@ -54,8 +52,7 @@ class JobCreater {
 
         return {
             "companyName": user.employer.companyName, 
-            "datePosted": `${date.getDate()}.${date.getMonth()+1}.${date.getFullYear()}`,
-            "deadline": `${newDate.getDate()}.${newDate.getMonth()+1}.${newDate.getFullYear()}`,
+            "deadline": newDate,
             "address": document.getElementById("address-entry").value, 
             "summary": document.getElementById("description-entry").value, 
             "jobTitle": document.getElementById("job-title-entry").value, 

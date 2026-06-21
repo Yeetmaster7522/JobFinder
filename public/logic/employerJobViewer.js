@@ -37,6 +37,7 @@ class JobEditor {
         else {
             status = "CLOSED";
         }
+        console.log(new Date(), new Date(post.deadline))
 
         const li = document.createElement("li");
         li.classList.add("list-group-item", "bg-transparent", "text-light");
