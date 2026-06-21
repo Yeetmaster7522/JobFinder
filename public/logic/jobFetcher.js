@@ -61,7 +61,8 @@ class JobFetcher {
         [
             document.getElementById("min-filter"),
             document.getElementById("max-filter"),
-            document.getElementById("loc-rad-filter")
+            document.getElementById("loc-rad-filter"),
+            document.getElementById("age-filter")
         ].forEach(input => {
             input.addEventListener("input", () => {
                 let idLists = [
@@ -313,10 +314,13 @@ class JobFetcher {
 
             const selectedSalaryMin = document.getElementById("min-filter").value;
             const selectedSalaryMax = document.getElementById("max-filter").value;
+            const selectedAge = document.getElementById("age-filter").value;
 
+            
             if (
                 post.salaryMin >= parseInt(selectedSalaryMin, 10) &&
                 post.salaryMax <= parseInt(selectedSalaryMax, 10) &&
+                post.ageRequirement >= parseInt(selectedAge, 10) &&
                 fits == true &&
                 this.#user.student.skills.some(skill => post.skills.includes(skill))
             ) {
