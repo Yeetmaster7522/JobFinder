@@ -66,8 +66,6 @@ class PostViwer {
         let valid = true;
         if (
             post.companyName.trim() == "" ||
-            post.datePosted.trim() == "" ||
-            post.deadline.trim() == "" ||
             post.address.trim() == "" ||
             post.summary.trim() == "" ||
             post.jobTitle.trim() == "" ||
