@@ -41,9 +41,16 @@
     <script src="/logic/main.js"></script>
     <script src="/logic/navbar.js"></script>
     <script>
-        window.addEventListener("mainReady", async () => {
-            const jobPosts = await wsRequest("jobPosts");
+        function init(jobPosts) {
             const tf = new TrendFinder(window.main.getUser(), JSON.parse(jobPosts));
+        }
+
+        window.addEventListener("mainReady", () => {
+            setInterval(async () => {
+                const jobPosts = await wsRequest("jobPosts");
+                init(jobPosts)
+                console.log("updated");
+            }, 30000);
         });
     </script>
 </body>

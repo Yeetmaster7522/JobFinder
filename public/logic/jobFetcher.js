@@ -537,7 +537,16 @@ class TrendFinder extends JobFetcher {
         return this.getBottomNEntries(skills, 10);
     }
 
+    resetDisplay() {
+        document.getElementById("near-employers").innerHTML = "";
+        document.getElementById("trend-industries").innerHTML = "";
+        document.getElementById("trend-roles").innerHTML = "";
+        document.getElementById("skill-shortages").innerHTML = "";
+    }
+
     displayResults() {
+        this.resetDisplay();
+
         const employers = this.getNearEmployers();
         const industries = this.getTrendingIndustries();
         const roles = this.getTrendRoles();
