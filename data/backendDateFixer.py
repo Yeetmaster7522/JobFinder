@@ -3,7 +3,7 @@ from datetime import datetime, timezone
 import json
 
 def random_js_date():
-    start = datetime(2000, 1, 1, tzinfo=timezone.utc)
+    start = datetime(2026, 5, 1, tzinfo=timezone.utc)
     end = datetime(2027, 12, 31, tzinfo=timezone.utc)
 
     rand_ts = random.randint(int(start.timestamp()), int(end.timestamp()))
