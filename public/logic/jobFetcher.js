@@ -46,6 +46,7 @@ class JobFetcher {
                 item.setAttribute("aria-pressed", item.classList.contains("active"));
 
                 let idLists = [
+                    this.timeSearch(),
                     this.filterSearch(),
                     this.searchPosts(searchBar.value),
                     this.preferenceSearch()
@@ -66,6 +67,7 @@ class JobFetcher {
         ].forEach(input => {
             input.addEventListener("input", () => {
                 let idLists = [
+                    this.timeSearch(),
                     this.filterSearch(),
                     this.searchPosts(searchBar.value),
                     this.preferenceSearch()
@@ -104,6 +106,7 @@ class JobFetcher {
         );
 
         let idLists = [
+            this.timeSearch(),
             this.filterSearch(),
             this.preferenceSearch()
         ];
@@ -128,6 +131,7 @@ class JobFetcher {
 
     filterAll() {
         const idLists = [
+            this.timeSearch(),
             this.filterSearch(),
             this.preferenceSearch()
         ];
@@ -325,6 +329,26 @@ class JobFetcher {
                 post.ageRequirement >= parseInt(selectedAge, 10) &&
                 fits == true &&
                 this.#user.student.skills.some(skill => post.skills.includes(skill))
+            ) {
+                postIds.push(i);
+            }
+        }
+
+        if (postIds.length == 0) {
+            postIds = this.#posts.map((_, i) => i);
+        }
+
+        return postIds;
+    }
+
+    timeSearch() {
+        let postIds = [];
+        
+        for (let i=0; i<this.#posts.length; i++) {
+            let post = this.#posts[i];
+
+            if (
+                new Date() <= new Date(post.deadline)
             ) {
                 postIds.push(i);
             }
