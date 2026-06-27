@@ -22,7 +22,7 @@ class JobEditor {
     }
 
     showPosts(posts, applications) {
-        const sortedPosts = posts.sort((a, b) => a.deadline.localeCompare(b.deadline));
+        const sortedPosts = posts.sort((a, b) => b.deadline.localeCompare(a.deadline));
         for (const post of posts) {
             const postApplicants = applications.filter(app => app.JPID === post.ID);
             this.attachPost(post, postApplicants);
