@@ -52,6 +52,7 @@ class JobCreater {
 
         return {
             "companyName": user.employer.companyName, 
+            "datePosted": date,
             "deadline": newDate,
             "address": document.getElementById("address-entry").value, 
             "summary": document.getElementById("description-entry").value, 
