@@ -200,9 +200,11 @@ class JobFetcher {
         const ageRequire = document.getElementById("age-require");
         const hours = document.getElementById("hours");
         const skills = document.getElementById("skills");
-        const deadline = document.getElementById("date-deadline");
+        const deadlineEl = document.getElementById("date-deadline");
         const fullSummary = document.getElementById("full-summary");
         const shortSummary = document.getElementById("short-summary");
+
+        const deadline = new Date(post.deadline)
 
         jobTitle.innerText = post.jobTitle;
         companyName.innerText = post.companyName;
@@ -211,7 +213,7 @@ class JobFetcher {
         employType.innerText = post.employmentType;
         salaryRange.innerText = `$${post.salaryMin} - $${post.salaryMax} / hr`;
         ageRequire.innerText = `${post.ageRequirement} years old min`;
-        deadline.innerText = `Deadline: ${post.deadline}`;
+        deadlineEl.innerText = `Deadline: ${deadline.getDate()}.${deadline.getMonth()}.${deadline.getFullYear()}`;
 
         skills.innerText = "";
         for (const skill of post.skills.slice(0,5)) {
