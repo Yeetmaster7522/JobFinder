@@ -37,7 +37,7 @@ class JobEditor {
         else {
             status = "CLOSED";
         }
-        console.log(new Date(), new Date(post.deadline))
+        const date = new Date(post.deadline)
 
         const li = document.createElement("li");
         li.classList.add("list-group-item", "bg-transparent", "text-light");
@@ -60,7 +60,7 @@ class JobEditor {
                     <div class="row">
                         <div class="col d-flex justify-content-start align-items-end">
                             <span class="small fw-lighter badge bg-mediumblue">
-                                Deadline: ${post.deadline}
+                                Deadline: ${date.toDateString()}
                             </span>
                         </div>
                         <div class="col d-flex justify-content-end align-items-end">

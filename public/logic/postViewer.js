@@ -88,8 +88,6 @@ class PostViwer {
         const user = await window.main.getUser();
         
         const date = new Date();
-        const msAfterEpoch = date.getTime() + (document.getElementById("recruitment-period-entry").value*24*60*60*1000);
-        const newDate = new Date(msAfterEpoch);
 
         const skills = document.getElementById("skills-entry").value;
         
