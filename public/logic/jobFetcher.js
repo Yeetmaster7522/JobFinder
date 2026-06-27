@@ -441,6 +441,13 @@ class TrendFinder extends JobFetcher {
             .map(entry => entry[0]);
     }
 
+    getBottomNEntries(hashmap, n) {
+        return [...hashmap.entries()]
+            .sort((a,b) => a[1] - b[1])
+            .slice(0,n)
+            .map(entry => entry[0]);
+    }
+
     getNearEmployers() {
         const posts = this.getAllPosts();
         let companies = new Set();
@@ -501,7 +508,7 @@ class TrendFinder extends JobFetcher {
             }
         }
 
-        return this.getTopNEntries(skills, 10);
+        return this.getBottomNEntries(skills, 10);
     }
 
     displayResults() {
