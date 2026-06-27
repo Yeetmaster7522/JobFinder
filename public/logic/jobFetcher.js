@@ -213,7 +213,7 @@ class JobFetcher {
         employType.innerText = post.employmentType;
         salaryRange.innerText = `$${post.salaryMin} - $${post.salaryMax} / hr`;
         ageRequire.innerText = `${post.ageRequirement} years old min`;
-        deadlineEl.innerText = `Deadline: ${deadline.getDate()}.${deadline.getMonth()}.${deadline.getFullYear()}`;
+        deadlineEl.innerText = `Deadline: ${deadline.getDate()}.${deadline.getMonth()+1}.${deadline.getFullYear()}`;
 
         skills.innerText = "";
         for (const skill of post.skills.slice(0,5)) {

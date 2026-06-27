@@ -60,7 +60,7 @@ class JobEditor {
                     <div class="row">
                         <div class="col d-flex justify-content-start align-items-end">
                             <span class="small fw-lighter badge bg-mediumblue">
-                                Deadline: ${date.getDate()}.${date.getMonth()}.${date.getFullYear()}
+                                Deadline: ${date.getDate()}.${date.getMonth()+1}.${date.getFullYear()}
                             </span>
                         </div>
                         <div class="col d-flex justify-content-end align-items-end">
