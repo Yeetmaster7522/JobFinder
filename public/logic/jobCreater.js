@@ -17,13 +17,14 @@ class JobCreater {
 
     validatePost(post) {
         let valid = true;
+
         if (
             post.companyName.trim() == "" ||
             post.address.trim() == "" ||
             post.summary.trim() == "" ||
             post.jobTitle.trim() == "" ||
-            post.workType.trim() == "" ||
-            post.employmentType.trim() == "" ||
+            post.workType.trim() == "Work Type" ||
+            post.employmentType == "Employment Type" ||
             post.ageRequirement.trim() == "" ||
             post.salaryMin.trim() == "" ||
             post.salaryMax.trim() == "" ||
@@ -32,6 +33,68 @@ class JobCreater {
             post.hours.length == 0
         ) {
             valid = false;
+        }
+
+        const ageRequirement = parseInt(post.ageRequirement);
+
+        if (
+            ageRequirement < 12 ||
+            ageRequirement > 30
+        ) {
+            valid = false;
+        }
+
+        if (post.datePosted >= post.deadline) {
+            valid = false;
+        }
+
+        for (const timestamp of post.hours) {
+            if (timestamp.length != 2) {
+                valid = false;
+            }
+            else {
+                const time1 = timestamp[0].split(":");
+                const time2 = timestamp[1].split(":");
+
+                const hr1 = parseInt(time1[0], 10);
+                const min1 = parseInt(time1[1], 10);
+                const hr2 = parseInt(time2[0], 10);
+                const min2 = parseInt(time2[1], 10);
+
+                if (time1.length != 2 || time2.length != 2) {
+                    valid = false;
+                }
+
+                console.log(hr1, min1, hr2, min2)
+
+                if (
+                    isNaN(hr1) ||
+                    isNaN(min1) ||
+                    isNaN(hr2) ||
+                    isNaN(min2)
+                ) {
+                    valid = false;
+                }
+                else if (
+                    hr1 < 0 ||
+                    hr1 > 24 ||
+                    hr2 < 0 ||
+                    hr2 > 24 ||
+                    min1 < 0 ||
+                    min1 > 59 ||
+                    min2 < 0 ||
+                    min2 > 59
+                ) {
+                    valid = false;
+                }
+
+                if (
+                    hr2 < hr1 ||
+                    hr1 == hr2 && min2 < min1
+                ) {
+                    valid = false;
+                }
+            }
         }
 
         return valid
