@@ -6,7 +6,7 @@
     <title>Finder</title>
     <link rel="stylesheet" href="/css/custom.css">
 </head>
-<body class="bg-dark text-light">
+<body class="bg-charcoalnavy text-light">
     <div class="container-fluid">
         <!-- Top navigation bar -->
         <div class="row mb-2" id="navbar"></div>
@@ -17,19 +17,19 @@
             </div>
         </div>
         <div class="row justify-content-center column-gap-3 g-1 text-center">
-            <div class="col bg-teal rounded-3 shadow-strong p-1 border border-5 border-secondary border-opacity-75">
+            <div class="col bg-deepblue rounded-3 shadow-strong p-1 border border-2 border-paleblue border-opacity-75">
                 <h4 class="mb-2">Employers Near You!</h4>
                 <ul id="near-employers" class="list-group list-group-flush small lh-sm"></ul>
             </div>
-            <div class="col bg-teal rounded-3 shadow-strong p-1 border border-5 border-secondary border-opacity-75">
+            <div class="col bg-deepblue rounded-3 shadow-strong p-1 border border-2 border-paleblue border-opacity-75">
                 <h4 class="mb-2">Trending Industries</h4>
                 <ul id="trend-industries" class="list-group list-group-flush small lh-sm"></ul>
             </div>
-            <div class="col bg-teal rounded-3 shadow-strong p-1 border border-5 border-secondary border-opacity-75">
+            <div class="col bg-deepblue rounded-3 shadow-strong p-1 border border-2 border-paleblue border-opacity-75">
                 <h4 class="mb-2">Trending Roles</h4>
                 <ul id="trend-roles" class="list-group list-group-flush small lh-sm"></ul>
             </div>
-            <div class="col bg-teal rounded-3 shadow-strong p-1 border border-5 border-secondary border-opacity-75">
+            <div class="col bg-deepblue rounded-3 shadow-strong p-1 border border-2 border-paleblue border-opacity-75">
                 <h4 class="mb-2">Skills Shortages</h4>
                 <ul id="skill-shortages" class="list-group list-group-flush small lh-sm"></ul>
             </div>
@@ -41,9 +41,18 @@
     <script src="/logic/main.js"></script>
     <script src="/logic/navbar.js"></script>
     <script>
+        function init(jobPosts) {
+            const tf = new TrendFinder(window.main.getUser(), JSON.parse(jobPosts));
+        }
+
         window.addEventListener("mainReady", async () => {
             const jobPosts = await wsRequest("jobPosts");
-            const tf = new TrendFinder(window.main.getUser(), JSON.parse(jobPosts));
+            init(jobPosts)
+            setInterval(async () => {
+                const jobPosts = await wsRequest("jobPosts");
+                init(jobPosts)
+                console.log("updated");
+            }, 30000);
         });
     </script>
 </body>

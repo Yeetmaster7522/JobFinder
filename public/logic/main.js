@@ -112,6 +112,18 @@ function getParam(param) {
 	return params.get(param);
 }
 
+function setModal(title, body="") {
+	const modal = document.getElementById("modal-popup")
+	const modalTitle = modal.querySelector(".modal-title");
+	const modalBody = modal.querySelector(".modal-body");
+
+	modalTitle.textContent = title;
+	modalBody.textContent = body;
+
+	const bsModal = bootstrap.Modal.getOrCreateInstance(modal);
+    bsModal.show();
+}
+
 function setNestedValue(obj, path, value) {
     const keys = path.split(".");
     const newObj = structuredClone(obj);   // deep copy
@@ -149,10 +161,12 @@ function wsRequest(req) {
 ws.onopen = () => {
 	console.log("Connected");
 
-	window.main = new Main();
-	window.main.init().then(() => {
-		window.dispatchEvent(new Event("mainReady"));
-	})
+	window.addEventListener("navbarReady", () => {
+		window.main = new Main();
+		window.main.init().then(() => {
+			window.dispatchEvent(new Event("mainReady"));
+		});
+	});
 };
 
 ws.onmessage = (msg) => {
@@ -180,6 +194,7 @@ window.addEventListener("DOMContentLoaded", () => {
 	.then(async ([studentHTML, employerHTML]) => {
 		window.navbarManager = new Navbar();
 		window.navbarManager.setHTML(studentHTML, employerHTML);
+		window.dispatchEvent(new Event("navbarReady"));
 	})
 	.catch(e => console.error("Error loading JSON:", e));
 });

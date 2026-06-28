@@ -9,7 +9,8 @@
   "description": "Website needs to be run on a live server",
   "main": "index.js",
   "scripts": {
-    "start": "npx concurrently \"node server.js\" \"node .\""
+    "start": "npx concurrently \"node server.js\" \"node .\"",
+    "dev": "npx concurrently \"sass --watch scss/custom.scss public/css/custom.css\" \"node --watch server.js\" \"node --watch .\""
   },
   "repository": {
     "type": "git",

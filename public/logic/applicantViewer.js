@@ -1,31 +1,35 @@
 class ApplicantViewer {
     #users
-    #applications
     #currentAppUid
 
-    constructor(users, applications) {
+    constructor(users) {
         this.#users = users;
-        this.#applications = [];
         this.#currentAppUid = -1;
+    }
 
+    async getApplications() {
         const id = getParam("id");
+        const applications = JSON.parse(await wsRequest("applications"));
 
-        for (const application of applications) {
-            if (application.JPID == id) {
-                this.#applications.push(application);
-            }
-        }
+        return applications.filter(app => app.JPID == id);
     }
 
     getCurrentAppUid() {
         return this.#currentAppUid
     }
 
-    showAll() {
-        this.showDetails(this.#applications[0].UID);
-        for (const application of this.#applications) {
-            this.createPreview(application);
+    async showAll() {
+        const applications = await this.getApplications();
+        
+        this.removePreviews();
+
+        for (const app of applications) {
+            this.createPreview(app);
         }
+    }
+
+    removePreviews() {
+        document.getElementById("previews").innerHTML = "";
     }
 
     createPreview(application) {
@@ -35,16 +39,20 @@ class ApplicantViewer {
         const previews = document.getElementById("previews");
         const li = document.createElement("li");
         li.id = uid;
-        li.classList.add("list-group-item", "bg-secondary", "text-light");
+        li.classList.add("list-group-item", "bg-deepblue", "text-light");
         li.addEventListener("click", () => {
             this.showDetails(uid);
         })
         
         li.innerHTML = `
             <div class="row g-1">
-                <div class="col-12">
-                    <p class="fs-5 mb-1">${user.student.name} <span class="badge text-bg-info float-end" style="font-size: 0.7rem">Applied: ${application.dateApplied}</span></p>
-                    <hr class="border border-white border-1 opacity-50 rounded-1 mt-0">
+                <div class="col-10">
+                    <p class="fs-5 mb-1">${user.student.name}</p>
+                </div>
+                <div class="col-2">
+                    <span class="badge float-end" style="font-size: 0.7rem" id="${uid}-badge">
+                        Applied: ${application.dateApplied}, ${application.status}
+                    </span>
                 </div>
                 <div class="col-12">
                     <p>${user.email}</p>
@@ -56,16 +64,26 @@ class ApplicantViewer {
         `;
 
         previews.append(li);
-    }
 
-    removePreview() {
-        document.getElementById(this.#currentAppUid).remove();
+        if (application.status == "offered") {
+            document.getElementById(`${uid}-badge`).classList.add("text-bg-success");
+        }
+        else if (application.status == "rejected") {
+            document.getElementById(`${uid}-badge`).classList.add("text-bg-danger");
+        }
+        else {
+            document.getElementById(`${uid}-badge`).classList.add("text-bg-info");
+        }
     }
 
     showDetails(uid) {
         const user = this.#users[uid];
         this.#currentAppUid = uid;
-        this.updateApplication("in review");
+        // this.updateApplication("in review");
+        
+        const previews = document.getElementById("previews");
+        const li = document.getElementById(uid);
+        previews.prepend(li);
 
         document.getElementById("preview").style.display = "block";
         
@@ -91,27 +109,34 @@ class ApplicantViewer {
             "uid": this.#currentAppUid,
             "status": status
         }));
+
+        if (status == "offered") {
+            document.getElementById(`${this.#currentAppUid}-badge`).classList.add("text-bg-success");
+        }
+        else if (status == "rejected") {
+            document.getElementById(`${this.#currentAppUid}-badge`).classList.add("text-bg-danger");
+        }
     }
 }
 
 window.addEventListener("mainReady", async () => {
     const users = await wsRequest("userAccounts");
-    const applications = await wsRequest("applications");
-    const av = new ApplicantViewer(
-        JSON.parse(users), 
-        JSON.parse(applications)
-    );
+    const av = new ApplicantViewer(JSON.parse(users));
+    
     av.showAll();
+
+    const applications = await av.getApplications();
+    av.showDetails(applications[0].UID);
 
     document.getElementById("interested-btn").addEventListener("click", () => {
         av.updateApplication("offered");
-        av.removePreview();
-        document.getElementById("preview").style.display = "none";
+        setModal("Shortlisted successfully");
+        av.showAll();
     });
 
     document.getElementById("reject-btn").addEventListener("click", () => {
         av.updateApplication("rejected");
-        av.removePreview();
-        document.getElementById("preview").style.display = "none";
+        setModal("Rejected successfully");
+        av.showAll();
     });
 });

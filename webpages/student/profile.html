@@ -6,7 +6,21 @@
     <title>Finder</title>
     <link rel="stylesheet" href="/css/custom.css">
 </head>
-<body class="bg-dark text-light position-relative min-vh-100">
+<body class="bg-charcoalnavy text-light position-relative min-vh-100">
+    <div class="modal fade" id="modal-popup" tabindex="-1" aria-labelledby="modal-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-charcoalnavy text-light">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modal-label">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <a href="/webpages/shared/logIn.html" class="z-1 position-absolute bottom-0 end-0 me-2 mb-2 text-decoration-none text-primary" id="log-out-btn">Log Out</a>
     <div class="container-fluid">
         <!-- Top navigation bar -->
@@ -42,7 +56,7 @@
                     </div>
                 </div>
                 <!-- resume -->
-                <div class="row bg-secondary rounded-2 shadow-strong py-1 mb-3">
+                <div class="row bg-mediumblue rounded-2 shadow-strong py-1 mb-3">
                     <div class="col">
                         <div class="row mb-1">
                             <div class="col">
@@ -53,9 +67,9 @@
                             <div class="col">
                                 <div class="row">
                                     <div class="col">
-                                        <div class="input-group">
-                                            <input type="file" class="form-control border-dark bg-secondary text-light" id="resume-file" aria-label="User resume file input">
-                                            <button class="btn btn-outline-dark dropdown-toggle text-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">More</button>
+                                        <div class="input-group text-light">
+                                            <input type="file" class="form-control border-light" id="resume-file" aria-label="User resume file input">
+                                            <button class="btn btn-outline-light dropdown-toggle bg-charcoalnavy" type="button" data-bs-toggle="dropdown" aria-expanded="false">More</button>
                                             <ul class="dropdown-menu bg-white ps-2">
                                                 <li><a href="#" class="dropdown-item">Edit</a></li>
                                             </ul>
@@ -67,7 +81,7 @@
                     </div>
                 </div>
                 <!-- qualifications -->
-                <div class="row bg-secondary text-center rounded-2 shadow-strong py-1">
+                <div class="row bg-mediumblue text-center rounded-2 shadow-strong py-1">
                     <div class="col d-grid">
                         <div class="row clickable" data-bs-toggle="collapse" data-bs-target="#qualifications-hr, #qualifications-box" id="qualifications-header">
                             <div class="col">
@@ -79,17 +93,21 @@
                         </div>
                         <div class="row collapse" id="qualifications-hr">
                             <div class="col">
-                                <hr class="border border-dark border-2 opacity-75">
+                                <hr class="border border-paleblue border-2 opacity-75">
                             </div>
                         </div>
                         <div class="row collapse px-6" id="qualifications-box">
                             <div class="col">
                                 <div class="row justify-content-center align-items-end">
-                                    <div class="col col-auto">
-                                        <h4>Education:</h4>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-mediumblue text-light" id="education-addon">Education</span>
+                                        <input type="text" id="education" class="form-control bg-dark text-light" placeholder="Education level" aria-label="Education level" aria-describedby="education-addon">
                                     </div>
-                                    <div class="col col-auto">
-                                        <h5 id="education" contenteditable="true"></h5>
+                                </div>
+                                <div class="row justify-content-center align-items-end mt-3">
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-mediumblue text-light" id="work-eligibility-addon">Work Eligibility</span>
+                                        <input type="text" id="work-eligibility" class="form-control bg-dark text-light" placeholder="Work Eligibility" aria-label="Work Eligibility" aria-describedby="work-eligibility-addon">
                                     </div>
                                 </div>
                                 <div class="row mt-3">
@@ -112,20 +130,12 @@
                                         <ul id="cert-list" contenteditable="true" class="list-group list-group-flush small lh-sm"></ul>
                                     </div>
                                 </div>
-                                <div class="row justify-content-center align-items-end mt-3">
-                                    <div class="col col-auto">
-                                        <h4>Work Eligibility:</h4>
-                                    </div>
-                                    <div class="col col-auto">
-                                        <h5 id="work-eligibility" contenteditable="true"></h5>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- preferences -->
-                <div class="row bg-secondary text-center rounded-2 shadow-strong py-1">
+                <div class="row bg-mediumblue text-center rounded-2 shadow-strong py-1">
                     <div class="col">
                         <div class="row clickable" data-bs-toggle="collapse" data-bs-target="#preference-hr, #preference-box" id="preference-header">
                             <div class="col">
@@ -137,7 +147,7 @@
                         </div>
                         <div class="row collapse" id="preference-hr">
                             <div class="col">
-                                <hr class="border border-dark border-2 opacity-75">
+                                <hr class="border border-paleblue border-2 opacity-75">
                             </div>
                         </div>
                         <div class="row collapse px-6" id="preference-box">
@@ -152,14 +162,6 @@
                                         <ul id="industry-list" contenteditable="true" class="list-group list-group-flush small lh-sm"></ul>
                                     </div>
                                 </div>
-                                <div class="row justify-content-center align-items-end mt-3">
-                                    <div class="col col-auto">
-                                        <h4>Min Salary:</h4>
-                                    </div>
-                                    <div class="col col-auto">
-                                        <h5 id="min-salary" contenteditable="true"></h5>
-                                    </div>
-                                </div>
                                 <div class="row mt-3">
                                     <div class="col">
                                         <h4>Hours</h4>
@@ -172,27 +174,27 @@
                                     </div>
                                 </div>
                                 <div class="row justify-content-center align-items-end mt-3">
-                                    <div class="col col-auto">
-                                        <h4>Work Type:</h4>
-                                    </div>
-                                    <div class="col col-auto">
-                                        <h5 id="work-type" contenteditable="true"></h5>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-mediumblue text-light">Min Salary (per hr)</span>
+                                        <input type="number" class="form-control bg-dark text-light" id="min-salary" value="0">
                                     </div>
                                 </div>
                                 <div class="row justify-content-center align-items-end mt-3">
-                                    <div class="col col-auto">
-                                        <h4>Employment Type:</h4>
-                                    </div>
-                                    <div class="col col-auto">
-                                        <h5 id="employment-type" contenteditable="true"></h5>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-mediumblue text-light">Work Type</span>
+                                        <input type="text" class="form-control bg-dark text-light" id="work-type" value="onsite">
                                     </div>
                                 </div>
                                 <div class="row justify-content-center align-items-end mt-3">
-                                    <div class="col col-auto">
-                                        <h4>Location Radius:</h4>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-mediumblue text-light">Employment Type</span>
+                                        <input type="text" class="form-control bg-dark text-light" id="employment-type" value="part-time">
                                     </div>
-                                    <div class="col col-auto">
-                                        <h5 id="loc-radius" contenteditable="true"></h5>
+                                </div>
+                                <div class="row justify-content-center align-items-end mt-3">
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-mediumblue text-light">Location Radius</span>
+                                        <input type="number" class="form-control bg-dark text-light" id="loc-radius" value="10">
                                     </div>
                                 </div>
                             </div>
@@ -200,7 +202,7 @@
                     </div>
                 </div>
                 <!-- saved jobs -->
-                <div class="row bg-secondary text-center rounded-2 shadow-strong py-1">
+                <div class="row bg-mediumblue text-center rounded-2 shadow-strong py-1">
                     <div class="col">
                         <div class="row clickable" data-bs-toggle="collapse" data-bs-target="#saved-hr, #saved-box" id="saved-header">
                             <div class="col">
@@ -212,18 +214,18 @@
                         </div>
                         <div class="row collapse" id="saved-hr">
                             <div class="col">
-                                <hr class="border border-dark border-2 opacity-75">
+                                <hr class="border border-paleblue border-2 opacity-75">
                             </div>
                         </div>
                         <div class="row collapse px-6" id="saved-box">
                             <div class="col">
-                                <ul class="list-group text-center bg-dark text-light list-group-flush small lh-sm" id="saved-jobs"></ul>
+                                <ul class="list-group small lh-sm" id="saved-jobs"></ul>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- hidden jobs -->
-                <div class="row bg-secondary text-center rounded-2 shadow-strong py-1">
+                <div class="row bg-mediumblue text-center rounded-2 shadow-strong py-1">
                     <div class="col">
                         <div class="row clickable" data-bs-toggle="collapse" data-bs-target="#hidden-hr, #hidden-box" id="hidden-header">
                             <div class="col">
@@ -235,12 +237,12 @@
                         </div>
                         <div class="row collapse" id="hidden-hr">
                             <div class="col">
-                                <hr class="border border-dark border-2 opacity-75">
+                                <hr class="border border-paleblue border-2 opacity-75">
                             </div>
                         </div>
                         <div class="row collapse px-6" id="hidden-box">
                             <div class="col">
-                                <ul class="list-group text-center bg-dark text-light list-group-flush small lh-sm" id="hidden-jobs"></ul>
+                                <ul class="list-group small lh-sm" id="hidden-jobs"></ul>
                             </div>
                         </div>
                     </div>
@@ -255,9 +257,7 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <ul class="list-group text-center" id="applied-jobs">
-                            <!-- <li class="list-group-item bg-dark text-light"><p>MM.YY XXXXXXXXXXXX / Status</p></li> -->
-                        </ul>
+                        <ul class="list-group text-center" id="applied-jobs"></ul>
                     </div>
                 </div>
             </div>

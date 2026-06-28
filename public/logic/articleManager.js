@@ -9,7 +9,7 @@ class ArticleManager {
         const parent = document.getElementById(parentID);
         
         let div = document.createElement("div");
-        div.classList.add("col", "col-auto", "text-center", "bg-teal", "rounded-3", "shadow-strong");
+        div.classList.add("col", "col-auto", "text-center", "bg-mediumblue", "rounded-3", "shadow-strong");
         div.style.maxWidth = "12vw";
 
         let a = document.createElement("a");
@@ -18,7 +18,7 @@ class ArticleManager {
 
         let img = document.createElement("img");
         img.src = article.image;
-        img.classList.add("mt-2", "mb-1", "rounded-2", "border", "border-2", "border-warning-subtle");
+        img.classList.add("mt-2", "mb-1", "rounded-2", "border", "border-2", "border-paleblue");
         img.style.width = "10vw";
         img.style.height = "20vh";
 

@@ -2,19 +2,19 @@
   {
     "UID": "UID1621",
     "JPID": 398818,
-    "status": "in review",
+    "status": "offered",
     "dateApplied": "10-11-2025"
   },
   {
     "UID": "UID1625",
     "JPID": 398818,
-    "status": "in review",
+    "status": "rejected",
     "dateApplied": "13-08-2026"
   },
   {
     "UID": "UID6644",
     "JPID": 398818,
-    "status": "rejected",
+    "status": "offered",
     "dateApplied": "04-03-2027"
   },
   {
@@ -26,7 +26,7 @@
   {
     "UID": "UID6727",
     "JPID": 398818,
-    "status": "offered",
+    "status": "in review",
     "dateApplied": "25-04-2026"
   },
   {

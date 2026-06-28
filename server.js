@@ -125,6 +125,22 @@ wss.on("connection", (ws) => {
                 df.writeToFile("jobPosts.json", newJobPosts);
                 ws.send(JSON.stringify( {"type": "editpost_ack"} ));
                 break;
+            case "deletepost":
+                newJobPosts = JSON.parse(df.readData("jobPosts.json"));
+                index = newJobPosts.findIndex(post => post.ID === msg.id);
+                if (index != -1) {
+                    newJobPosts.splice(index, 1);
+                }
+
+                newUsers = JSON.parse(df.readData("userAccounts.json"));
+                index = newUsers[msg.uid].employer.jobPosts.findIndex(id => id === msg.id);
+                if (index != 1) {
+                    newUsers[msg.uid].employer.jobPosts.splice(index, 1);
+                }
+
+                df.writeToFile("jobPosts.json", newJobPosts);
+                df.writeToFile("userAccounts.json", newUsers);
+                break;
             case "applytopost":
                 newApplications = JSON.parse(df.readData("applications.json"));
                 newApplications.push(msg.application);

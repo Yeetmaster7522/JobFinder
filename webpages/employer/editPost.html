@@ -6,7 +6,21 @@
     <title>Finder</title>
     <link rel="stylesheet" href="/css/custom.css">
 </head>
-<body class="bg-dark text-light">
+<body class="bg-charcoalnavy text-light">
+    <div class="modal fade" id="modal-popup" tabindex="-1" aria-labelledby="modal-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-charcoalnavy text-light">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modal-label">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container-fluid">
         <div class="row mb-3" id="navbar"></div>
         <div class="row mb-3">
@@ -17,7 +31,7 @@
         <div class="row gy-3 gx-4 mb-3">
             <div class="col-6">
                 <div class="form-floating">
-                    <input type="text" class="form-control bg-transparent text-light" id="job-title-entry">
+                    <input type="text" class="form-control bg-transparent text-light" id="job-title-entry" autocomplete="off">
                     <label for="job-title-entry">Job Title</label>
                 </div>
             </div>
@@ -45,7 +59,7 @@
             </div>
             <div class="col-6">
                 <div class="form-floating">
-                    <input type="text" class="form-control bg-transparent text-light" id="industry-entry" placeholder="Industry">
+                    <input type="text" class="form-control bg-transparent text-light" id="industry-entry" placeholder="Industry" autocomplete="off">
                     <label for="industry-entry">Industry</label>
                 </div>
             </div>
@@ -90,7 +104,7 @@
             </div>
             <div class="col-md-5 d-flex flex-column me-md-auto">
                 <div class="form-floating">
-                    <input type="text" class="form-control bg-transparent text-light" id="address-entry" placeholder="Address">
+                    <input type="text" class="form-control bg-transparent text-light" id="address-entry" placeholder="Address" autocomplete="off">
                     <label for="address-entry">Address</label>
                 </div>
                 <a href="#" id="use-address" class="ms-auto small">Use Profile Address</a>
@@ -98,7 +112,7 @@
         </div>
         <div class="row justify-content-center mb-1">
             <div class="col-auto">
-                <button type="button" class="btn bg-teal text-light btn-light" id="submit-btn">Submit edit</button>
+                <button type="button" class="btn bg-mediumblue text-light btn-light" id="submit-btn">Submit edit</button>
             </div>
         </div>
     </div>

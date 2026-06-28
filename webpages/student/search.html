@@ -6,13 +6,21 @@
     <title>Finder</title>
     <link rel="stylesheet" href="/css/custom.css">
 </head>
-<body class="bg-dark text-white position-relative">
-    <!-- <div class="row d-none" id="none-left-header">
-        <div class="col justify-content-center d-flex align-items-center">
-            <h1>There are no more job posts to view.</h1>
+<body class="bg-charcoalnavy text-white position-relative">
+    <div class="modal fade" id="modal-popup" tabindex="-1" aria-labelledby="modal-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-charcoalnavy text-light">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modal-label">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
-    </div> -->
-    <!-- Scroll arrows -->
+    </div>
     <div class="position-fixed top-50 end-0 me-5 d-flex flex-column gap-2 z-1">
         <button type="button" class="btn btn-light shadow-strong" id="scroll-up-btn">↑</button>
         <button type="button" class="btn btn-light shadow-strong" id="scroll-down-btn">↓</button>
@@ -25,7 +33,7 @@
             <div class="col col-auto">
                 <div class="input-group fs-6">
                     <span class="text-light input-group-text bg-transparent" id="postCounter">0/0 Posts</span>
-                    <input type="search" class="form-control bg-transparent text-light" placeholder="Search" id="search-bar">
+                    <input type="search" class="form-control bg-transparent text-light" placeholder="Search" autocomplete="off" id="search-bar">
                     <button class="btn btn-light dropdown-toggle border border-outline-white bg-transparent text-light" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">Filters</button>
                     <ul class="dropdown-menu">
                         <li><button class="dropdown-item" type="button" value="None" id="clear-filters">Remove all</button></li>
@@ -45,52 +53,82 @@
                                 <li><button class="dropdown-item" value="hybrid" aria-pressed="false" id="hybrid-btn">Hybrid</button></li>
                             </ul>
                         </li>
+                        <li class="dropdown-item">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="input-group">
+                                            <span class="input-group-text" id="min-filter-label">Min</span>
+                                            <input type="number" id="min-filter" value="1" min="1" max="99" aria-describedby="min-filter-label" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="input-group">
+                                            <input type="number" id="max-filter" value="99" min="1" max="99" aria-describedby="max-filter-label" class="form-control">
+                                            <span class="input-group-text" id="max-filter-label">Max</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="dropdown-item">
+                            <div class="input-group">
+                                <span class="input-group-text" id="loc-rad-label">Location radius</span>
+                                <input type="number" id="loc-rad-filter" class="form-control" aria-describedby="loc-rad-label" value="5">
+                            </div>
+                        </li>
+                        <li class="dropdown-item">
+                            <div class="input-group">
+                                <span class="input-group-text" id="age-label">Min age</span>
+                                <input type="number" id="age-filter" class="form-control" aria-describedby="age-label" value="0">
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
         <!-- Overview of job -->
         <div class="d-flex justify-content-center">
-            <div class="row gy-2 gx-4 rounded-2 px-4 pt-3 shadow-strong bg-teal w-50">
+            <div class="row gy-2 gx-4 rounded-2 px-4 pt-3 shadow-strong bg-deepblue w-50">
                 <div class="col-12">
-                    <div class="bg-secondary rounded-3 p-1">
+                    <div class="bg-mediumblue rounded-3 p-1">
                         <h4 class="text-center m-0 fw-bold" id="job-title"></h4>
                         <h5 class="text-center m-0 fw-semibold fst-italic" id="company-name"></h5>
                     </div>
                 </div>
                 <div class="col-12">
-                    <div class="bg-secondary rounded-3 p-1">
+                    <div class="bg-mediumblue rounded-3 p-1">
                         <p class="text-center m-0 fs-6" id="address"></p>
                     </div>
                 </div>
                 <div class="col-6">
-                    <div class="bg-secondary rounded-3 p-1">
+                    <div class="bg-mediumblue rounded-3 p-1">
                         <p class="text-center m-0 fs-6" id="work-type"></p>
                     </div>
                 </div>
                 <div class="col-6">
-                    <div class="bg-secondary rounded-3 p-1">
+                    <div class="bg-mediumblue rounded-3 p-1">
                         <p class="text-center m-0 fs-6" id="employ-type"></p>
                     </div>
                 </div>
                 <div class="col-6">
-                    <div class="bg-secondary rounded-3 p-1">
+                    <div class="bg-mediumblue rounded-3 p-1">
                         <p class="text-center m-0 fs-6" id="salary-range"></p>
                     </div>
                 </div>
                 <div class="col-6">
-                    <div class="bg-secondary rounded-3 p-1">
+                    <div class="bg-mediumblue rounded-3 p-1">
                         <p class="text-center m-0 fs-6" id="age-require"></p>
                     </div>
                 </div>
                 <div class="col-6">
-                    <div class="bg-secondary rounded-3 p-1">
+                    <div class="bg-mediumblue rounded-3 p-1">
                         <p class="text-center m-0 fs-6 mb-1">Hours</p>
                         <ul class="list-group list-group-flush small lh-sm text-center" id="hours"></ul>
                     </div>
                 </div>
                 <div class="col-6">
-                    <div class="bg-secondary rounded-3 p-1">
+                    <div class="bg-mediumblue rounded-3 p-1">
                         <p class="text-center m-0 fs-6 mb-1">Skills</p>
                         <ul class="list-group list-group-flush small lh-sm text-center" id="skills"></ul>
                     </div>
@@ -99,17 +137,14 @@
                     <p class="text-center collapse show fs-6" id="summary-header">Summary</p>
                     <p class="text-start collapse show fs-6 fw-light fst-italic" id="short-summary"></p>
                 </div>
-                <div class="col-4 d-flex align-items-end pb-2">
-                    <p class="text-start fs-6 fw-lighter mb-0 w-100" id="date-posted"></p>
-                </div>
-                <div class="col-4 d-flex justify-content-center align-items-center pb-2">
-                    <button type="button" class="btn text-center text-light btn-light bg-secondary" data-bs-toggle="collapse" data-bs-target="#summary-header, #short-summary, #summary-box" id="more-btn">More Info</button>
+                <div class="col-md-4 offset-md-4 d-flex justify-content-center align-items-center pb-2">
+                    <button type="button" class="btn text-center text-light btn-light bg-mediumblue" data-bs-toggle="collapse" data-bs-target="#summary-header, #short-summary, #summary-box" id="more-btn">More Info</button>
                 </div>
                 <div class="col-4 d-flex align-items-end pb-2">
                     <p class="text-end fs-6 fw-lighter mb-0 w-100" id="date-deadline"></p>
                 </div>
                 <!-- Expanded summary -->
-                <div class="col col-6 collapse" id="summary-box">
+                <div class="col-12 collapse" id="summary-box">
                     <p class="text-center fs-5">Description</p>
                     <p class="text-start fs-6" id="full-summary"></p>
                 </div>
@@ -117,10 +152,10 @@
         </div>
         <!-- Quick actions -->
         <div class="row justify-content-center pb-2" id="action-buttons">
-            <div class="col bg-teal rounded-2 p-2 col-auto shadow-strong">
-                <button type="button" class="btn bg-secondary rounded-3 text-light btn-light" id="apply-btn">Apply</button>
-                <button type="button" class="btn bg-secondary rounded-3 text-light btn-light" id="save-btn">Save</button>
-                <button type="button" class="btn bg-secondary rounded-3 text-light btn-light" id="hide-btn">Hide</button>
+            <div class="col bg-deepblue rounded-2 p-2 col-auto shadow-strong">
+                <button type="button" class="btn bg-mediumblue rounded-3 text-light btn-light" id="apply-btn">Apply</button>
+                <button type="button" class="btn bg-mediumblue rounded-3 text-light btn-light" id="save-btn">Save</button>
+                <button type="button" class="btn bg-mediumblue rounded-3 text-light btn-light" id="hide-btn">Hide</button>
             </div>
         </div>
     </div>
@@ -132,64 +167,17 @@
     <script>
         window.addEventListener("mainReady", async () => {
             const user = await window.main.getUser()
-            const jobPosts = await wsRequest("jobPosts");
-            console.log(JSON.parse(jobPosts));
-            const jf = new JobFetcher(user, JSON.parse(jobPosts));
-            jf.init();
+            const jobPosts = JSON.parse(await wsRequest("jobPosts"));
+            const viewingId = getParam("id");
 
-            document.getElementById("scroll-up-btn").addEventListener("click", () => jf.scrollPost(false));
-            document.getElementById("scroll-down-btn").addEventListener("click", () => jf.scrollPost());
-
-            // quick buttons
-            document.getElementById("apply-btn").addEventListener("click", () => jf.applyToPost());
-            document.getElementById("save-btn").addEventListener("click", () => jf.savePost());
-            document.getElementById("hide-btn").addEventListener("click", () => jf.hidePost());
-
-            // combine search and dropdown stuff
-            const searchBar = document.getElementById("search-bar");
-            searchBar.addEventListener("search", (event) => {
-                let postIds = jf.filterSearch().filter(x => jf.searchPosts(event.target.value).includes(x))
-                jf.updatePosts(postIds);
-                jf.displayPostAtI(0);
-            });
-
-            document.querySelectorAll(".dropdown-item:not(.submenu):not(#clear-filters)").forEach(item => {
-                item.addEventListener("click", () => {
-                    item.classList.toggle("active");
-                    item.setAttribute("aria-pressed", item.classList.contains("active"));
-
-                    let idLists = [
-                        jf.filterSearch(),
-                        jf.searchPosts(searchBar.value),
-                        jf.preferenceSearch()
-                    ]
-                    let postIds = idLists.reduce(
-                        (acc, list) => acc.filter(id => list.includes(id))
-                    );
-                    jf.updatePosts(postIds);
-                    jf.displayPostAtI(0);
-                });
-            });
-
-            document.getElementById("clear-filters").addEventListener("click", () => {
-                document.querySelectorAll(".dropdown-item").forEach(item => {
-                    item.classList.remove("active");
-                    item.setAttribute("aria-pressed", "false");
-                    
-                    jf.updatePosts(jf.getAllPosts());
-                    jf.displayPostAtI(0);
-                });
-            });
-
-            document.getElementById("more-btn").addEventListener("click", (e) => {
-                const innerText = e.target.innerText;
-                if (innerText == "More Info") {
-                    e.target.innerText = "Less Info";
-                }
-                else {
-                    e.target.innerText = "More Info";
-                }
-            });
+            const jf = new JobFetcher(user, jobPosts);
+            if (viewingId) {
+                document.getElementById("postCounter").innerText = "1/1 Posts";
+                jf.displayPost(jobPosts.find(post => post.ID == viewingId));
+            }
+            else {
+                jf.init();
+            }
         });
     </script>
 </body>

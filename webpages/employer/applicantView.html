@@ -6,15 +6,29 @@
     <title>Finder</title>
     <link rel="stylesheet" href="/css/custom.css">
 </head>
-<body class="bg-dark text-light">
+<body class="bg-charcoalnavy text-light">
+    <div class="modal fade" id="modal-popup" tabindex="-1" aria-labelledby="modal-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-charcoalnavy text-light">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modal-label">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container-fluid">
         <!-- Top navigation bar -->
         <div class="row mb-3" id="navbar"></div>
         <div class="row align-items-start">
             <div class="col">
-                <ul class="list-group bg-dark" id="previews"></ul>
+                <ul class="list-group" id="previews"></ul>
             </div>
-            <div class="col bg-teal rounded-2 shadow-strong" id="preview">
+            <div class="col bg-mediumblue rounded-2 shadow-strong" id="preview">
                 <div class="row gy-3 p-2">
                     <div class="col-12 text-center">
                         <p id="name" class="fs-4"></p>
@@ -59,10 +73,10 @@
                         </div>
                     </div>
                     <div class="col-6 text-start">
-                        <button class="btn btn-secondary" type="button" id="interested-btn">Interested</button>
+                        <button class="btn btn-light text-light bg-deepblue" type="button" id="interested-btn">Shortlist</button>
                     </div>
                     <div class="col-6 text-end">
-                        <button class="btn btn-secondary" type="button" id="reject-btn">Reject</button>
+                        <button class="btn btn-light text-light bg-deepblue" type="button" id="reject-btn">Reject</button>
                     </div>
                 </div>
             </div>

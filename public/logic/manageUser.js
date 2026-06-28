@@ -40,7 +40,7 @@ class StudentManager extends UserManager {
         document.getElementById("suburb").innerText = user.student.suburb;
         
         // qualifications
-        document.getElementById("education").innerText = user.student.experienceLevel;
+        document.getElementById("education").value = user.student.experienceLevel;
 
         const skillsList = document.getElementById("skills-list");
         for (const s of user.student.skills) {
@@ -52,7 +52,7 @@ class StudentManager extends UserManager {
             appendLI(certList, c)
         }
 
-        document.getElementById("work-eligibility").innerText = user.student.workEligibility;
+        document.getElementById("work-eligibility").value = user.student.workEligibility;
 
         // preferences
         const industryList = document.getElementById("industry-list");
@@ -60,7 +60,7 @@ class StudentManager extends UserManager {
             appendLI(industryList, i)
         }
 
-        document.getElementById("min-salary").innerText = user.student.preferences.minSalary;
+        document.getElementById("min-salary").value = parseInt(user.student.preferences.minSalary,10);
 
         const hours = document.getElementById("hours");
         for (const interval of user.student.timeIntervals) {
@@ -68,9 +68,9 @@ class StudentManager extends UserManager {
 
         }
 
-        document.getElementById("work-type").innerText = user.student.preferences.workType;
-        document.getElementById("employment-type").innerText = user.student.preferences.employmentType;
-        document.getElementById("loc-radius").innerText = `${user.student.preferences.locationRadius}km`;
+        document.getElementById("work-type").value = user.student.preferences.workType;
+        document.getElementById("employment-type").value = user.student.preferences.employmentType;
+        document.getElementById("loc-radius").value = user.student.preferences.locationRadius;
 
         // applied jobs
         this.showApplications(user);
@@ -78,16 +78,28 @@ class StudentManager extends UserManager {
         // saved jobs
         try {
             const savedBox = document.getElementById("saved-jobs");
-            const savedJobs = JSON.parse(getCookie("savedJobs")) || [];
-            for (let i=0; i<savedJobs.length; i++) {
+            const savedJobs = JSON.parse(getCookie("savedJobs"));
+            console.log(savedJobs)
+            for (const job of savedJobs) {
                 let li = document.createElement("li");
-                li.classList = "list-group-item bg-secondary text-light";
-                li.classList.add("list-group-item");
-                let p = document.createElement("p");
-                p.textContent = `${savedJobs[i].jobTitle}`;
-                li.appendChild(p);
+                li.classList.add("list-group-item", "bg-transparent", "text-light");
+                li.addEventListener("click", () => {
+                    window.location.href = `search.html?id=${job.ID}`;
+                })
+                
+                li.innerHTML = `
+                    <div class="container-fluid text-center">
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="mb-0">${job.jobTitle}</p>
+                            <p class="small">${job.companyName}</p>
+                        </div>
+                    </div>
+                </div>
+                `
+
                 savedBox.appendChild(li);
-            };
+            }
         }
         catch (err) {
             console.log(err);
@@ -96,14 +108,22 @@ class StudentManager extends UserManager {
         // hidden jobs
         try {
             const hiddenBox = document.getElementById("hidden-jobs");
-            const hiddenJobs = JSON.parse(getCookie("hiddenJobs")) || [];
-            for (let i=0; i<hiddenJobs.length; i++) {
+            const hiddenJobs = JSON.parse(getCookie("hiddenJobs"));
+            for (const job of hiddenJobs) {
                 let li = document.createElement("li");
-                li.classList = "list-group-item bg-secondary text-light";
-                li.classList.add("list-group-item");
-                let p = document.createElement("p");
-                p.textContent = hiddenJobs[i].jobTitle;
-                li.appendChild(p);
+                li.classList.add("list-group-item", "bg-transparent", "text-light");
+                
+                li.innerHTML = `
+                    <div class="container-fluid text-center">
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="mb-0">${job.jobTitle}</p>
+                            <p class="small">${job.companyName}</p>
+                        </div>
+                    </div>
+                </div>
+                `
+
                 hiddenBox.appendChild(li);
             };
         }
@@ -121,17 +141,16 @@ class StudentManager extends UserManager {
             const jobs = JSON.parse(await wsRequest("jobPosts"));
 
             for (const jpid of appliedJobs) {
-                const aIndex = applications.findIndex(application => application.JPID == jpid);
+                const aIndex = applications.findIndex(application => application.JPID == jpid && application.UID == getCookie("UID"));
                 const jIndex = jobs.findIndex(job => job.ID == jpid);
                 if (aIndex != -1 && jIndex != -1) {
                     const application = applications[aIndex];
                     const job = jobs[jIndex];
 
                     let li = document.createElement("li");
-                    li.classList = "list-group-item bg-secondary text-light";
-                    li.classList.add("list-group-item");
+                    li.classList.add("list-group-item", "bg-mediumblue", "text-light");
                     let p = document.createElement("p");
-                    p.textContent = `MM.YY ${job.jobTitle} / ${application.status}`;
+                    p.textContent = `${application.dateApplied} ${job.jobTitle} / ${application.status}`;
                     li.appendChild(p);
                     appliedJobsEl.appendChild(li);
                 }
@@ -148,7 +167,6 @@ class StudentManager extends UserManager {
         skills = Array.from(skills).map(li => li.textContent.trim());
         let certs = document.getElementById("cert-list").querySelectorAll("li");
         certs = Array.from(certs).map(li => li.textContent.trim());
-        const eligibility = document.getElementById("work-eligibility").textContent;
 
         let industries = document.getElementById("industry-list").querySelectorAll("li");
         industries = Array.from(industries).map(li => li.textContent.trim());
@@ -174,14 +192,14 @@ class StudentManager extends UserManager {
                 "age": user.student.age,
                 "phoneNumber": document.getElementById("number").textContent,
                 "suburb": document.getElementById("suburb").textContent,
-                "workEligibility": eligibility,
-                "experienceLevel": user.student.experienceLevel,
+                "workEligibility": document.getElementById("work-eligibility").value,
+                "experienceLevel": document.getElementById("education").value,
                 "resume": document.querySelector("#resume-file").files[0],
                 "preferences": {
-                    "workType": document.getElementById("work-type").textContent,
-                    "employmentType": document.getElementById("employment-type").textContent,
-                    "minSalary": document.getElementById("min-salary").textContent,
-                    "locationRadius": document.getElementById("loc-radius").textContent,
+                    "workType": document.getElementById("work-type").value,
+                    "employmentType": document.getElementById("employment-type").value,
+                    "minSalary": document.getElementById("min-salary").value,
+                    "locationRadius": document.getElementById("loc-radius").value,
                     "industries": industries
                 },
                 "skills": skills,
@@ -251,7 +269,8 @@ window.addEventListener("mainReady", async () => {
                 "request": "edituser",
                 "uid": getCookie("UID"),
                 "details": um.getUserDetailInp(user)
-            }))
+            }));
+            setModal("User details updated");
         }, 3000);
     });
 
