@@ -141,7 +141,7 @@ class StudentManager extends UserManager {
             const jobs = JSON.parse(await wsRequest("jobPosts"));
 
             for (const jpid of appliedJobs) {
-                const aIndex = applications.findIndex(application => application.JPID == jpid);
+                const aIndex = applications.findIndex(application => application.JPID == jpid && application.UID == getCookie("UID"));
                 const jIndex = jobs.findIndex(job => job.ID == jpid);
                 if (aIndex != -1 && jIndex != -1) {
                     const application = applications[aIndex];
@@ -150,7 +150,7 @@ class StudentManager extends UserManager {
                     let li = document.createElement("li");
                     li.classList.add("list-group-item", "bg-mediumblue", "text-light");
                     let p = document.createElement("p");
-                    p.textContent = `MM.YY ${job.jobTitle} / ${application.status}`;
+                    p.textContent = `${application.dateApplied} ${job.jobTitle} / ${application.status}`;
                     li.appendChild(p);
                     appliedJobsEl.appendChild(li);
                 }
