@@ -45,7 +45,9 @@
             const tf = new TrendFinder(window.main.getUser(), JSON.parse(jobPosts));
         }
 
-        window.addEventListener("mainReady", () => {
+        window.addEventListener("mainReady", async () => {
+            const jobPosts = await wsRequest("jobPosts");
+            init(jobPosts)
             setInterval(async () => {
                 const jobPosts = await wsRequest("jobPosts");
                 init(jobPosts)
