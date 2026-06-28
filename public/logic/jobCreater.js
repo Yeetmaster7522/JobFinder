@@ -33,6 +33,7 @@ class JobCreater {
             post.hours.length == 0
         ) {
             valid = false;
+            setModal("Input field(s) left blank");
         }
 
         const ageRequirement = parseInt(post.ageRequirement);
@@ -42,57 +43,64 @@ class JobCreater {
             ageRequirement > 30
         ) {
             valid = false;
+            setModal("Age requirement out of range", "Range from 13 to 29 accepted");
         }
 
         if (post.datePosted >= post.deadline) {
             valid = false;
+            setModal("Deadline cannot be set to today or before today");
         }
 
-        for (const timestamp of post.hours) {
-            if (timestamp.length != 2) {
-                valid = false;
-            }
-            else {
-                const time1 = timestamp[0].split(":");
-                const time2 = timestamp[1].split(":");
-
-                const hr1 = parseInt(time1[0], 10);
-                const min1 = parseInt(time1[1], 10);
-                const hr2 = parseInt(time2[0], 10);
-                const min2 = parseInt(time2[1], 10);
-
-                if (time1.length != 2 || time2.length != 2) {
+        if (post.hours.length != 0) {
+            for (const timestamp of post.hours) {
+                if (timestamp.length != 2) {
                     valid = false;
+                    setModal("Timestamp not in format hr:min - hr:min");
                 }
+                else {
+                    const time1 = timestamp[0].split(":");
+                    const time2 = timestamp[1].split(":");
 
-                console.log(hr1, min1, hr2, min2)
+                    const hr1 = parseInt(time1[0], 10);
+                    const min1 = parseInt(time1[1], 10);
+                    const hr2 = parseInt(time2[0], 10);
+                    const min2 = parseInt(time2[1], 10);
 
-                if (
-                    isNaN(hr1) ||
-                    isNaN(min1) ||
-                    isNaN(hr2) ||
-                    isNaN(min2)
-                ) {
-                    valid = false;
-                }
-                else if (
-                    hr1 < 0 ||
-                    hr1 > 24 ||
-                    hr2 < 0 ||
-                    hr2 > 24 ||
-                    min1 < 0 ||
-                    min1 > 59 ||
-                    min2 < 0 ||
-                    min2 > 59
-                ) {
-                    valid = false;
-                }
+                    if (time1.length != 2 || time2.length != 2) {
+                        valid = false;
+                        setModal("Timestamp not in format hr:min - hr:min");
+                    }
 
-                if (
-                    hr2 < hr1 ||
-                    hr1 == hr2 && min2 < min1
-                ) {
-                    valid = false;
+                    if (
+                        isNaN(hr1) ||
+                        isNaN(min1) ||
+                        isNaN(hr2) ||
+                        isNaN(min2)
+                    ) {
+                        valid = false;
+                        setModal("Timestamp includes non-numbers");
+                    }
+                    else if (
+                        hr1 < 0 ||
+                        hr1 > 24 ||
+                        hr2 < 0 ||
+                        hr2 > 24 ||
+                        min1 < 0 ||
+                        min1 > 59 ||
+                        min2 < 0 ||
+                        min2 > 59
+                    ) {
+                        valid = false;
+                        setModal("Timestamp out of time");
+                    }
+
+                    if (
+                        hr2 < hr1 ||
+                        hr1 == hr2 && min2 < min1
+                    ) {
+                        valid = false;
+                        setModal("Timestamp out of order");
+                    }
                 }
             }
         }
