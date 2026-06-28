@@ -109,6 +109,13 @@ class ApplicantViewer {
             "uid": this.#currentAppUid,
             "status": status
         }));
+
+        if (status == "offered") {
+            document.getElementById(`${this.#currentAppUid}-badge`).classList.add("text-bg-success");
+        }
+        else if (status == "rejected") {
+            document.getElementById(`${this.#currentAppUid}-badge`).classList.add("text-bg-danger");
+        }
     }
 }
 
